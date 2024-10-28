@@ -19,6 +19,9 @@
                     <div id="error" class="d-none alert alert-danger"></div>
                 </div>
                 <div class="row">
+                    <div id="resdata" class="d-none alert alert-primary"></div>
+                </div>
+                <div class="row">
                     <label class="input input-bordered gap-2 m-2">
                         $
                         <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" required />
@@ -46,22 +49,6 @@
             </form>
         </div>
     </div>
-    <!-- <script type="text/x-templates" id="fields-templates">
-        <div class="tp-fields" id="tp-fields">
-            <label class="input input-bordered gap-2 m-2">
-            $
-            <input type="number" name="tp" id="tp" class="grow" placeholder="TP prijs" required>
-            </label>
-            <label class="input input-bordered gap-2 m-2">
-            <input type="number" name="tpp" id="tpp" class="grow" placeholder="TP percentage" required>
-            %
-            </label>
-            <button type="button" class="remove-fields m-2">
-                TP verwijderen
-            </button>
-        </div>
-</script> -->
-
     <script>
         // JS that handles creating new TPs and AJAX request
         $(function() {
@@ -130,8 +117,9 @@
             $form.on('submit', function(e) {
                 e.preventDefault();
 
-                // Getting the error div
+                // Getting the error en resdata div
                 let $error = $('#error');
+                let $resdata = $('#resdata');
 
                 // Handling the AJAX request
                 $.ajax({
@@ -139,12 +127,19 @@
                     url: 'calculate.php',
                     data: $(this).serialize()
                 }).then(function(res) {
+                    console.log(res);
                     let data = JSON.parse(res);
                     if (data.error) {
                         $error.removeClass('d-none').html(data.error);
                         return;
-                    } else if (data.rr) {
-                        // Laat RR zien aan gebruiker
+                    } else if (data.resdata) {
+                        $resdata.removeClass('d-none').html(
+                            "Entry: " + "$" + data.entry + "<br>" +
+                            "Risk: " + data.risk + "%" + "<br>" +
+                            "Winst percentage: " + data.wp + "%" + "<br>" +
+                            "RR: " + data.rr
+                        );
+                        return;
                     }
                 }).fail(function(res) {
                     $error.removeClass('d-none').html(data.error);
