@@ -44,10 +44,8 @@ if (isset($_GET['entry']) && isset($_GET['risk'])) {
   // JSON response terug geven met data
   echo json_encode([
     'resdata' => true,
-    'entry' => $entry,
-    'risk' => $risk,
-    'wp' => $wp,
-    'rr' => $rr
+    'wp' => round($wp, 2),
+    'rr' => round($rr, 2)
   ]);
 } else {
   // Als niet alles is ingevuld een error terug sturen

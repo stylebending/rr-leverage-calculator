@@ -24,11 +24,11 @@
                 <div class="row">
                     <label class="input input-bordered gap-2 m-2">
                         $
-                        <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" required />
+                        <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" step=".01" required />
                     </label>
                     <label class="input input-bordered gap-2 m-2">
                         %
-                        <input type="number" class="grow" placeholder="Risk percentage" id="risk" name="risk" required />
+                        <input type="number" class="grow" placeholder="Stop loss percentage" id="risk" name="risk" step=".01" required />
                     </label>
                 </div>
                 <div class="row">
@@ -77,6 +77,7 @@
                 tpInput.name = "tp-input-" + tpCount;
                 tpInput.type = "number";
                 tpInput.placeholder = "TP prijs";
+                tpInput.step = ".01";
                 tpInput.required = true;
                 // Creating the tpp input
                 var tppInput = document.createElement("input");
@@ -85,6 +86,7 @@
                 tppInput.name = "tpp-input-" + tpCount;
                 tppInput.type = "number";
                 tppInput.placeholder = "TP percentage";
+                tppInput.step = ".01";
                 tppInput.required = true;
                 // Creating the tp delete button
                 var tpBtn = document.createElement("button");
@@ -134,8 +136,6 @@
                         return;
                     } else if (data.resdata) {
                         $resdata.removeClass('d-none').html(
-                            "Entry: " + "$" + data.entry + "<br>" +
-                            "Risk: " + data.risk + "%" + "<br>" +
                             "Winst percentage: " + data.wp + "%" + "<br>" +
                             "RR: " + data.rr
                         );
