@@ -19,18 +19,18 @@
                     <div id="error" class="d-none alert alert-danger"></div>
                 </div>
                 <div class="row">
-                    <div class="fields m-5">
-                    </div>
-                </div>
-                <div class="row">
                     <label class="input input-bordered gap-2 m-2">
                         $
                         <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" required />
                     </label>
                     <label class="input input-bordered gap-2 m-2">
-                        R
-                        <input type="number" class="grow" placeholder="Risk (1, 0.5, 0.25)" id="risk" name="risk" required />
+                        %
+                        <input type="number" class="grow" placeholder="Risk percentage" id="risk" name="risk" required />
                     </label>
+                </div>
+                <div class="row">
+                    <div class="fields m-5">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="m-5">
@@ -65,14 +65,14 @@
     <script>
         // JS that handles creating new TPs and AJAX request
         $(function() {
-            // Putting the important elements into vars
-            // var FIELDS_TEMPLATE = $('#fields-templates').text();
+            // Defining variables
             var $form = $('#my-form');
             var $fields = $form.find('.fields');
             var tpCount = 0;
 
             // Function to add TPs when user wants to
             $form.on('click', '.add-fields', function() {
+                // Setting the unique tpCount per tp
                 tpCount += 1;
 
                 // Creating the div for the TPs
@@ -85,7 +85,7 @@
                 tpLabel.id = "tp-label-" + tpCount;
                 // Creating the tp input
                 var tpInput = document.createElement("input");
-                tpInput.classList = "grow";
+                tpInput.classList = "grow m-2";
                 tpInput.id = "tp-input-" + tpCount;
                 tpInput.name = "tp-input-" + tpCount;
                 tpInput.type = "number";
@@ -93,20 +93,28 @@
                 tpInput.required = true;
                 // Creating the tpp input
                 var tppInput = document.createElement("input");
-                tppInput.classList = "grow";
+                tppInput.classList = "grow m-2";
                 tppInput.id = "tpp-input-" + tpCount;
                 tppInput.name = "tpp-input-" + tpCount;
                 tppInput.type = "number";
                 tppInput.placeholder = "TP percentage";
                 tppInput.required = true;
-                // Creating the button
+                // Creating the tp delete button
                 var tpBtn = document.createElement("button");
                 tpBtn.classList = "remove-fields m-2";
                 tpBtn.type = "button";
                 tpBtn.id = "tpBtn-" + tpCount;
                 tpBtn.textContent = "TP verwijderen";
+                // Creating $ and % ps
+                var ds = document.createElement("span");
+                var ps = document.createElement("span");
+                ps.classList = "ms-5";
+                ds.innerText = "$"
+                ps.innerText = "%"
                 // Adding all of these together
+                tpLabel.appendChild(ds);
                 tpLabel.appendChild(tpInput);
+                tpLabel.appendChild(ps);
                 tpLabel.appendChild(tppInput);
                 div.appendChild(tpLabel);
                 div.appendChild(tpBtn);
