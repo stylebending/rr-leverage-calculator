@@ -47,10 +47,11 @@
                     </div>
                 </div>
             </form>
-            <div class="row">
-                <h1 class="m-5">Leverage Berekenen</h1>
-            </div>
-            <div class="row">
+        </div>
+        <div class="row">
+            <h1 class="m-5">Leverage Berekenen</h1>
+        </div>
+        <div class="row">
             <form id="lev-form">
                 <div class="row mt-5">
                     <div class="row">
@@ -70,6 +71,7 @@
                         Leverage Berekenen
                     </button>
                 </div>
+            </form>
         </div>
     </div>
     <script src="app.js"></script>
