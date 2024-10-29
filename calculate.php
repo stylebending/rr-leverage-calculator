@@ -1,7 +1,7 @@
 <?php
 
 // Checken of alles is ingevuld
-if (isset($_GET['entry']) && isset($_GET['sl']) && isset($_GET['tp-input-1'])) {
+if (isset($_GET['entry']) && isset($_GET['sl'])) {
   // Entry en SL input in een variable zetten
   $entry = $_GET['entry'];
   $sl = $_GET['sl'];
@@ -50,7 +50,7 @@ if (isset($_GET['entry']) && isset($_GET['sl']) && isset($_GET['tp-input-1'])) {
 } else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
   $leverage = round(($_GET['risk'] / $_GET['stoploss']), 2);
   echo json_encode([
-    'leverage' => true,
+    'levdata' => true,
     'lev' => $leverage
   ]);
 } else {

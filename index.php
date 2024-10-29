@@ -24,11 +24,11 @@
                 <div class="row">
                     <label class="input input-bordered gap-2 m-2">
                         Entry $
-                        <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" step=".01"/>
+                        <input type="number" class="grow" placeholder="63250" id="entry" name="entry" step=".01" required />
                     </label>
                     <label class="input input-bordered gap-2 m-2">
                         Stop Loss %
-                        <input type="number" class="grow" placeholder="Stop loss percentage" id="sl" name="sl" step=".01"/>
+                        <input type="number" class="grow" placeholder="0.33" id="sl" name="sl" step=".01" required />
                     </label>
                 </div>
                 <div class="row">
@@ -46,17 +46,23 @@
                         </button>
                     </div>
                 </div>
+            </form>
+            <div class="row">
+                <h1 class="m-5">Leverage Berekenen</h1>
+            </div>
+            <div class="row">
+            <form id="lev-form">
                 <div class="row mt-5">
-                <div class="row">
-                    <div id="levdata" class="d-none alert alert-primary"></div>
-                </div>
+                    <div class="row">
+                        <div id="levdata" class="d-none alert alert-primary"></div>
+                    </div>
                     <label class="input input-bordered gap-2 m-2">
                         Risk %
-                        <input type="number" class="grow" placeholder="Risk percentage" id="risk" name="risk" step=".01"/>
+                        <input type="number" class="grow" placeholder="1" id="risk" name="risk" step=".01" required />
                     </label>
                     <label class="input input-bordered gap-2 m-2">
                         Stop Loss %
-                        <input type="number" class="grow" placeholder="Stop loss percentage" id="stoploss" name="stoploss" step=".01"/>
+                        <input type="number" class="grow" placeholder="0.33" id="stoploss" name="stoploss" step=".01" required />
                     </label>
                 </div>
                 <div class="row">
@@ -64,7 +70,6 @@
                         Leverage Berekenen
                     </button>
                 </div>
-            </form>
         </div>
     </div>
     <script>
@@ -72,6 +77,7 @@
         $(function() {
             // Defining variables
             var $form = $('#my-form');
+            var $levForm = $('#lev-form');
             var $fields = $form.find('.fields');
             var tpCount = 0;
 
@@ -94,7 +100,7 @@
                 tpInput.id = "tp-input-" + tpCount;
                 tpInput.name = "tp-input-" + tpCount;
                 tpInput.type = "number";
-                tpInput.placeholder = "TP prijs";
+                tpInput.placeholder = "63369";
                 tpInput.step = ".01";
                 tpInput.required = true;
                 // Creating the tpp input
@@ -103,7 +109,7 @@
                 tppInput.id = "tpp-input-" + tpCount;
                 tppInput.name = "tpp-input-" + tpCount;
                 tppInput.type = "number";
-                tppInput.placeholder = "TP percentage";
+                tppInput.placeholder = "30";
                 tppInput.step = ".01";
                 tppInput.required = true;
                 // Creating the tp delete button
@@ -140,7 +146,6 @@
                 // Getting the error en resdata div
                 let $error = $('#error');
                 let $resdata = $('#resdata');
-                let $levdata = $('#levdata');
 
                 // Handling the AJAX request
                 $.ajax({
@@ -159,7 +164,32 @@
                             "Totale eind RR: " + data.rr
                         );
                         return;
-                    } else if (data.leverage) {
+                    }
+                }).fail(function(res) {
+                    $error.removeClass('d-none').html(data.error);
+                });
+            });
+
+            // LevForm submit and AJAX request
+            $levForm.on('submit', function(e) {
+                e.preventDefault();
+
+                // Getting the error en resdata div
+                let $error = $('#error');
+                let $levdata = $('#levdata');
+
+                // Handling the AJAX request
+                $.ajax({
+                    type: 'GET',
+                    url: 'calculate.php',
+                    data: $(this).serialize()
+                }).then(function(res) {
+                    console.log(res);
+                    let data = JSON.parse(res);
+                    if (data.error) {
+                        $error.removeClass('d-none').html(data.error);
+                        return;
+                    } else if (data.levdata) {
                         $levdata.removeClass('d-none').html(
                             "Leverage: " + data.lev
                         );
