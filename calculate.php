@@ -1,14 +1,14 @@
 <?php
 
 // Checken of alles is ingevuld
-if (isset($_GET['entry']) && isset($_GET['risk'])) {
-  // Entry en Risk input in een variable zetten
+if (isset($_GET['entry']) && isset($_GET['sl']) && isset($_GET['tp-input-1'])) {
+  // Entry en SL input in een variable zetten
   $entry = $_GET['entry'];
-  $risk = $_GET['risk'];
+  $sl = $_GET['sl'];
 
-  // Entry en Risk uit de GET superglobal halen
+  // Entry en SL uit de GET superglobal halen
   unset($_GET['entry']);
-  unset($_GET['risk']);
+  unset($_GET['sl']);
 
   // Tp arrays en wp definen
   $tpArr = [];
@@ -39,13 +39,19 @@ if (isset($_GET['entry']) && isset($_GET['risk'])) {
   $wp = array_sum($result);
 
   // Uiteindelijke RR berekenen
-  $rr = $wp / $risk;
+  $rr = $wp / $sl;
 
   // JSON response terug geven met data
   echo json_encode([
     'resdata' => true,
     'wp' => round($wp, 2),
     'rr' => round($rr, 2)
+  ]);
+} else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
+  $leverage = round(($_GET['risk'] / $_GET['stoploss']), 2);
+  echo json_encode([
+    'leverage' => true,
+    'lev' => $leverage
   ]);
 } else {
   // Als niet alles is ingevuld een error terug sturen

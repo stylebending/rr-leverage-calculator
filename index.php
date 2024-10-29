@@ -23,20 +23,20 @@
                 </div>
                 <div class="row">
                     <label class="input input-bordered gap-2 m-2">
-                        $
-                        <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" step=".01" required />
+                        Entry $
+                        <input type="number" class="grow" placeholder="Entry prijs" id="entry" name="entry" step=".01"/>
                     </label>
                     <label class="input input-bordered gap-2 m-2">
-                        %
-                        <input type="number" class="grow" placeholder="Stop loss percentage" id="risk" name="risk" step=".01" required />
+                        Stop Loss %
+                        <input type="number" class="grow" placeholder="Stop loss percentage" id="sl" name="sl" step=".01"/>
                     </label>
                 </div>
                 <div class="row">
-                    <div class="fields m-5">
+                    <div class="fields m-3">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="m-5">
+                    <div>
                         <button type="button" class="add-fields m-2">
                             TP Toevoegen
                         </button>
@@ -45,6 +45,24 @@
                             RR Berekenen
                         </button>
                     </div>
+                </div>
+                <div class="row mt-5">
+                <div class="row">
+                    <div id="levdata" class="d-none alert alert-primary"></div>
+                </div>
+                    <label class="input input-bordered gap-2 m-2">
+                        Risk %
+                        <input type="number" class="grow" placeholder="Risk percentage" id="risk" name="risk" step=".01"/>
+                    </label>
+                    <label class="input input-bordered gap-2 m-2">
+                        Stop Loss %
+                        <input type="number" class="grow" placeholder="Stop loss percentage" id="stoploss" name="stoploss" step=".01"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <button type="submit" class="m-2">
+                        Leverage Berekenen
+                    </button>
                 </div>
             </form>
         </div>
@@ -98,8 +116,8 @@
                 var ds = document.createElement("span");
                 var ps = document.createElement("span");
                 ps.classList = "ms-5";
-                ds.innerText = "$"
-                ps.innerText = "%"
+                ds.innerText = "TP $"
+                ps.innerText = "TP %"
                 // Adding all of these together
                 tpLabel.appendChild(ds);
                 tpLabel.appendChild(tpInput);
@@ -122,6 +140,7 @@
                 // Getting the error en resdata div
                 let $error = $('#error');
                 let $resdata = $('#resdata');
+                let $levdata = $('#levdata');
 
                 // Handling the AJAX request
                 $.ajax({
@@ -136,8 +155,13 @@
                         return;
                     } else if (data.resdata) {
                         $resdata.removeClass('d-none').html(
-                            "Winst percentage: " + data.wp + "%" + "<br>" +
-                            "RR: " + data.rr
+                            "Winst percentage ZONDER LEVERAGE: " + data.wp + "%" + "<br>" +
+                            "Totale eind RR: " + data.rr
+                        );
+                        return;
+                    } else if (data.leverage) {
+                        $levdata.removeClass('d-none').html(
+                            "Leverage: " + data.lev
                         );
                         return;
                     }
