@@ -44,8 +44,8 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   // JSON response terug geven met data
   echo json_encode([
     'resdata' => true,
-    'wp' => round($wp, 2),
-    'rr' => round($rr, 2)
+    'wp' => abs(round($wp, 2)),
+    'rr' => abs(round($rr, 2))
   ]);
 } else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
   $leverage = round(($_GET['risk'] / $_GET['stoploss']), 2);
