@@ -93,7 +93,7 @@ $(function () {
         div.appendChild(igdd);
         div.appendChild(tpBtn);
         row.appendChild(div);
-        $fields.prepend($(div));
+        $fields.prepend($(row));
     });
 
     // Function to remove TPs when user wants to
