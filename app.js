@@ -13,15 +13,23 @@ $(function () {
 
         // Creating the div for the TPs
         var div = document.createElement("div");
-        div.classList = "tp-fields tp-fields-" + tpCount;
+        div.classList = "m-5 tp-fields tp-fields-" + tpCount;
         div.id = "tp-fields-" + tpCount;
         // Creating the label for tp
         var tpLabel = document.createElement("label");
-        tpLabel.classList = "input input-bordered gap-2 m-2";
+        tpLabel.classList = "text-start";
+        tpLabel.setAttribute("for", "tp-input-" + tpCount);
         tpLabel.id = "tp-label-" + tpCount;
+        tpLabel.innerText = "TP bedrag"
+        // Creating the label for tpp
+        var tppLabel = document.createElement("label");
+        tppLabel.classList = "text-start mt-4";
+        tppLabel.setAttribute("for", "tpp-input-" + tpCount);
+        tppLabel.id = "tpp-label-" + tpCount;
+        tppLabel.innerText = "TP percentage"
         // Creating the tp input
         var tpInput = document.createElement("input");
-        tpInput.classList = "grow m-2";
+        tpInput.classList = "form-control";
         tpInput.id = "tp-input-" + tpCount;
         tpInput.name = "tp-input-" + tpCount;
         tpInput.type = "number";
@@ -31,7 +39,7 @@ $(function () {
         tpInput.required = true;
         // Creating the tpp input
         var tppInput = document.createElement("input");
-        tppInput.classList = "grow m-2";
+        tppInput.classList = "form-control";
         tppInput.id = "tpp-input-" + tpCount;
         tppInput.name = "tpp-input-" + tpCount;
         tppInput.type = "number";
@@ -41,23 +49,50 @@ $(function () {
         tppInput.required = true;
         // Creating the tp delete button
         var tpBtn = document.createElement("button");
-        tpBtn.classList = "remove-fields m-2";
+        tpBtn.classList = "remove-fields m-2 btn btn-primary shadow-lg";
         tpBtn.type = "button";
         tpBtn.id = "tpBtn-" + tpCount;
         tpBtn.textContent = "TP verwijderen";
         // Creating $ and % ps
         var ds = document.createElement("span");
+        ds.classList = "input-group-text";
+        ds.innerText = "$"
         var ps = document.createElement("span");
-        ps.classList = "ms-5";
-        ds.innerText = "TP $"
-        ps.innerText = "TP %"
+        ps.classList = "input-group-text";
+        ps.innerText = "%"
+        // Tp bedrag input group div
+        var igd = document.createElement("div");
+        igd.classList = "input-group";
+        // Tp input group prepend div
+        var igpd = document.createElement("div");
+        igpd.classList = "input-group-prepend";
+        igpd.appendChild(ds);
+        igd.appendChild(igpd);
+        igd.appendChild(tpInput);
+        // Tpp percentage input group div
+        var igdd = document.createElement("div");
+        igdd.classList = "input-group";
+        // Tpp input group prepend div
+        var igpdd = document.createElement("div");
+        igpdd.classList = "input-group-prepend";
+        igpdd.appendChild(ps);
+        igdd.appendChild(igpdd);
+        igdd.appendChild(tppInput);
+
+        // Row
+        var row = document.createElement("row");
+
         // Adding all of these together
-        tpLabel.appendChild(ds);
-        tpLabel.appendChild(tpInput);
-        tpLabel.appendChild(ps);
-        tpLabel.appendChild(tppInput);
+        // tpLabel.appendChild(ds);
+        // tpLabel.appendChild(tpInput);
+        // tpLabel.appendChild(ps);
+        // tpLabel.appendChild(tppInput);
         div.appendChild(tpLabel);
+        div.appendChild(igd);
+        div.appendChild(tppLabel);
+        div.appendChild(igdd);
         div.appendChild(tpBtn);
+        row.appendChild(div);
         $fields.prepend($(div));
     });
 
@@ -86,7 +121,7 @@ $(function () {
                 setTimeout(function () {
                     errorToHide = document.getElementById("error");
                     errorToHide.classList.add("d-none");
-                }, 3000);
+                }, 5000);
                 return;
             } else if (data.resdata) {
                 $resdata.removeClass('d-none').html(
@@ -101,7 +136,7 @@ $(function () {
             setTimeout(function () {
                 errorToHide = document.getElementById("error");
                 errorToHide.classList.add("d-none");
-            }, 3000);
+            }, 5000);
         });
     });
 
