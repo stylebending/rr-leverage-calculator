@@ -36,15 +36,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div>
-                        <button type="button" class="add-fields m-2">
-                            TP Toevoegen
-                        </button>
+                    <button type="button" class="add-fields m-2">
+                        TP Toevoegen
+                    </button>
 
-                        <button type="submit" class="m-2">
-                            RR Berekenen
-                        </button>
-                    </div>
+                    <button type="submit" class="m-2">
+                        RR Berekenen
+                    </button>
                 </div>
             </form>
         </div>
