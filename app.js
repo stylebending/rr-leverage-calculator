@@ -27,6 +27,7 @@ $(function() {
       tpInput.type = "number";
       tpInput.placeholder = "63369";
       tpInput.step = ".01";
+      tpInput.min = ".01";
       tpInput.required = true;
       // Creating the tpp input
       var tppInput = document.createElement("input");
@@ -36,6 +37,7 @@ $(function() {
       tppInput.type = "number";
       tppInput.placeholder = "30";
       tppInput.step = ".01";
+      tppInput.min = ".01";
       tppInput.required = true;
       // Creating the tp delete button
       var tpBtn = document.createElement("button");
@@ -78,7 +80,6 @@ $(function() {
           url: 'calculate.php',
           data: $(this).serialize()
       }).then(function(res) {
-          console.log(res);
           let data = JSON.parse(res);
           if (data.error) {
               $error.removeClass('d-none').html(data.error);
@@ -109,7 +110,6 @@ $(function() {
           url: 'calculate.php',
           data: $(this).serialize()
       }).then(function(res) {
-          console.log(res);
           let data = JSON.parse(res);
           if (data.error) {
               $error.removeClass('d-none').html(data.error);

@@ -42,11 +42,15 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   $rr = $wp / $sl;
 
   // JSON response terug geven met data
-  echo json_encode([
-    'resdata' => true,
-    'wp' => abs(round($wp, 2)),
-    'rr' => abs(round($rr, 2))
-  ]);
+  if (array_sum($tppArr) == 1) {
+    echo json_encode([
+      'resdata' => true,
+      'wp' => abs(round($wp, 2)),
+      'rr' => abs(round($rr, 2))
+    ]);
+  } else {
+    echo json_encode(['error' => 'Het totaal van de TP % moet 100% zijn.']);
+  }
 } else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
   $leverage = round(($_GET['risk'] / $_GET['stoploss']), 2);
   echo json_encode([

@@ -24,11 +24,11 @@
                 <div class="row">
                     <label class="input input-bordered gap-2 m-2">
                         Entry $
-                        <input type="number" class="grow" placeholder="63250" id="entry" name="entry" step=".01" required />
+                        <input type="number" class="grow" placeholder="63250" id="entry" name="entry" step=".01" min="0.01" required />
                     </label>
                     <label class="input input-bordered gap-2 m-2">
                         Stop Loss %
-                        <input type="number" class="grow" placeholder="0.33" id="sl" name="sl" step=".01" required />
+                        <input type="number" class="grow" placeholder="0.33" id="sl" name="sl" step=".01" min="0.01" required />
                     </label>
                 </div>
                 <div class="row">
@@ -58,11 +58,11 @@
                     </div>
                     <label class="input input-bordered gap-2 m-2">
                         Risk %
-                        <input type="number" class="grow" placeholder="1" id="risk" name="risk" step=".01" required />
+                        <input type="number" class="grow" placeholder="1" id="risk" name="risk" step=".01" min="0.01" required />
                     </label>
                     <label class="input input-bordered gap-2 m-2">
                         Stop Loss %
-                        <input type="number" class="grow" placeholder="0.33" id="stoploss" name="stoploss" step=".01" required />
+                        <input type="number" class="grow" placeholder="0.33" id="stoploss" name="stoploss" step=".01" min="0.01" required />
                     </label>
                 </div>
                 <div class="row">
