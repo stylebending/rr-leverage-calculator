@@ -1,6 +1,6 @@
 <?php
 
-// Checken of alles is ingevuld
+// Check if everything neccessary is set
 if (isset($_GET['entry']) && isset($_GET['sl'])) {
   // Entry en SL input in een variable zetten
   $entry = $_GET['entry'];
@@ -10,48 +10,48 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     unset($_GET['fees']);
   }
 
-  // Entry en SL uit de GET superglobal halen
+  // Remove Entry and SL from the GET superglobal
   unset($_GET['entry']);
   unset($_GET['sl']);
 
-  // Tp arrays en wp definen
+  // Define Tp arrays and wp (profit percentage)
   $tpArr = [];
   $tppArr = [];
   $result = [];
   $wp = 0;
 
-  // tpArr vullen
+  // Fill tpArr
   foreach ($_GET as $key => $value) {
     if (str_contains($key, 'tp-input')) {
       array_push($tpArr, ((($value - $entry) / $entry) * 100));
     }
   }
 
-  // tppArr vullen
+  // Fill tppArr
   foreach ($_GET as $key => $value) {
     if (str_contains($key, 'tpp-input')) {
       array_push($tppArr, ($value / 100));
     }
   }
 
-  // tpArr en tppArr met elkaar vermenigvuldigen
+  // Multiply tpArr and tppArr
   foreach ($tpArr as $key => $value) {
     $result[$key] = $value * $tppArr[$key];
   }
 
-  // Totale winstpercentage berekenen
+  // Calculate total profit percentage
   $wp = array_sum($result);
 
-  // Totale winstpercentage inclusief fees berekenen
+  // Calculate total profit percentage including fees
   $wpf = array_sum($result) * 0.93;
 
-  // Uiteindelijke RR berekenen
+  // Calculate final RR
   $rr = $wp / $sl;
 
-  // Uiteindelijke RR inclusief fees berekenen
+  // Calculate final RR including fees
   $rrf = $wpf / $sl;
 
-  // JSON response terug geven met data
+  // Return JSON response with data
   if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1 && !isset($fees)) {
     echo json_encode([
       'resdata' => true,
@@ -86,6 +86,6 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     ]);
   }
 } else {
-  // Als niet alles is ingevuld een error terug sturen
+  // If all the fields are not set return an error message
   echo json_encode(['error' => 'Er is iets fout gegaan, voeg één of meerdere TPs toe, vul alle velden in en probeer het opnieuw.']);
 }
