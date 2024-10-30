@@ -109,7 +109,7 @@ $(function () {
         // Handling the AJAX request
         $.ajax({
             type: 'GET',
-            url: 'calculate.php',
+            url: 'api/calculate.php',
             data: $(this).serialize()
         }).then(function (res) {
             console.log(res);
@@ -149,7 +149,7 @@ $(function () {
         // Handling the AJAX request
         $.ajax({
             type: 'GET',
-            url: 'calculate.php',
+            url: 'api/calculate.php',
             data: $(this).serialize()
         }).then(function (res) {
             let data = JSON.parse(res);
