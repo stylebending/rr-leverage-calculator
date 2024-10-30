@@ -33,7 +33,7 @@
                                     </div>
                                     <input type="number" class="form-control" placeholder="63250" id="entry" name="entry" step=".01" min="0.01" required />
                                 </div>
-                                <label for="sl" class="text-start mt-4">Stop loss</label>
+                                <label for="sl" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">%</span>
@@ -80,7 +80,7 @@
                                     </div>
                                     <input type="number" class="form-control" placeholder="1" id="risk" name="risk" step=".01" min="0.01" required />
                                 </div>
-                                <label for="stoploss" class="text-start mt-4">Stop loss</label>
+                                <label for="stoploss" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">%</span>
