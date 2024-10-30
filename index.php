@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-    <title>RR Berekenen</title>
+    <title>RR & Leverage Calculator</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script crossorigin="anonymous" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col">
                 <div class="card shadow-lg text-white text-center">
-                    <h1 class="card-header">RR Berekenen</h1>
+                    <h1 class="card-header">RR</h1>
                     <div class="card-body">
                         <form id="my-form" class="p-5">
                             <div class="row">
@@ -58,7 +58,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-lg text-white text-center">
-                    <h1 class="card-header">Leverage Berekenen</h1>
+                    <h1 class="card-header">Leverage</h1>
                     <div class="card-body">
                         <form id="lev-form" class="p-5">
                             <div class="row">
