@@ -13,7 +13,7 @@ $(function () {
 
         // Creating the div for the TPs
         var div = document.createElement("div");
-        div.classList = "m-5 tp-fields tp-fields-" + tpCount;
+        div.classList = "row m-5 tp-fields tp-fields-" + tpCount;
         div.id = "tp-fields-" + tpCount;
         // Creating the label for tp
         var tpLabel = document.createElement("label");
@@ -83,16 +83,13 @@ $(function () {
         var row = document.createElement("row");
 
         // Adding all of these together
-        // tpLabel.appendChild(ds);
-        // tpLabel.appendChild(tpInput);
-        // tpLabel.appendChild(ps);
-        // tpLabel.appendChild(tppInput);
         div.appendChild(tpLabel);
         div.appendChild(igd);
         div.appendChild(tppLabel);
         div.appendChild(igdd);
         div.appendChild(tpBtn);
         row.appendChild(div);
+        // Putting them into the fields div
         $fields.prepend($(row));
     });
 
@@ -115,13 +112,14 @@ $(function () {
             url: 'calculate.php',
             data: $(this).serialize()
         }).then(function (res) {
+            console.log(res);
             let data = JSON.parse(res);
             if (data.error) {
                 $error.removeClass('d-none').html(data.error);
                 setTimeout(function () {
                     errorToHide = document.getElementById("error");
                     errorToHide.classList.add("d-none");
-                }, 5000);
+                }, 3000);
                 return;
             } else if (data.resdata) {
                 $resdata.removeClass('d-none').html(
@@ -136,7 +134,7 @@ $(function () {
             setTimeout(function () {
                 errorToHide = document.getElementById("error");
                 errorToHide.classList.add("d-none");
-            }, 5000);
+            }, 3000);
         });
     });
 

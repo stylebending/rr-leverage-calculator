@@ -13,8 +13,8 @@
     <div class="container text-white p-5 m-5 rounded mx-auto">
         <div class="row">
             <div class="col">
-                <div class="card shadow-lg text-white text-center">
-                    <h1 class="card-header">RR</h1>
+                <div class="card shadow-lg text-white">
+                    <h1 class="card-header text-center">RR</h1>
                     <div class="card-body">
                         <form id="my-form" class="p-5">
                             <div class="row">
@@ -39,12 +39,18 @@
                                     <input type="number" class="form-control" placeholder="0.33" id="sl" name="sl" step=".01" min="0.01" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="fields m-3">
+                            <div class="row p-3 mt-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="fees" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Fees meenemen in berekening?</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <button type="button" class="add-fields m-2 btn btn-primary shadow-lg">
+                                <div class="fields grid row-gap-2 m-3">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="add-fields m-2 btn btn-success shadow-lg">
                                     TP Toevoegen
                                 </button>
 
@@ -57,8 +63,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card shadow-lg text-white text-center">
-                    <h1 class="card-header">Leverage</h1>
+                <div class="card shadow-lg text-white">
+                    <h1 class="card-header text-center">Leverage</h1>
                     <div class="card-body">
                         <form id="lev-form" class="p-5">
                             <div class="row">
@@ -78,6 +84,12 @@
                                         <span class="input-group-text">%</span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="0.33" id="stoploss" name="stoploss" step=".01" min="0.01" required />
+                                </div>
+                            </div>
+                            <div class="row p-3 mt-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="levfees" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Fees meenemen in berekening?</label>
                                 </div>
                             </div>
                             <div class="row">

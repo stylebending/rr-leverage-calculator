@@ -5,6 +5,10 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   // Entry en SL input in een variable zetten
   $entry = $_GET['entry'];
   $sl = $_GET['sl'];
+  if (isset($_GET['fees'])) {
+    $fees = $_GET['fees'];
+    unset($_GET['fees']);
+  }
 
   // Entry en SL uit de GET superglobal halen
   unset($_GET['entry']);
@@ -38,25 +42,49 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   // Totale winstpercentage berekenen
   $wp = array_sum($result);
 
+  // Totale winstpercentage inclusief fees berekenen
+  $wpf = array_sum($result) * 0.93;
+
   // Uiteindelijke RR berekenen
   $rr = $wp / $sl;
 
+  // Uiteindelijke RR inclusief fees berekenen
+  $rrf = $wpf / $sl;
+
   // JSON response terug geven met data
-  if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1) {
+  if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1 && !isset($fees)) {
     echo json_encode([
       'resdata' => true,
       'wp' => abs(round($wp, 2)),
       'rr' => abs(round($rr, 2))
     ]);
+  } else if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1 && $fees == "on") {
+    echo json_encode([
+      'resdata' => true,
+      'wp' => abs(round($wpf, 2)),
+      'rr' => abs(round($rrf, 2))
+    ]);
   } else {
     echo json_encode(['error' => 'Het totaal van de TPs % moet tussen de 0.01% en 100% zijn.']);
   }
-} else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
-  $leverage = round(($_GET['risk'] / $_GET['stoploss']), 2);
-  echo json_encode([
-    'levdata' => true,
-    'lev' => $leverage
-  ]);
+} else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {  
+  if (isset($_GET['levfees'])) {
+    $levfees = $_GET['levfees'];
+    unset($_GET['levfees']);
+  }
+  if (!isset($levfees)) {
+    $leverage = round(($_GET['risk'] / $_GET['stoploss']), 2);
+    echo json_encode([
+      'levdata' => true,
+      'lev' => $leverage
+    ]);
+  } else if ($levfees == "on") {
+    $leverage = round(($_GET['risk'] / ($_GET['stoploss'] + 0.08)), 2);
+    echo json_encode([
+      'levdata' => true,
+      'lev' => $leverage
+    ]);
+  }
 } else {
   // Als niet alles is ingevuld een error terug sturen
   echo json_encode(['error' => 'Er is iets fout gegaan, voeg één of meerdere TPs toe, vul alle velden in en probeer het opnieuw.']);
