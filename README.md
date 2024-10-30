@@ -1,6 +1,6 @@
 # RR and Leverage Calculator
 
-## This is a singple page app to calculate the risk to reward (RR) of a trade and the leverage to be used for a trade. 
+### This is a singple page app to calculate the risk to reward (RR) of a trade and the leverage to be used for a trade. 
 
 Trading journals are great and they are a crucial part of trading to reflect and keep track of your trades. However it seems all trading journals lack a final total RR calculator and they also lack a leverage calculator. That is why I've built this tool. 
 
@@ -14,10 +14,12 @@ If you have PHP installed locally on your machine, you can start a PHP developme
 
 `cd /var/www/rr-leverage-calculator`
 
-Then run the following command:
+Then run the following command to start the PHP development server:
 
 `php -S localhost:8000`
 
-The tool is accesible now in your browser at url: localhost:8000
+The tool is accesible now in your browser at url:
+
+`localhost:8000`
 
 Enjoy!
