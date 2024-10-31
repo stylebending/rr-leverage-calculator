@@ -10,3 +10,11 @@ body {
 .fields {
   background-color: #111739;
 }
+
+.form-control {
+  font-weight: bold;
+}
+
+.form-control::placeholder {
+  opacity: 0.5;
+}
