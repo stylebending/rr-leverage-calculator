@@ -49,7 +49,7 @@ $(function () {
         tppInput.required = true;
         // Creating the tp delete button
         var tpBtn = document.createElement("button");
-        tpBtn.classList = "remove-fields m-2 btn btn-primary shadow-lg";
+        tpBtn.classList = "remove-fields m-2 btn btn-danger shadow-lg";
         tpBtn.type = "button";
         tpBtn.id = "tpBtn-" + tpCount;
         tpBtn.textContent = "TP verwijderen";
