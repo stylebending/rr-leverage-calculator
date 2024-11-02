@@ -31,14 +31,14 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
                                     </div>
-                                    <input type="number" class="form-control" placeholder="63250" id="entry" name="entry" step=".01" min="0.01" required />
+                                    <input type="number" class="form-control" placeholder="63250" id="entry" name="entry" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="sl" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">%</span>
                                     </div>
-                                    <input type="number" class="form-control" placeholder="0.33" id="sl" name="sl" step=".01" min="0.01" required />
+                                    <input type="number" class="form-control" placeholder="0.33" id="sl" name="sl" step=".0001" min="0.0001" required />
                                 </div>
                             </div>
                             <div class="row p-3 mt-4">
@@ -80,14 +80,14 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">%</span>
                                     </div>
-                                    <input type="number" class="form-control" placeholder="1" id="risk" name="risk" step=".01" min="0.01" required />
+                                    <input type="number" class="form-control" placeholder="1" id="risk" name="risk" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="stoploss" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">%</span>
                                     </div>
-                                    <input type="number" class="form-control" placeholder="0.33" id="stoploss" name="stoploss" step=".01" min="0.01" required />
+                                    <input type="number" class="form-control" placeholder="0.33" id="stoploss" name="stoploss" step=".0001" min="0.0001" required />
                                 </div>
                             </div>
                             <div class="row p-3 mt-4">

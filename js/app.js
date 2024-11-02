@@ -35,8 +35,8 @@ $(function () {
         tpInput.name = "tp-input-" + tpCount;
         tpInput.type = "number";
         tpInput.placeholder = "63369";
-        tpInput.step = ".01";
-        tpInput.min = ".01";
+        tpInput.step = ".0001";
+        tpInput.min = ".0001";
         tpInput.required = true;
         // Creating the tpp input
         var tppInput = document.createElement("input");
@@ -45,8 +45,8 @@ $(function () {
         tppInput.name = "tpp-input-" + tpCount;
         tppInput.type = "number";
         tppInput.placeholder = "30";
-        tppInput.step = ".01";
-        tppInput.min = ".01";
+        tppInput.step = ".0001";
+        tppInput.min = ".0001";
         tppInput.required = true;
         // Creating the tp delete button
         var tpBtn = document.createElement("button");
@@ -122,8 +122,8 @@ $(function () {
             slTpInput.name = "tp-sl-input";
             slTpInput.type = "number";
             slTpInput.placeholder = "63369";
-            slTpInput.step = ".01";
-            slTpInput.min = ".01";
+            slTpInput.step = ".0001";
+            slTpInput.min = ".0001";
             slTpInput.required = true;
             // Creating the sl tpp input
             var slTppInput = document.createElement("input");
@@ -132,8 +132,8 @@ $(function () {
             slTppInput.name = "tpp-sl-input";
             slTppInput.type = "number";
             slTppInput.placeholder = "30";
-            slTppInput.step = ".01";
-            slTppInput.min = ".01";
+            slTppInput.step = ".0001";
+            slTppInput.min = ".0001";
             slTppInput.required = true;
             // Creating the sl as tp delete button
             var slTpBtn = document.createElement("button");
