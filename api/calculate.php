@@ -2,12 +2,20 @@
 
 // Check if everything neccessary is set
 if (isset($_GET['entry']) && isset($_GET['sl'])) {
-  // Entry en SL input in een variable zetten
+  // Setting entry, sl and sl as tp into variables
   $entry = $_GET['entry'];
   $sl = $_GET['sl'];
+  // Check fees included or not and set to variable and unset from GET superglobal
   if (isset($_GET['fees'])) {
     $fees = $_GET['fees'];
     unset($_GET['fees']);
+  }
+  // Check sl included or not and set to variable and unset from GET superglobal
+  if (isset($_GET['tp-sl-input']) && isset($_GET['tpp-sl-input'])) {
+    $sltp = $_GET['tp-sl-input'];
+    unset($_GET['tp-sl-input']);
+    $sltpp = $_GET['tpp-sl-input'] / 100;
+    unset($_GET['tpp-sl-input']);
   }
 
   // Remove Entry and SL from the GET superglobal
@@ -19,6 +27,22 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   $tppArr = [];
   $result = [];
   $wp = 0;
+  $tpArrNrO = [];
+  $noTps = 0;
+
+  // Check whether TPs are given
+  foreach ($_GET as $key => $value) {
+    if (str_contains($key, 'tp-input')) {
+      $noTps += 1;
+    }
+  }
+
+  // Fill tpArrNrO
+  foreach ($_GET as $key => $value) {
+    if (str_contains($key, 'tp-input')) {
+      array_push($tpArrNrO, (int)$value);
+    }
+  }
 
   // Fill tpArr
   foreach ($_GET as $key => $value) {
@@ -33,41 +57,161 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
       array_push($tppArr, ($value / 100));
     }
   }
-
+  
   // Multiply tpArr and tppArr
   foreach ($tpArr as $key => $value) {
     $result[$key] = $value * $tppArr[$key];
   }
 
-  // Calculate total profit percentage
-  $wp = array_sum($result);
+  // If it's a long handle calculations whether it's a win or loss
+  if (isset($tpArrNrO[0]) && $tpArrNrO[0] > intval($entry)) {
+    // If no fees
+    if (!isset($fees)) {
+      // Calculate total profit percentage witout sl
+      if (!isset($sltp) && !isset($sltpp)) {
+        if (array_sum($result) > 0) {
+          // If it's a win
+         $wp = array_sum($result);
+        } else {
+          // If it's a loss
+          $wp = array_sum($result) * -1;
+        }
+      } else {
+        // Calculate total profit percentage with sl
+       if ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) > 0) {
+         // If it's a win
+        $wp = (array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp));
+       } else {
+         //  If it's a loss
+         $wp = (array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp));
+       }
+      }
+      // Calculate final RR
+      $rr = $wp / $sl;
+    } else if ($fees == "on") {
+      // If with fees
+      // Calculate total profit percentage witout sl
+      if (!isset($sltp) && !isset($sltpp)) {
+        if (array_sum($result) > 0) {
+          // If it's a win
+         $wp = array_sum($result) * 0.93;
+        } else {
+          //  If it's a loss
+          $wp = (array_sum($result) * -1) * 0.93;
+        }
+      } else {
+        // Calculate total profit percentage with sl
+       if ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) > 0) {
+         //  If it's a win
+        $wp = (array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) * 0.93;
+      } else {
+       //  If it's a loss
+       $wp = ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp))) * 0.93;
+      }
+      }
+      // Calculate final RR
+      $rr = $wp / $sl;    
+    }
+  }
 
-  // Calculate total profit percentage including fees
-  $wpf = array_sum($result) * 0.93;
+  // If it's a short handle calculations whether it's a win or loss
+   if (isset($tpArrNrO[0]) && $tpArrNrO[0] < intval($entry)) {
+     // If no fees
+     if (!isset($fees)) {
+       // Calculate total profit percentage witout sl
+       if (!isset($sltp) && !isset($sltpp)) {
+        if (array_sum($result) < 0) {
+          // If it's a win
+         $wp = abs(array_sum($result));
+        } else {
+          // If it's a loss
+          $wp = array_sum($result) * -1;
+        }
+       } else {
+         // Calculate total profit percentage with sl
+        if ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) < 0) {
+          // If it's a win
+         $wp = abs((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)));
+        } else {
+          //  If it's a loss
+          $wp = (array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) * -1;
+        }
+       }
+       // Calculate final RR
+       $rr = $wp / $sl;
+     } else if ($fees == "on") {
+       // If with fees
+       // Calculate total profit percentage witout sl
+       if (!isset($sltp) && !isset($sltpp)) {
+        if (array_sum($result) < 0) {
+          // If it's a win
+         $wp = abs(array_sum($result)) * 0.93;
+        } else {
+          //  If it's a loss
+          $wp = (array_sum($result) * -1) * 0.93;
+        }
+       } else {
+         // Calculate total profit percentage with sl
+        if ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) < 0) {
+          //  If it's a win
+         $wp = abs((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp))) * 0.93;
+       } else {
+        //  If it's a loss
+        $wp = ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) * -1) * 0.93;
+       }
+       // Calculate final RR
+       $rr = $wp / $sl;   
+     }
+    }
+  }
 
-  // Calculate final RR
-  $rr = $wp / $sl;
+  // If no TPs are given but a SL is given
+  if ($noTps === 0 && isset($sltp) && isset($sltpp)) {
+    // If it's a long
+    if ($sltp < $entry) {
+      // Without fees
+      if (!isset($fees)) {
+        $wp = ((($sltp - $entry) / $entry) * 100) * ($sltpp);
+      } else {
+        // With fees
+        $wp = (((($sltp - $entry) / $entry) * 100) * ($sltpp)) * 0.93;
+      }
+      // Calculate final RR
+      $rr = $wp / $sl; 
+    } else {
+      // If it's a short
+      // Without fees
+      if (!isset($fees)) {
+        $wp = ((($sltp - $entry) / $entry) * 100) * ($sltpp) * -1;
+      } else {
+        // With fees
+        $wp = (((($sltp - $entry) / $entry) * 100) * ($sltpp) * -1) * 0.93;
+      }
+      // Calculate final RR
+      $rr = $wp / $sl; 
+    }
+  }
 
-  // Calculate final RR including fees
-  $rrf = $wpf / $sl;
-
-  // Return JSON response with data
-  if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1 && !isset($fees)) {
+  // Return JSON response
+  if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1) {
     echo json_encode([
       'resdata' => true,
-      'wp' => abs(round($wp, 2)),
-      'rr' => abs(round($rr, 2))
+      'wp' => round($wp, 2),
+      'rr' => round($rr, 2)
     ]);
-  } else if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1 && $fees == "on") {
+  } else if (isset($sltp) && isset($sltpp)) {
     echo json_encode([
       'resdata' => true,
-      'wp' => abs(round($wpf, 2)),
-      'rr' => abs(round($rrf, 2))
+      'wp' => round($wp, 2),
+      'rr' => round($rr, 2),
+      'noTps' => $noTps
     ]);
   } else {
-    echo json_encode(['error' => 'Het totaal van de TPs % moet tussen de 0.01% en 100% zijn.']);
+    // Return error message that the TP percentage must sum up to a number between 0.01 en 100
+    echo json_encode(['error' => 'Voer TPs in met het totaal van de TPs % tussen de 0.01% en 100% of vul een SL als TP in.']);
   }
-} else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {  
+} else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
+  // Handle the leverage request/response 
   if (isset($_GET['levfees'])) {
     $levfees = $_GET['levfees'];
     unset($_GET['levfees']);
@@ -79,7 +223,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
       'lev' => $leverage
     ]);
   } else if ($levfees == "on") {
-    $leverage = round(($_GET['risk'] / ($_GET['stoploss'] + 0.08)), 2);
+    $leverage = round(($_GET['risk'] / ($_GET['stoploss'] + 0.07)), 2);
     echo json_encode([
       'levdata' => true,
       'lev' => $leverage

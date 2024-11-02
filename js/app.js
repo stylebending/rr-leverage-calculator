@@ -5,6 +5,7 @@ $(function () {
     var $levForm = $('#lev-form');
     var $fields = $form.find('.fields');
     var tpCount = 0;
+    var slTpCount = 0;
 
     // Function to add TPs when user wants to
     $form.on('click', '.add-fields', function () {
@@ -53,7 +54,7 @@ $(function () {
         tpBtn.type = "button";
         tpBtn.id = "tpBtn-" + tpCount;
         tpBtn.textContent = "TP verwijderen";
-        // Creating $ and % ps
+        // Creating $ and %
         var ds = document.createElement("span");
         ds.classList = "input-group-text";
         ds.innerText = "$"
@@ -93,9 +94,112 @@ $(function () {
         $fields.prepend($(row));
     });
 
+    // Function to add SL as TP when user wants to
+    $form.on('click', '.add-fields-sl', function () {
+        // Setting the unique tpCount per sl as tp
+        if (slTpCount === 0) {
+            slTpCount += 1;
+            // Creating the div for the SL as TP
+            var slDiv = document.createElement("div");
+            slDiv.classList = "row m-5 sl-tp-fields tp-sl-field";
+            slDiv.id = "tp-sl-field";
+            // Creating the label for sl as tp
+            var slTpLabel = document.createElement("label");
+            slTpLabel.classList = "text-start";
+            slTpLabel.setAttribute("for", "tp-sl-input");
+            slTpLabel.id = "tp-sl-label";
+            slTpLabel.innerText = "SL als TP bedrag"
+            // Creating the label for sl tpp
+            var slTppLabel = document.createElement("label");
+            slTppLabel.classList = "text-start mt-4";
+            slTppLabel.setAttribute("for", "tpp-sl-input");
+            slTppLabel.id = "tpp-sl-label";
+            slTppLabel.innerText = "SL als TP percentage"
+            // Creating the sl as tp input
+            var slTpInput = document.createElement("input");
+            slTpInput.classList = "form-control";
+            slTpInput.id = "tp-sl-input";
+            slTpInput.name = "tp-sl-input";
+            slTpInput.type = "number";
+            slTpInput.placeholder = "63369";
+            slTpInput.step = ".01";
+            slTpInput.min = ".01";
+            slTpInput.required = true;
+            // Creating the sl tpp input
+            var slTppInput = document.createElement("input");
+            slTppInput.classList = "form-control";
+            slTppInput.id = "tpp-sl-input";
+            slTppInput.name = "tpp-sl-input";
+            slTppInput.type = "number";
+            slTppInput.placeholder = "30";
+            slTppInput.step = ".01";
+            slTppInput.min = ".01";
+            slTppInput.required = true;
+            // Creating the sl as tp delete button
+            var slTpBtn = document.createElement("button");
+            slTpBtn.classList = "remove-sl-tp-fields m-2 btn btn-danger shadow-lg";
+            slTpBtn.type = "button";
+            slTpBtn.id = "slTpBtn";
+            slTpBtn.textContent = "SL als TP verwijderen";
+            // Creating $ and %
+            var slDs = document.createElement("span");
+            slDs.classList = "input-group-text";
+            slDs.innerText = "$"
+            var slPs = document.createElement("span");
+            slPs.classList = "input-group-text";
+            slPs.innerText = "%"
+            // SL as Tp bedrag input group div
+            var slIgd = document.createElement("div");
+            slIgd.classList = "input-group";
+            // SL as Tp input group prepend div
+            var slIgpd = document.createElement("div");
+            slIgpd.classList = "input-group-prepend";
+            slIgpd.appendChild(slDs);
+            slIgd.appendChild(slIgpd);
+            slIgd.appendChild(slTpInput);
+            // SL Tpp percentage input group div
+            var slIgdd = document.createElement("div");
+            slIgdd.classList = "input-group";
+            // SL Tpp input group prepend div
+            var slIgpdd = document.createElement("div");
+            slIgpdd.classList = "input-group-prepend";
+            slIgpdd.appendChild(slPs);
+            slIgdd.appendChild(slIgpdd);
+            slIgdd.appendChild(slTppInput);
+
+            // SL Row
+            var slRow = document.createElement("row");
+
+            // Adding all of these together
+            slDiv.appendChild(slTpLabel);
+            slDiv.appendChild(slIgd);
+            slDiv.appendChild(slTppLabel);
+            slDiv.appendChild(slIgdd);
+            slDiv.appendChild(slTpBtn);
+            slRow.appendChild(slDiv);
+            // Putting them into the fields div
+            $fields.prepend($(slRow));
+        } else {
+            // Display error if there is already a SL as TP added
+            let $error = $('#error');
+
+            $error.removeClass('d-none').html('Je kan maximaal 1 SL als TP meegeven.');
+            setTimeout(function () {
+                errorToHide = document.getElementById("error");
+                errorToHide.classList.add("d-none");
+            }, 3000);
+        }
+    });
+
     // Function to remove TPs when user wants to
     $form.on('click', '.remove-fields', function (event) {
         $(event.target).closest('.tp-fields').remove();
+    });
+
+    // Function to remove SL as TPs when user wants to
+    $form.on('click', '.remove-sl-tp-fields', function (event) {
+        slTpCount -= 1;
+        $(event.target).closest('.sl-tp-fields').remove();
     });
 
     // Form submit and AJAX request

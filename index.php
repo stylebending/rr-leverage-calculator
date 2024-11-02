@@ -52,12 +52,14 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <button type="submit" class="m-2 btn btn-primary shadow-lg">
+                                    RR Berekenen
+                                </button>
                                 <button type="button" class="add-fields m-2 btn btn-success shadow-lg">
                                     TP Toevoegen
                                 </button>
-
-                                <button type="submit" class="m-2 btn btn-primary shadow-lg">
-                                    RR Berekenen
+                                <button type="button" class="add-fields-sl m-2 btn btn-danger shadow-lg">
+                                    SL als TP Toevoegen
                                 </button>
                             </div>
                         </form>
