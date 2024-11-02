@@ -40,7 +40,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   // Fill tpArrNrO
   foreach ($_GET as $key => $value) {
     if (str_contains($key, 'tp-input')) {
-      array_push($tpArrNrO, (int)$value);
+      array_push($tpArrNrO, (float)$value);
     }
   }
 
@@ -64,7 +64,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   }
 
   // If it's a long handle calculations whether it's a win or loss
-  if (isset($tpArrNrO[0]) && $tpArrNrO[0] > intval($entry)) {
+  if (isset($tpArrNrO[0]) && $tpArrNrO[0] > floatval($entry)) {
     // If no fees
     if (!isset($fees)) {
       // Calculate total profit percentage witout sl
@@ -115,7 +115,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   }
 
   // If it's a short handle calculations whether it's a win or loss
-   if (isset($tpArrNrO[0]) && $tpArrNrO[0] < intval($entry)) {
+   if (isset($tpArrNrO[0]) && $tpArrNrO[0] < floatval($entry)) {
      // If no fees
      if (!isset($fees)) {
        // Calculate total profit percentage witout sl
@@ -203,8 +203,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     echo json_encode([
       'resdata' => true,
       'wp' => round($wp, 2),
-      'rr' => round($rr, 2),
-      'noTps' => $noTps
+      'rr' => round($rr, 2)
     ]);
   } else {
     // Return error message that the TP percentage must sum up to a number between 0.01 en 100
