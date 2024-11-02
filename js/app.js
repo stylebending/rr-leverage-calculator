@@ -108,13 +108,13 @@ $(function () {
             slTpLabel.classList = "text-start";
             slTpLabel.setAttribute("for", "tp-sl-input");
             slTpLabel.id = "tp-sl-label";
-            slTpLabel.innerText = "SL als TP bedrag"
+            slTpLabel.innerText = "SL bedrag"
             // Creating the label for sl tpp
             var slTppLabel = document.createElement("label");
             slTppLabel.classList = "text-start mt-4";
             slTppLabel.setAttribute("for", "tpp-sl-input");
             slTppLabel.id = "tpp-sl-label";
-            slTppLabel.innerText = "SL als TP percentage"
+            slTppLabel.innerText = "SL percentage"
             // Creating the sl as tp input
             var slTpInput = document.createElement("input");
             slTpInput.classList = "form-control";
@@ -140,7 +140,7 @@ $(function () {
             slTpBtn.classList = "remove-sl-tp-fields m-2 btn btn-danger shadow-lg";
             slTpBtn.type = "button";
             slTpBtn.id = "slTpBtn";
-            slTpBtn.textContent = "SL als TP verwijderen";
+            slTpBtn.textContent = "SL verwijderen";
             // Creating $ and %
             var slDs = document.createElement("span");
             slDs.classList = "input-group-text";
@@ -183,7 +183,7 @@ $(function () {
             // Display error if there is already a SL as TP added
             let $error = $('#error');
 
-            $error.removeClass('d-none').html('Je kan maximaal 1 SL als TP meegeven.');
+            $error.removeClass('d-none').html('Je kan maximaal 1 SL meegeven.');
             setTimeout(function () {
                 errorToHide = document.getElementById("error");
                 errorToHide.classList.add("d-none");
@@ -216,7 +216,6 @@ $(function () {
             url: 'api/calculate.php',
             data: $(this).serialize()
         }).then(function (res) {
-            console.log(res);
             let data = JSON.parse(res);
             if (data.error) {
                 $error.removeClass('d-none').html(data.error);

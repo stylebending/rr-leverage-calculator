@@ -59,7 +59,7 @@
                                     TP Toevoegen
                                 </button>
                                 <button type="button" class="add-fields-sl m-2 btn btn-danger shadow-lg">
-                                    SL als TP Toevoegen
+                                    SL Toevoegen
                                 </button>
                             </div>
                         </form>
