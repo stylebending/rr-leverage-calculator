@@ -7,14 +7,18 @@ body {
   background-color: #1E2761;
 }
 
-.fields {
-  background-color: #111739;
-}
-
 .form-control {
   font-weight: bold;
 }
 
 .form-control::placeholder {
   opacity: 0.3;
+}
+
+.tp-div {
+  background-color: #111739;
+}
+
+.sl-tp-div {
+  background-color: #111739;
 }

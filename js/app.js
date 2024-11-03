@@ -14,7 +14,7 @@ $(function () {
 
         // Creating the div for the TPs
         var div = document.createElement("div");
-        div.classList = "row m-5 tp-fields tp-fields-" + tpCount;
+        div.classList = "row rounded shadow-lg tp-div mb-5 p-5 tp-fields tp-fields-" + tpCount;
         div.id = "tp-fields-" + tpCount;
         // Creating the label for tp
         var tpLabel = document.createElement("label");
@@ -101,7 +101,7 @@ $(function () {
             slTpCount += 1;
             // Creating the div for the SL as TP
             var slDiv = document.createElement("div");
-            slDiv.classList = "row m-5 sl-tp-fields tp-sl-field";
+            slDiv.classList = "row rounded shadow-lg sl-tp-div mb-5 p-5 sl-tp-fields tp-sl-field";
             slDiv.id = "tp-sl-field";
             // Creating the label for sl as tp
             var slTpLabel = document.createElement("label");
