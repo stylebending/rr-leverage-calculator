@@ -226,7 +226,6 @@ $(function () {
                 return;
             } else if (data.resdata) {
                 $resdata.removeClass('d-none').html(
-                    "Winst percentage ZONDER LEVERAGE: " + data.wp + "%" + "<br>" +
                     "Totale eind RR: " + data.rr
                 );
                 return;

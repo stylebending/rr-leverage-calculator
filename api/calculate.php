@@ -94,23 +94,23 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
       if (!isset($sltp) && !isset($sltpp)) {
         if (array_sum($result) > 0) {
           // If it's a win
-         $wp = array_sum($result) * 0.93;
+         $wp = array_sum($result);
         } else {
           //  If it's a loss
-          $wp = (array_sum($result) * -1) * 0.93;
+          $wp = (array_sum($result) * -1);
         }
       } else {
         // Calculate total profit percentage with sl
        if ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) > 0) {
          //  If it's a win
-        $wp = (array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) * 0.93;
+        $wp = (array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp));
       } else {
        //  If it's a loss
-       $wp = ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp))) * 0.93;
+       $wp = ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)));
       }
       }
       // Calculate final RR
-      $rr = $wp / $sl;    
+      $rr = $wp / ($sl + 0.07);    
     }
   }
 
@@ -145,22 +145,22 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
        if (!isset($sltp) && !isset($sltpp)) {
         if (array_sum($result) < 0) {
           // If it's a win
-         $wp = abs(array_sum($result)) * 0.93;
+         $wp = abs(array_sum($result));
         } else {
           //  If it's a loss
-          $wp = (array_sum($result) * -1) * 0.93;
+          $wp = (array_sum($result) * -1);
         }
        } else {
          // Calculate total profit percentage with sl
         if ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) < 0) {
           //  If it's a win
-         $wp = abs((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp))) * 0.93;
+         $wp = abs((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)));
        } else {
         //  If it's a loss
-        $wp = ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) * -1) * 0.93;
+        $wp = ((array_sum($result) + (((($sltp - $entry) / $entry) * 100) * $sltpp)) * -1);
        }
        // Calculate final RR
-       $rr = $wp / $sl;   
+       $rr = $wp / ($sl + 0.07);   
      }
     }
   }
@@ -174,7 +174,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
         $wp = ((($sltp - $entry) / $entry) * 100) * ($sltpp);
       } else {
         // With fees
-        $wp = (((($sltp - $entry) / $entry) * 100) * ($sltpp)) * 0.93;
+        $wp = (((($sltp - $entry) / $entry) * 100) * ($sltpp));
       }
       // Calculate final RR
       $rr = $wp / $sl; 
@@ -185,10 +185,10 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
         $wp = ((($sltp - $entry) / $entry) * 100) * ($sltpp) * -1;
       } else {
         // With fees
-        $wp = (((($sltp - $entry) / $entry) * 100) * ($sltpp) * -1) * 0.93;
+        $wp = (((($sltp - $entry) / $entry) * 100) * ($sltpp) * -1);
       }
       // Calculate final RR
-      $rr = $wp / $sl; 
+      $rr = $wp / ($sl + 0.07); 
     }
   }
 
