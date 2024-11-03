@@ -29,6 +29,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   $wp = 0;
   $tpArrNrO = [];
   $noTps = 0;
+  $sltpp01 = 0;
 
   // Check whether TPs are given
   foreach ($_GET as $key => $value) {
@@ -192,14 +193,18 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     }
   }
 
+  if (isset($sltpp)) {
+    $sltpp01 = $sltpp;
+  }
+
   // Return JSON response
-  if (array_sum($tppArr) >= 0.0001 && array_sum($tppArr) <= 1) {
+  if ((array_sum($tppArr) + $sltpp01) >= 0.0001 && (array_sum($tppArr) + $sltpp01) <= 1) {
     echo json_encode([
       'resdata' => true,
       'wp' => round($wp, 2),
       'rr' => round($rr, 2)
     ]);
-  } else if (isset($sltp) && isset($sltpp)) {
+  } else if (empty($tpArr) && empty($tppArr) && isset($sltp) && isset($sltpp) && $sltpp >= 0.0001 && $sltpp <= 1) {
     echo json_encode([
       'resdata' => true,
       'wp' => round($wp, 2),
@@ -207,7 +212,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     ]);
   } else {
     // Return error message that the TP percentage must sum up to a number between 0.01 en 100
-    echo json_encode(['error' => 'Voer TPs in met het totaal van de TPs % tussen de 0.01% en 100% of vul een SL als TP in.']);
+    echo json_encode(['error' => 'Het totaal van de TPs en/of SL % moet tussen de 0.01% en 100%.']);
   }
 } else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
   // Handle the leverage request/response 
