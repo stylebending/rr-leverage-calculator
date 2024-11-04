@@ -161,7 +161,7 @@
                             </div>
                             <div class="row">
                                 <button type="submit" class="m-2 btn btn-primary shadow-lg">
-                                    <i class="bi bi-plus-slash-minus"></i> Leverage KA Berekenen
+                                    <i class="bi bi-plus-slash-minus"></i> Leverage Berekenen
                                 </button>
                             </div>
                         </form>
