@@ -10,7 +10,6 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   $tpArrNrO = [];
   $noTps = 0;
   $sltpp01 = 0;
-  $feesCount = 0.01;
 
   // Setting entry, sl and sl as tp into variables
   $entry = $_GET['entry'];
@@ -28,7 +27,6 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     unset($_GET['tp-sl-input']);
     $sltpp = $_GET['tpp-sl-input'] / 100;
     unset($_GET['tpp-sl-input']);
-    $feesCount += 0.06;
   }
 
   // Remove Entry and SL from the GET superglobal
@@ -53,7 +51,6 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   foreach ($_GET as $key => $value) {
     if (str_contains($key, 'tp-input')) {
       array_push($tpArr, ((($value - $entry) / $entry) * 100));
-      $feesCount += 0.01;
     }
   }
 
