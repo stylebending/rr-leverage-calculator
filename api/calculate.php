@@ -2,26 +2,6 @@
 
 // Check if everything neccessary is set
 if (isset($_GET['entry']) && isset($_GET['sl'])) {
-  // Setting entry, sl and sl as tp into variables
-  $entry = $_GET['entry'];
-  $sl = $_GET['sl'];
-  // Check fees included or not and set to variable and unset from GET superglobal
-  if (isset($_GET['fees'])) {
-    $fees = $_GET['fees'];
-    unset($_GET['fees']);
-  }
-  // Check sl included or not and set to variable and unset from GET superglobal
-  if (isset($_GET['tp-sl-input']) && isset($_GET['tpp-sl-input'])) {
-    $sltp = $_GET['tp-sl-input'];
-    unset($_GET['tp-sl-input']);
-    $sltpp = $_GET['tpp-sl-input'] / 100;
-    unset($_GET['tpp-sl-input']);
-  }
-
-  // Remove Entry and SL from the GET superglobal
-  unset($_GET['entry']);
-  unset($_GET['sl']);
-
   // Define Tp arrays and wp (profit percentage)
   $tpArr = [];
   $tppArr = [];
@@ -30,6 +10,30 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   $tpArrNrO = [];
   $noTps = 0;
   $sltpp01 = 0;
+  $feesCount = 0.01;
+
+  // Setting entry, sl and sl as tp into variables
+  $entry = $_GET['entry'];
+  $sl = $_GET['sl'];
+
+  // Check fees included or not and set to variable and unset from GET superglobal
+  if (isset($_GET['fees'])) {
+    $fees = $_GET['fees'];
+    unset($_GET['fees']);
+  }
+
+  // Check sl included or not and set to variable and unset from GET superglobal
+  if (isset($_GET['tp-sl-input']) && isset($_GET['tpp-sl-input'])) {
+    $sltp = $_GET['tp-sl-input'];
+    unset($_GET['tp-sl-input']);
+    $sltpp = $_GET['tpp-sl-input'] / 100;
+    unset($_GET['tpp-sl-input']);
+    $feesCount += 0.06;
+  }
+
+  // Remove Entry and SL from the GET superglobal
+  unset($_GET['entry']);
+  unset($_GET['sl']);
 
   // Check whether TPs are given
   foreach ($_GET as $key => $value) {
@@ -49,6 +53,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   foreach ($_GET as $key => $value) {
     if (str_contains($key, 'tp-input')) {
       array_push($tpArr, ((($value - $entry) / $entry) * 100));
+      $feesCount += 0.01;
     }
   }
 
