@@ -59,12 +59,16 @@ $(function () {
         tpBtn.appendChild(tpBtnI);
         tpBtn.innerHTML += " TP verwijderen";
         // Creating $ and %
+        var psI = document.createElement("i");
+        psI.classList = "bi bi-percent";
+        var dsI = document.createElement("i");
+        dsI.classList = "bi bi-currency-dollar";
         var ds = document.createElement("span");
         ds.classList = "input-group-text";
-        ds.innerText = "$"
+        ds.appendChild(dsI);
         var ps = document.createElement("span");
         ps.classList = "input-group-text";
-        ps.innerText = "%"
+        ps.appendChild(psI);
         // Tp bedrag input group div
         var igd = document.createElement("div");
         igd.classList = "input-group";
@@ -112,7 +116,7 @@ $(function () {
             slTpLabel.classList = "text-start";
             slTpLabel.setAttribute("for", "tp-sl-input");
             slTpLabel.id = "tp-sl-label";
-            slTpLabel.innerText = "SL bedrag"
+            slTpLabel.innerText = "SL bedrag";
             // Creating the label for sl tpp
             var slTppLabel = document.createElement("label");
             slTppLabel.classList = "text-start mt-4";
@@ -150,11 +154,15 @@ $(function () {
             slTpBtn.innerHTML += " SL verwijderen";
             // Creating $ and %
             var slDs = document.createElement("span");
+            var slDsI = document.createElement("i");
+            slDsI.classList = "bi bi-percent";
+            var slPsI = document.createElement("i");
+            slPsI.classList = "bi bi-currency-dollar";
             slDs.classList = "input-group-text";
-            slDs.innerText = "$"
+            slDs.appendChild(slPsI);
             var slPs = document.createElement("span");
             slPs.classList = "input-group-text";
-            slPs.innerText = "%"
+            slPs.appendChild(slDsI);
             // SL as Tp bedrag input group div
             var slIgd = document.createElement("div");
             slIgd.classList = "input-group";

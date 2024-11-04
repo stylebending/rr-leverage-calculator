@@ -30,14 +30,14 @@
                                 <label for="entry" class="text-start">Entry</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">$</span>
+                                        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="63250" id="entry" name="entry" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="sl" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">%</span>
+                                        <span class="input-group-text"><i class="bi bi-percent"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="0.33" id="sl" name="sl" step=".0001" min="0.0001" required />
                                 </div>
@@ -84,14 +84,14 @@
                                 <label for="risk" class="text-start">Risk</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">%</span>
+                                        <span class="input-group-text"><i class="bi bi-percent"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="1" id="risk" name="risk" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="stoploss" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">%</span>
+                                        <span class="input-group-text"><i class="bi bi-percent"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="0.33" id="stoploss" name="stoploss" step=".0001" min="0.0001" required />
                                 </div>
@@ -124,28 +124,28 @@
                                 <label for="risk" class="text-start">Risk</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">%</span>
+                                        <span class="input-group-text"><i class="bi bi-percent"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="1" id="karisk" name="karisk" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="stoploss" class="text-start mt-4">Stop Loss</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">%</span>
+                                        <span class="input-group-text"><i class="bi bi-percent"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="0.33" id="kastoploss" name="kastoploss" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="stoploss" class="text-start mt-4">Bedrag op account</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">$</span>
+                                        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="500" id="kabop" name="kabop" step=".0001" min="0.0001" required />
                                 </div>
                                 <label for="stoploss" class="text-start mt-4">Bedrag waar je risico op wilt lopen</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">$</span>
+                                        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="5000" id="kabor" name="kabor" step=".0001" min="0.0001" required />
                                 </div>
