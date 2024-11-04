@@ -7,6 +7,7 @@
     <meta name="description" content="RR and Leverage Calculator">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
 </head>
@@ -16,7 +17,7 @@
         <div class="row">
             <div class="col">
                 <div class="card shadow-lg text-white">
-                    <h1 class="card-header text-center shadow-lg">RR</h1>
+                    <h1 class="card-header text-center shadow-lg"><i class="bi bi-currency-exchange"></i> RR</h1>
                     <div class="card-body">
                         <form id="my-form" class="p-5">
                             <div class="row">
@@ -53,13 +54,13 @@
                             </div>
                             <div class="row">
                                 <button type="submit" class="m-2 btn btn-primary shadow-lg">
-                                    RR Berekenen
+                                    <i class="bi bi-plus-slash-minus"></i> RR Berekenen
                                 </button>
                                 <button type="button" class="add-fields m-2 btn btn-success shadow-lg">
-                                    TP Toevoegen
+                                    <i class="bi bi-plus-lg"></i> TP Toevoegen
                                 </button>
                                 <button type="button" class="add-fields-sl m-2 btn btn-danger shadow-lg">
-                                    SL Toevoegen
+                                    <i class="bi bi-plus-lg"></i> SL Toevoegen
                                 </button>
                             </div>
                         </form>
@@ -68,7 +69,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-lg text-white">
-                    <h1 class="card-header text-center shadow-lg">Leverage</h1>
+                    <h1 class="card-header text-center shadow-lg"><i class="bi bi-crosshair"></i> Leverage</h1>
                     <div class="card-body">
                         <form id="lev-form" class="p-5">
                             <div class="row">
@@ -101,7 +102,7 @@
                             </div>
                             <div class="row">
                                 <button type="submit" class="m-2 btn btn-primary shadow-lg">
-                                    Leverage Berekenen
+                                    <i class="bi bi-plus-slash-minus"></i> Leverage Berekenen
                                 </button>
                             </div>
                         </form>

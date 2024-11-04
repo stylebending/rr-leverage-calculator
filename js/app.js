@@ -50,10 +50,13 @@ $(function () {
         tppInput.required = true;
         // Creating the tp delete button
         var tpBtn = document.createElement("button");
+        var tpBtnI = document.createElement("i");
+        tpBtnI.classList = "bi bi-trash-fill";
         tpBtn.classList = "remove-fields m-2 btn btn-danger shadow-lg";
         tpBtn.type = "button";
         tpBtn.id = "tpBtn-" + tpCount;
-        tpBtn.textContent = "TP verwijderen";
+        tpBtn.appendChild(tpBtnI);
+        tpBtn.innerHTML += " TP verwijderen";
         // Creating $ and %
         var ds = document.createElement("span");
         ds.classList = "input-group-text";
@@ -137,10 +140,13 @@ $(function () {
             slTppInput.required = true;
             // Creating the sl as tp delete button
             var slTpBtn = document.createElement("button");
+            var slTpBtnI = document.createElement("i");
+            slTpBtnI.classList = "bi bi-trash-fill";
             slTpBtn.classList = "remove-sl-tp-fields m-2 btn btn-danger shadow-lg";
             slTpBtn.type = "button";
             slTpBtn.id = "slTpBtn";
-            slTpBtn.textContent = "SL verwijderen";
+            slTpBtn.appendChild(slTpBtnI);
+            slTpBtn.innerHTML += " SL verwijderen";
             // Creating $ and %
             var slDs = document.createElement("span");
             slDs.classList = "input-group-text";
