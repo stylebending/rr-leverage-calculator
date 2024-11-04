@@ -23,8 +23,8 @@ body {
   background-color: #111739;
 }
 
-@media screen and (max-width: 900px){
-    .card {
-        width: 90vw;
-    }
+@media screen and (max-width: 900px) {
+  .card {
+    width: fit-content;
+  }
 }
