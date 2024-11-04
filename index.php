@@ -63,6 +63,11 @@
                                     <i class="bi bi-plus-lg"></i> SL Toevoegen
                                 </button>
                             </div>
+                            <div class="row">
+                                <p class="mt-5">
+                                    <i class="bi bi-info-circle"></i> Als je SL meegeeft, gebruik dan de SL knop
+                                </p>
+                            </div>
                         </form>
                     </div>
                 </div>
