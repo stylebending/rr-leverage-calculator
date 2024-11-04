@@ -142,7 +142,7 @@
                                     </div>
                                     <input type="number" class="form-control" placeholder="500" id="kabop" name="kabop" step=".0001" min="0.0001" required />
                                 </div>
-                                <label for="stoploss" class="text-start mt-4">Bedrag waar je risico op wil lopen</label>
+                                <label for="stoploss" class="text-start mt-4">Bedrag waar je risico op wilt lopen</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
