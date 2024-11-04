@@ -16,7 +16,7 @@
     <div class="container text-white p-5 m-5 rounded mx-auto">
         <div class="row">
             <div class="col">
-                <div class="card shadow-lg text-white">
+                <div class="card shadow-lg text-white mb-3">
                     <h1 class="card-header text-center shadow-lg"><i class="bi bi-currency-exchange"></i> RR</h1>
                     <div class="card-body">
                         <form id="my-form" class="p-5">
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card shadow-lg text-white">
+                <div class="card shadow-lg text-white mb-3">
                     <h1 class="card-header text-center shadow-lg"><i class="bi bi-crosshair"></i> Leverage</h1>
                     <div class="card-body">
                         <form id="lev-form" class="p-5">
@@ -113,7 +113,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="card shadow-lg text-white mt-3">
+                <div class="card shadow-lg text-white mb-3">
                     <h1 class="card-header text-center shadow-lg"><i class="bi bi-crosshair"></i> Leverage Klein Account</h1>
                     <div class="card-body">
                         <form id="kalev-form" class="p-5">

@@ -22,3 +22,9 @@ body {
 .sl-tp-div {
   background-color: #111739;
 }
+
+@media screen and (max-width: 900px){
+    .card {
+        width: 90vw;
+    }
+}
