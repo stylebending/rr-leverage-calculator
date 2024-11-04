@@ -3,6 +3,7 @@ $(function () {
     // Defining variables
     var $form = $('#my-form');
     var $levForm = $('#lev-form');
+    var $kalevForm = $('#kalev-form');
     var $fields = $form.find('.fields');
     var tpCount = 0;
     var slTpCount = 0;
@@ -267,6 +268,35 @@ $(function () {
             } else if (data.levdata) {
                 $levdata.removeClass('d-none').html(
                     "Leverage: " + data.lev
+                );
+                return;
+            }
+        }).fail(function (res) {
+            $error.removeClass('d-none').html(data.error);
+        });
+    });
+
+    // KaLevForm submit and AJAX request
+    $kalevForm.on('submit', function (e) {
+        e.preventDefault();
+
+        // Getting the error en resdata div
+        let $error = $('#error');
+        let $kalevdata = $('#kalevdata');
+
+        // Handling the AJAX request
+        $.ajax({
+            type: 'GET',
+            url: 'api/calculate.php',
+            data: $(this).serialize()
+        }).then(function (res) {
+            let data = JSON.parse(res);
+            if (data.error) {
+                $error.removeClass('d-none').html(data.error);
+                return;
+            } else if (data.kalevdata) {
+                $kalevdata.removeClass('d-none').html(
+                    "Leverage: " + data.kalev
                 );
                 return;
             }

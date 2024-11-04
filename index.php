@@ -113,6 +113,60 @@
                         </form>
                     </div>
                 </div>
+                <div class="card shadow-lg text-white mt-3">
+                    <h1 class="card-header text-center shadow-lg"><i class="bi bi-crosshair"></i> Leverage Klein Account</h1>
+                    <div class="card-body">
+                        <form id="kalev-form" class="p-5">
+                            <div class="row">
+                                <div class="row">
+                                    <div id="kalevdata" class="d-none alert alert-info"></div>
+                                </div>
+                                <label for="risk" class="text-start">Risk</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="1" id="karisk" name="karisk" step=".0001" min="0.0001" required />
+                                </div>
+                                <label for="stoploss" class="text-start mt-4">Stop Loss</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="0.33" id="kastoploss" name="kastoploss" step=".0001" min="0.0001" required />
+                                </div>
+                                <label for="stoploss" class="text-start mt-4">Bedrag op account</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="500" id="kabop" name="kabop" step=".0001" min="0.0001" required />
+                                </div>
+                                <label for="stoploss" class="text-start mt-4">Bedrag waar je risico op wil lopen</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="5000" id="kabor" name="kabor" step=".0001" min="0.0001" required />
+                                </div>
+                            </div>
+                            <div class="row p-3 mt-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="kalevfees" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Fees meenemen in berekening?</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="m-3"></div>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="m-2 btn btn-primary shadow-lg">
+                                    <i class="bi bi-plus-slash-minus"></i> Leverage Berekenen
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

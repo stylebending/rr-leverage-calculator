@@ -233,6 +233,25 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
       'lev' => $leverage
     ]);
   }
+} else if (isset($_GET['karisk']) && isset($_GET['kastoploss']) && isset($_GET['kabop']) && isset($_GET['kabor'])) {
+  // Handle the small account leverage request/response 
+  if (isset($_GET['kalevfees'])) {
+    $kalevfees = $_GET['kalevfees'];
+    unset($_GET['kalevfees']);
+  }
+  if (!isset($kalevfees)) {
+    $kaleverage = round(((((($_GET['karisk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / $_GET['kastoploss']), 2);
+    echo json_encode([
+      'kalevdata' => true,
+      'kalev' => $kaleverage
+    ]);
+  } else if ($kalevfees == "on") {
+    $kaleverage = round(((((($_GET['karisk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / ($_GET['kastoploss'] + 0.07)), 2);
+    echo json_encode([
+      'kalevdata' => true,
+      'kalev' => $kaleverage
+    ]);
+  }
 } else {
   // If all the fields are not set return an error message
   echo json_encode(['error' => 'Er is iets fout gegaan, voeg één of meerdere TPs toe, vul alle velden in en probeer het opnieuw.']);
