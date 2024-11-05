@@ -16,8 +16,7 @@
 <body class="bg-dark">
     <div class="container text-white p-5 m-5 rounded mx-auto">
         <div class="row">
-            <div class="col">
-                <div id="draggablePanelList">
+            <div id="draggablePanelList" class="col connectedSortable">
                     <div class="card shadow-lg text-white mb-3 panel panel-default">
                         <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-currency-exchange"></i> RR</h1>
                         <div class="card-body panel-body">
@@ -73,10 +72,8 @@
                             </form>
                         </div>
                     </div>
-                </div>
             </div>
-            <div class="col">
-                <div id="draggablePanelList2">
+            <div id="draggablePanelList2" class="col connectedSortable">
                     <div class="card shadow-lg text-white mb-3 panel panel-default">
                         <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-crosshair"></i> Leverage</h1>
                         <div class="card-body panel-body">
@@ -123,7 +120,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
