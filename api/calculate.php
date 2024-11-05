@@ -228,6 +228,29 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     // Return error message that the TP percentage must sum up to a number between 0.01 en 100
     echo json_encode(['error' => 'Het totaal van de TPs en/of SL % moet tussen de 0.01% en 100%.']);
   }
+} else if (isset($_GET['risk']) && isset($_GET['stoploss']) && isset($_GET['kabop']) && isset($_GET['kabor'])) {
+  // Handle the small account leverage request/response 
+  if (isset($_GET['levfees'])) {
+    $kalevfees = $_GET['levfees'];
+    unset($_GET['levfees']);
+  }
+  if (!isset($kalevfees)) {
+    $kaleverage = round(((((($_GET['risk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / $_GET['stoploss']), 2);
+    $bedrag = $_GET['kabop'] * $kaleverage;
+    echo json_encode([
+      'levdata' => true,
+      'lev' => round($kaleverage, 2),
+      'bedrag' => round($bedrag, 2)
+    ]);
+  } else if ($kalevfees == "on") {
+    $kaleverage = round(((((($_GET['risk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / ($_GET['stoploss'] + 0.07)), 2);
+    $bedrag = $_GET['kabop'] * $kaleverage;
+    echo json_encode([
+      'levdata' => true,
+      'lev' => round($kaleverage, 2),
+      'bedrag' => round($bedrag, 2)
+    ]);
+  }
 } else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {
   // Handle the leverage request/response 
   if (isset($_GET['levfees'])) {
@@ -245,29 +268,6 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     echo json_encode([
       'levdata' => true,
       'lev' => round($leverage, 2)
-    ]);
-  }
-} else if (isset($_GET['karisk']) && isset($_GET['kastoploss']) && isset($_GET['kabop']) && isset($_GET['kabor'])) {
-  // Handle the small account leverage request/response 
-  if (isset($_GET['kalevfees'])) {
-    $kalevfees = $_GET['kalevfees'];
-    unset($_GET['kalevfees']);
-  }
-  if (!isset($kalevfees)) {
-    $kaleverage = round(((((($_GET['karisk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / $_GET['kastoploss']), 2);
-    $bedrag = $_GET['kabop'] * $kaleverage;
-    echo json_encode([
-      'kalevdata' => true,
-      'kalev' => round($kaleverage, 2),
-      'bedrag' => round($bedrag, 2)
-    ]);
-  } else if ($kalevfees == "on") {
-    $kaleverage = round(((((($_GET['karisk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / ($_GET['kastoploss'] + 0.07)), 2);
-    $bedrag = $_GET['kabop'] * $kaleverage;
-    echo json_encode([
-      'kalevdata' => true,
-      'kalev' => round($kaleverage, 2),
-      'bedrag' => round($bedrag, 2)
     ]);
   }
 } else {

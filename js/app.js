@@ -5,6 +5,8 @@ $(function () {
     var $levForm = $('#lev-form');
     var $kalevForm = $('#kalev-form');
     var $fields = $form.find('.fields');
+    var $levrow = $('#levrow');
+    var $levrowtoggle = $('#kacheckbox');
     var tpCount = 0;
     var slTpCount = 0;
 
@@ -217,6 +219,78 @@ $(function () {
         $(event.target).closest('.sl-tp-fields').remove();
     });
 
+    // If toggled on show the extra fields
+    $levForm.on('click', '#kacheckbox', function () {
+        if (document.getElementById("kacheckbox").checked === true) {
+            // First input field
+            var kalabel = document.createElement("label");
+            kalabel.for = "kabop";
+            kalabel.id = "kalabel";
+            kalabel.classList = "text-start mt-4";
+            kalabel.innerText = "Bedrag op account";
+            var kadiv = document.createElement("div");
+            kadiv.classList = "input-group";
+            kadiv.id = "kadiv";
+            var kadivdiv = document.createElement("div");
+            kadivdiv.classList = "input-group-prepend";
+            var kaspan = document.createElement("span");
+            kaspan.classList = "input-group-text";
+            var kai = document.createElement("i");
+            kai.classList = "bi bi-currency-dollar";
+            var kabopinput = document.createElement("input");
+            kabopinput.type = "number";
+            kabopinput.classList = "form-control";
+            kabopinput.placeholder = "500";
+            kabopinput.id = "kabop";
+            kabopinput.name = "kabop";
+            kabopinput.step = "0.0001";
+            kabopinput.min = "0.0001";
+            kabopinput.required = true;
+            kaspan.appendChild(kai);
+            kadivdiv.appendChild(kaspan);
+            kadiv.appendChild(kadivdiv);
+            kadiv.appendChild(kabopinput);
+            // Second input field
+            var kalabel2 = document.createElement("label");
+            kalabel2.for = "kabor";
+            kalabel2.id = "kalabel2";
+            kalabel2.classList = "text-start mt-4";
+            kalabel2.innerText = "Bedrag waar je risico op wilt lopen";
+            var kadiv2 = document.createElement("div");
+            kadiv2.classList = "input-group";
+            kadiv2.id = "kadiv2";
+            var kadivdiv2 = document.createElement("div");
+            kadivdiv2.classList = "input-group-prepend";
+            var kaspan2 = document.createElement("span");
+            kaspan2.classList = "input-group-text";
+            var kai2 = document.createElement("i");
+            kai2.classList = "bi bi-currency-dollar";
+            var kabopinput2 = document.createElement("input");
+            kabopinput2.type = "number";
+            kabopinput2.classList = "form-control";
+            kabopinput2.placeholder = "5000";
+            kabopinput2.id = "kabor";
+            kabopinput2.name = "kabor";
+            kabopinput2.step = "0.0001";
+            kabopinput2.min = "0.0001";
+            kabopinput2.required = true;
+            kaspan2.appendChild(kai2);
+            kadivdiv2.appendChild(kaspan2);
+            kadiv2.appendChild(kadivdiv2);
+            kadiv2.appendChild(kabopinput2);
+            // Add them to the row
+            $levrow.append(kalabel);
+            $levrow.append(kadiv);
+            $levrow.append(kalabel2);
+            $levrow.append(kadiv2);
+        } else if (document.getElementById("kacheckbox").checked === false) {
+            $('#kalabel').remove();
+            $('#kadiv').remove();
+            $('#kalabel2').remove();
+            $('#kadiv2').remove();
+        }
+    });
+
     // Form submit and AJAX request
     $form.on('submit', function (e) {
         e.preventDefault();
@@ -269,14 +343,22 @@ $(function () {
             url: 'api/calculate.php',
             data: $(this).serialize()
         }).then(function (res) {
+            console.log(res);
             let data = JSON.parse(res);
             if (data.error) {
                 $error.removeClass('d-none').html(data.error);
                 return;
             } else if (data.levdata) {
-                $levdata.removeClass('d-none').html(
-                    "Leverage: " + data.lev
-                );
+                if (typeof data.bedrag !== 'undefined') {
+                    $levdata.removeClass('d-none').html(
+                        "Leverage: " + data.lev + "<br>" +
+                        "Positiegrootte: " + '<i class="bi bi-currency-dollar"></i>' + data.bedrag
+                    );
+                } else if (typeof data.bedrag === 'undefined') {
+                    $levdata.removeClass('d-none').html(
+                        "Leverage: " + data.lev
+                    );
+                }
                 return;
             }
         }).fail(function (res) {
@@ -290,7 +372,7 @@ $(function () {
 
         // Getting the error en resdata div
         let $error = $('#error');
-        let $kalevdata = $('#kalevdata');
+        let $levdata = $('#levdata');
 
         // Handling the AJAX request
         $.ajax({
