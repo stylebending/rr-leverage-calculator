@@ -139,14 +139,14 @@
                                         </div>
                                         <input type="number" class="form-control" placeholder="0.33" id="kastoploss" name="kastoploss" step=".0001" min="0.0001" required />
                                     </div>
-                                    <label for="stoploss" class="text-start mt-4">Bedrag op account</label>
+                                    <label for="kabop" class="text-start mt-4">Bedrag op account</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
                                         </div>
                                         <input type="number" class="form-control" placeholder="500" id="kabop" name="kabop" step=".0001" min="0.0001" required />
                                     </div>
-                                    <label for="stoploss" class="text-start mt-4">Bedrag waar je risico op wilt lopen</label>
+                                    <label for="kabor" class="text-start mt-4">Bedrag waar je risico op wilt lopen</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
