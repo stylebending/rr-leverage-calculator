@@ -237,18 +237,22 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   if (!isset($kalevfees)) {
     $kaleverage = round(((((($_GET['risk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / $_GET['stoploss']), 2);
     $bedrag = $_GET['kabop'] * $kaleverage;
+    $rbedrag = ($_GET['risk'] / 100) * $_GET['kabor'];
     echo json_encode([
       'levdata' => true,
       'lev' => round($kaleverage, 2),
-      'bedrag' => round($bedrag, 2)
+      'bedrag' => round($bedrag, 2),
+      'rbedrag' => round($rbedrag, 2)
     ]);
   } else if ($kalevfees == "on") {
     $kaleverage = round(((((($_GET['risk'] / 100) * $_GET['kabor']) / $_GET['kabop']) * 100) / ($_GET['stoploss'] + 0.07)), 2);
     $bedrag = $_GET['kabop'] * $kaleverage;
+    $rbedrag = ($_GET['risk'] / 100) * $_GET['kabor'];
     echo json_encode([
       'levdata' => true,
       'lev' => round($kaleverage, 2),
-      'bedrag' => round($bedrag, 2)
+      'bedrag' => round($bedrag, 2),
+      'rbedrag' => round($rbedrag, 2)
     ]);
   }
 } else if (isset($_GET['risk']) && isset($_GET['stoploss'])) {

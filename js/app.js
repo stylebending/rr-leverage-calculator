@@ -352,7 +352,8 @@ $(function () {
                 if (typeof data.bedrag !== 'undefined') {
                     $levdata.removeClass('d-none').html(
                         "Leverage: " + data.lev + "<br>" +
-                        "Positiegrootte: " + '<i class="bi bi-currency-dollar"></i>' + data.bedrag
+                        "Positiegrootte: " + '<i class="bi bi-currency-dollar"></i>' + data.bedrag + "<br>" +
+                        "Risk bedrag: " + '<i class="bi bi-currency-dollar"></i>' + data.rbedrag
                     );
                 } else if (typeof data.bedrag === 'undefined') {
                     $levdata.removeClass('d-none').html(
@@ -366,37 +367,6 @@ $(function () {
         });
     });
 
-    // KaLevForm submit and AJAX request
-    $kalevForm.on('submit', function (e) {
-        e.preventDefault();
-
-        // Getting the error en resdata div
-        let $error = $('#error');
-        let $levdata = $('#levdata');
-
-        // Handling the AJAX request
-        $.ajax({
-            type: 'GET',
-            url: 'api/calculate.php',
-            data: $(this).serialize()
-        }).then(function (res) {
-            console.log(res);
-            let data = JSON.parse(res);
-            if (data.error) {
-                $error.removeClass('d-none').html(data.error);
-                return;
-            } else if (data.kalevdata) {
-                $kalevdata.removeClass('d-none').html(
-                    "Leverage: " + data.kalev + "<br>" +
-                    "Positiegrootte: " + '<i class="bi bi-currency-dollar"></i>' + data.bedrag
-                );
-                return;
-            }
-        }).fail(function (res) {
-            $error.removeClass('d-none').html(data.error);
-        });
-    });
-    
     $( function() {
         $( "#draggablePanelList, #draggablePanelList2" ).sortable({
           connectWith: ".connectedSortable",
