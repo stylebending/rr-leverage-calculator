@@ -298,13 +298,15 @@ $(function () {
             url: 'api/calculate.php',
             data: $(this).serialize()
         }).then(function (res) {
+            console.log(res);
             let data = JSON.parse(res);
             if (data.error) {
                 $error.removeClass('d-none').html(data.error);
                 return;
             } else if (data.kalevdata) {
                 $kalevdata.removeClass('d-none').html(
-                    "Leverage: " + data.kalev
+                    "Leverage: " + data.kalev + "<br>" + 
+                    "Positiegrootte: " + '<i class="bi bi-currency-dollar"></i>' + data.bedrag
                 );
                 return;
             }
