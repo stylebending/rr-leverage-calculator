@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -16,34 +17,43 @@
 <body class="bg-dark">
   <div class="container text-white p-5 m-5 rounded mx-auto">
     <div class="row">
-      <div class="card mx-auto shadow-lg text-white mb-3 panel panel-default">
-        <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-person-fill"></i> Log In</h1>
-        <div class="card-body panel-body">
-          <form id="loginForm" class="p-5 w-50 mx-auto" action="database/connect.php" method="POST">
-            <div class="row">
-              <label for="email" class="text-start">Email</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+      <?php if (!isset($_SESSION['loggedin'])) { ?>
+        <div class="card mx-auto shadow-lg text-white mb-3 panel panel-default">
+          <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-person-fill"></i> Log In</h1>
+          <div class="card-body panel-body">
+            <form id="loginForm" class="p-5 w-50 mx-auto" action="database/connect.php" method="POST">
+              <div class="row">
+                <label for="email" class="text-start">Email</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                  </div>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="user@email.com" required />
                 </div>
-                <input type="email" class="form-control" id="email" name="email" placeholder="user@email.com" required />
-              </div>
-              <label for="password" class="text-start mt-4">Wachtwoord</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="bi bi-key"></i></span>
+                <label for="password" class="text-start mt-4">Wachtwoord</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                  </div>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="wachtwoord" required />
                 </div>
-                <input type="password" class="form-control" id="password" name="password" placeholder="wachtwoord" required />
               </div>
-            </div>
-            <div class="row">
-              <button type="submit" class="mt-5 btn btn-primary shadow-lg mx-auto">
-                <i class="bi bi-box-arrow-in-right"></i> Log In
-              </button>
-            </div>
-          </form>
+              <div class="row">
+                <button type="submit" class="mt-5 btn btn-primary shadow-lg mx-auto">
+                  <i class="bi bi-box-arrow-in-right"></i> Log In
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      <?php } elseif (isset($_SESSION['loggedin'])) { ?>
+        <div class="card mx-auto shadow-lg text-white mb-3 panel panel-default">
+          <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-person-fill"></i> Welcome <?php echo $_SESSION['email'] ?></h1>
+          <div class="card-body panel-body">
+            <p>Hier komt de login interface!</p>
+          </div>
+        </div>
+      <?php } ?>
     </div>
     <div class="row">
       <div id="draggablePanelList" class="col connectedSortable">

@@ -8,7 +8,6 @@ $con = "sqlite:$db";
 
 try {
   $pdo = new PDO($con);
-  echo 'Connected to the SQLite database succesfully!';
 } catch (PDOException $e) {
   echo $e->getMessage();
 }
@@ -43,7 +42,7 @@ if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')
       $_SESSION['loggedin'] = TRUE;
       $_SESSION['email'] = $_POST['email'];
       $_SESSION['id'] = $id;
-      echo 'Welcome back, ' . htmlspecialchars($_SESSION['email'], ENT_QUOTES) . '!';
+      header('Location: ../index.php');
     } else {
       // Incorrect password
       echo 'Incorrect username and/or password!';
