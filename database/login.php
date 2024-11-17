@@ -42,15 +42,15 @@ if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')
       $_SESSION['loggedin'] = TRUE;
       $_SESSION['email'] = $_POST['email'];
       $_SESSION['id'] = $id;
-      header('Location: ../index.php');
+      header('Location: ../');
     } else {
       // Incorrect password
       $_SESSION['message'] = 'Verkeerd wachtwoord.';
-      header('Location: ../index.php');
+      header('Location: ../');
     }
   } else {
     // Incorrect username
     $_SESSION['message'] = 'Verkeerd email adres.';
-    header('Location: ../index.php');
+    header('Location: ../');
   }
 }
