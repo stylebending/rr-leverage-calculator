@@ -15,7 +15,7 @@ try {
 // Now we check if the data from the login form was submitted, isset() will check if the data exists.
 if (!isset($_POST['email'], $_POST['password'])) {
   // Could not get the data that should have been sent.
-  exit('Please fill both the email and password fields!');
+  $_SESSION['message'] = 'Vul alle velden in.';
 }
 
 $pdo = new PDO($con);
@@ -26,9 +26,9 @@ if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')
   $stmt->execute([
     ':email' => $_POST['email']
   ]);
+  $result = $stmt->fetch();
 
-  if ($stmt) {
-    $result = $stmt->fetch();
+  if ($result !== false) {
 
     $id = $result['id'];
     $password = $result['password'];
@@ -45,10 +45,12 @@ if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')
       header('Location: ../index.php');
     } else {
       // Incorrect password
-      echo 'Incorrect username and/or password!';
+      $_SESSION['message'] = 'Verkeerd wachtwoord.';
+      header('Location: ../index.php');
     }
   } else {
     // Incorrect username
-    echo 'Incorrect username and/or password!';
+    $_SESSION['message'] = 'Verkeerd email adres.';
+    header('Location: ../index.php');
   }
 }

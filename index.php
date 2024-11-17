@@ -21,6 +21,12 @@
         <div class="card shadow-lg text-white mb-3 panel panel-default">
           <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-person-fill"></i> Log In</h1>
           <div class="card-body panel-body">
+            <?php if (isset($_SESSION['message'])) { ?>
+              <div class="row">
+                <div id="loginError" class="alert alert-danger"><?php echo $_SESSION['message'] ?></div>
+                <?php unset($_SESSION['message']) ?>
+              </div>
+            <?php } ?>
             <form id="loginForm" class="p-5 w-50 mx-auto" action="database/login.php" method="POST">
               <div class="row">
                 <label for="email" class="text-start">Email</label>
