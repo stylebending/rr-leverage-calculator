@@ -7,7 +7,8 @@ $statements = [
 	`id` INTEGER PRIMARY KEY UNIQUE,
   `email` varchar(100) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
-  `apiks` text UNIQUE
+  `apiks` text UNIQUE,
+  `activation_code` varchar(50) DEFAULT "" NOT NULL
 )'
 ];
 

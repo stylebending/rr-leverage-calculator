@@ -44,18 +44,26 @@ if ($_POST['registercheckbox'] === "on") {
       header('Location: ../');
     } else {
       // Username doesn't exists, insert new account
-      if ($stmt = $pdo->prepare('INSERT INTO users (email, password) VALUES (:email, :password)')) {
+      if ($stmt = $pdo->prepare('INSERT INTO users (email, password, activation_code) VALUES (:email, :password, :activation_code)')) {
         // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $uniqid = uniqid();
         $stmt->execute([
           ':email' => htmlspecialchars($_POST['email']),
-          ':password' => $password
+          ':password' => $password,
+          ':activation_code' => $uniqid
         ]);
-        $_SESSION['success'] = 'Succesvol geregistreerd, je kan nu inloggen.';
+        $from    = 'activation@besterestaurantsnederland.nl';
+        $subject = 'Account Activatie';
+        $headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $from . "\r\n" . 'X-Mailer: PHP/' . phpversion() . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+        // Update the activation variable below
+        $activate_link = 'localhost:8000/database/activate.php?email=' . htmlspecialchars($_POST['email']) . '&code=' . $uniqid;
+        $message = '<p>Klik op deze link om je account te activeren: <a href="' . $activate_link . '">' . $activate_link . '</a></p>';
+        mail($_POST['email'], $subject, $message, $headers);
+        $_SESSION['success'] = 'Check je email adres om je account te activeren!';
         header('Location: ../');
       } else {
         // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
-        echo 'Could not prepare statement!';
         $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
         header('Location: ../');
       }
@@ -65,7 +73,7 @@ if ($_POST['registercheckbox'] === "on") {
     $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
     header('Location: ../');
   }
-} else if ($_POST['registercheckbox'] !== "on" && $stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')) {
+} else if ($_POST['registercheckbox'] !== "on" && $stmt = $pdo->prepare('SELECT id, password, activation_code FROM users WHERE email = :email')) {
   // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
   // Bind :email to user input email
   $stmt->execute([
@@ -80,22 +88,29 @@ if ($_POST['registercheckbox'] === "on") {
 
     // Account exists, now we verify the password.
     // Note: remember to use password_hash in your registration file to store the hashed passwords.
-    if (password_verify($_POST['password'], $password)) {
-      // Verification success! User has logged-in!
-      // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
-      session_regenerate_id();
-      $_SESSION['loggedin'] = TRUE;
-      $_SESSION['email'] = htmlspecialchars($_POST['email']);
-      $_SESSION['id'] = $id;
-      header('Location: ../');
+    if ($result['activation_code'] == 'activated') {
+      // Account is activated
+      if (password_verify($_POST['password'], $password)) {
+        // Verification success! User has logged-in!
+        // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
+        session_regenerate_id();
+        $_SESSION['loggedin'] = TRUE;
+        $_SESSION['email'] = htmlspecialchars($_POST['email']);
+        $_SESSION['id'] = $id;
+        header('Location: ../');
+      } else {
+        // Incorrect password
+        $_SESSION['message'] = 'Verkeerd wachtwoord.';
+        header('Location: ../');
+      }
     } else {
-      // Incorrect password
-      $_SESSION['message'] = 'Verkeerd wachtwoord.';
+      // Account is not activated
+      $_SESSION['message'] = 'Activeer je account voordat je verder kunt, check je email.';
       header('Location: ../');
     }
   } else {
     // Incorrect email 
-    $_SESSION['message'] = 'Verkeerd email adres.';
+    $_SESSION['message'] = 'Verkeerd email adres ingevoerd of nog geen account aangemaakt.';
     header('Location: ../');
   }
 }
