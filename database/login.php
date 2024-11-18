@@ -20,11 +20,56 @@ if (!isset($_POST['email'], $_POST['password'])) {
 
 $pdo = new PDO($con);
 
-// Prepare our SQL, preparing the SQL statement will prevent SQL injection.
-if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')) {
+if ($_POST['registercheckbox'] === "on") {
+  // Register a user
+  // We need to check if the account with that username exists.
+  if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['message'] = 'Vul een correct email adres in.';
+    header('Location: ../');
+  }
+  if (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 5) {
+    $_SESSION['message'] = 'Wachtwoord moet tussen de 5 en 20 tekens bevatten.';
+    header('Location: ../');
+  }
+  if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')) {
+    // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
+    $stmt->execute([
+      ':email' => htmlspecialchars($_POST['email'])
+    ]);
+    $result = $stmt->fetch();
+    // Store the result so we can check if the account exists in the database.
+    if ($result !== false) {
+      // Username already exists
+      $_SESSION['message'] = 'Dit email adres heeft al een account, probeer in te loggen.';
+      header('Location: ../');
+    } else {
+      // Username doesn't exists, insert new account
+      if ($stmt = $pdo->prepare('INSERT INTO users (email, password) VALUES (:email, :password)')) {
+        // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $stmt->execute([
+          ':email' => htmlspecialchars($_POST['email']),
+          ':password' => $password
+        ]);
+        $_SESSION['success'] = 'Succesvol geregistreerd, je kan nu inloggen.';
+        header('Location: ../');
+      } else {
+        // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
+        echo 'Could not prepare statement!';
+        $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
+        header('Location: ../');
+      }
+    }
+  } else {
+    // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all 3 fields.
+    $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
+    header('Location: ../');
+  }
+} else if ($_POST['registercheckbox'] !== "on" && $stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')) {
+  // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
   // Bind :email to user input email
   $stmt->execute([
-    ':email' => $_POST['email']
+    ':email' => htmlspecialchars($_POST['email'])
   ]);
   $result = $stmt->fetch();
 
@@ -40,7 +85,7 @@ if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')
       // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
       session_regenerate_id();
       $_SESSION['loggedin'] = TRUE;
-      $_SESSION['email'] = $_POST['email'];
+      $_SESSION['email'] = htmlspecialchars($_POST['email']);
       $_SESSION['id'] = $id;
       header('Location: ../');
     } else {
@@ -49,7 +94,7 @@ if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')
       header('Location: ../');
     }
   } else {
-    // Incorrect username
+    // Incorrect email 
     $_SESSION['message'] = 'Verkeerd email adres.';
     header('Location: ../');
   }

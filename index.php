@@ -24,7 +24,17 @@
             <?php if (isset($_SESSION['message'])) { ?>
               <div class="row">
                 <div id="loginError" class="alert alert-danger"><?php echo $_SESSION['message'] ?></div>
-                <?php unset($_SESSION['message']) ?>
+                <?php if (isset($_SESSION['message'])) {
+                  unset($_SESSION['message']);
+                } ?>
+              </div>
+            <?php } ?>
+            <?php if (isset($_SESSION['success'])) { ?>
+              <div class="row">
+                <div id="loginSuccess" class="alert alert-success"><?php echo $_SESSION['success'] ?></div>
+                <?php if (isset($_SESSION['success'])) {
+                  unset($_SESSION['success']);
+                } ?>
               </div>
             <?php } ?>
             <form id="loginForm" class="p-5 w-50 mx-auto" action="database/login.php" method="POST">
@@ -42,6 +52,12 @@
                     <span class="input-group-text"><i class="bi bi-key"></i></span>
                   </div>
                   <input type="password" class="form-control" id="password" name="password" placeholder="wachtwoord" required />
+                </div>
+              </div>
+              <div class="row p-3 mt-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="registercheckbox" name="registercheckbox">
+                  <label class="form-check-label" for="registercheckbox">Registreren</label>
                 </div>
               </div>
               <div class="row">

@@ -4,11 +4,10 @@ require_once 'config.php';
 
 $statements = [
   'CREATE TABLE IF NOT EXISTS `users` (
-	`id` int(11) NOT NULL UNIQUE,
+	`id` INTEGER PRIMARY KEY UNIQUE,
   `email` varchar(100) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
-  `apiks` text UNIQUE,
-   PRIMARY KEY (`id`)
+  `apiks` text UNIQUE
 )'
 ];
 
