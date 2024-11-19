@@ -74,9 +74,18 @@
             <h1 class="card-header text-center shadow-lg p-3 panel-heading">
               <i class="bi bi-person-fill"></i> Welkom <?php echo $_SESSION['email'] ?>
               <a href="database/logout.php" class="btn btn-primary d-inline float-end"><i class="bi bi-box-arrow-right"></i> Log Out</a>
+              <a href="addaccount.php" class="btn btn-success d-inline float-end mx-2"><i class="bi bi-plus-lg"></i> Account toevoegen</a>
             </h1>
-            <div class="card-body panel-body">
-              <p>Hier komt de login interface!</p>
+            <div class="card-body panel-body p-5">
+              <div class="row">
+                <?php if (isset($_SESSION['accounts'])) { ?>
+                  <?php foreach ($_SESSION['accounts'] as $accounts) { ?>
+                    <!-- TODO: display accounts here with delete button and make delete button work (make new file database/deletekey.php) -->
+                  <?php } ?>
+                <?php } else { ?>
+                  <p>Je hebt nog geen accounts toegevoegd.</p>
+                <?php } ?>
+              </div>
             </div>
           </div>
         <?php } ?>
@@ -130,11 +139,6 @@
                 <button type="button" class="add-fields-sl m-2 btn btn-danger shadow-lg">
                   <i class="bi bi-plus-lg"></i> SL Toevoegen
                 </button>
-              </div>
-              <div class="row">
-                <p class="mt-5">
-                  <i class="bi bi-info-circle"></i> Als je SL meegeeft, gebruik dan de SL knop
-                </p>
               </div>
             </form>
           </div>

@@ -1,5 +1,5 @@
 // JS that handles creating new TPs and AJAX requests
-$(function () {
+$(function() {
   // Defining variables
   var $form = $("#my-form");
   var $levForm = $("#lev-form");
@@ -9,7 +9,7 @@ $(function () {
   var slTpCount = 0;
 
   // Function to add TPs when user wants to
-  $form.on("click", ".add-fields", function () {
+  $form.on("click", ".add-fields", function() {
     // Setting the unique tpCount per tp
     tpCount += 1;
 
@@ -105,7 +105,7 @@ $(function () {
   });
 
   // Function to add SL as TP when user wants to
-  $form.on("click", ".add-fields-sl", function () {
+  $form.on("click", ".add-fields-sl", function() {
     // Setting the unique tpCount per sl as tp
     if (slTpCount === 0) {
       slTpCount += 1;
@@ -202,7 +202,7 @@ $(function () {
       let $error = $("#error");
 
       $error.removeClass("d-none").html("Je kan maximaal 1 SL meegeven.");
-      setTimeout(function () {
+      setTimeout(function() {
         errorToHide = document.getElementById("error");
         errorToHide.classList.add("d-none");
       }, 3000);
@@ -210,18 +210,18 @@ $(function () {
   });
 
   // Function to remove TPs when user wants to
-  $form.on("click", ".remove-fields", function (event) {
+  $form.on("click", ".remove-fields", function(event) {
     $(event.target).closest(".tp-fields").remove();
   });
 
   // Function to remove SL as TPs when user wants to
-  $form.on("click", ".remove-sl-tp-fields", function (event) {
+  $form.on("click", ".remove-sl-tp-fields", function(event) {
     slTpCount -= 1;
     $(event.target).closest(".sl-tp-fields").remove();
   });
 
   // If toggled on show the extra fields
-  $levForm.on("click", "#kacheckbox", function () {
+  $levForm.on("click", "#kacheckbox", function() {
     if (document.getElementById("kacheckbox").checked === true) {
       // First input field
       var kalabel = document.createElement("label");
@@ -293,7 +293,7 @@ $(function () {
   });
 
   // Form submit and AJAX request
-  $form.on("submit", function (e) {
+  $form.on("submit", function(e) {
     e.preventDefault();
 
     // Getting the error en resdata div
@@ -306,11 +306,11 @@ $(function () {
       url: "api/calculate.php",
       data: $(this).serialize(),
     })
-      .then(function (res) {
+      .then(function(res) {
         let data = JSON.parse(res);
         if (data.error) {
           $error.removeClass("d-none").html(data.error);
-          setTimeout(function () {
+          setTimeout(function() {
             errorToHide = document.getElementById("error");
             errorToHide.classList.add("d-none");
           }, 3000);
@@ -320,10 +320,10 @@ $(function () {
           return;
         }
       })
-      .fail(function (res) {
+      .fail(function(res) {
         let data = JSON.parse(res);
         $error.removeClass("d-none").html(data.error);
-        setTimeout(function () {
+        setTimeout(function() {
           errorToHide = document.getElementById("error");
           errorToHide.classList.add("d-none");
         }, 3000);
@@ -331,7 +331,7 @@ $(function () {
   });
 
   // LevForm submit and AJAX request
-  $levForm.on("submit", function (e) {
+  $levForm.on("submit", function(e) {
     e.preventDefault();
 
     // Getting the error en resdata div
@@ -344,7 +344,7 @@ $(function () {
       url: "api/calculate.php",
       data: $(this).serialize(),
     })
-      .then(function (res) {
+      .then(function(res) {
         console.log(res);
         let data = JSON.parse(res);
         if (data.error) {
@@ -356,15 +356,15 @@ $(function () {
               .removeClass("d-none")
               .html(
                 "Leverage: " +
-                  data.lev +
-                  "<br>" +
-                  "Positiegrootte: " +
-                  '<i class="bi bi-currency-dollar"></i>' +
-                  data.bedrag +
-                  "<br>" +
-                  "Risk bedrag: " +
-                  '<i class="bi bi-currency-dollar"></i>' +
-                  data.rbedrag,
+                data.lev +
+                "<br>" +
+                "Positiegrootte: " +
+                '<i class="bi bi-currency-dollar"></i>' +
+                data.bedrag +
+                "<br>" +
+                "Risk bedrag: " +
+                '<i class="bi bi-currency-dollar"></i>' +
+                data.rbedrag,
               );
           } else if (typeof data.bedrag === "undefined") {
             $levdata.removeClass("d-none").html("Leverage: " + data.lev);
@@ -372,12 +372,12 @@ $(function () {
           return;
         }
       })
-      .fail(function () {
+      .fail(function() {
         $error.removeClass("d-none").html(data.error);
       });
   });
 
-  $(function () {
+  $(function() {
     $("#draggablePanelList, #draggablePanelList2")
       .sortable({
         connectWith: ".connectedSortable",
