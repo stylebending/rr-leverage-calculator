@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 require_once 'config.php';
@@ -17,20 +16,19 @@ $pdo = new PDO($con);
 $result = false;
 
 if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
-  // TODO: somehow this query only works per user, if we remove the email condition it doesn't work try and debug with vardumpdie
-  if ($stmt = $pdo->prepare('SELECT apiks FROM users WHERE email = :email')) {
+  if ($stmt = $pdo->prepare('SELECT apiks FROM users')) {
     // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
-    $stmt->execute([
-      ':email' => $_SESSION['email']
-    ]);
+    $stmt->execute();
     $apiks = $stmt->fetchAll();
-    $dbapiks = $apiks[0]['apiks'];
-    $explodeddbapiks = explode('}', $dbapiks);
-    foreach ($explodeddbapiks as $key => $value) {
-      $valuetodecode = json_decode($value . "}");
-      foreach ($valuetodecode as $key => $value) {
-        if (password_verify($_POST['apikey'], $key)) {
-          $result = true;
+    foreach ($apiks as $newapiks) {
+      $dbapiks = $newapiks['apiks'];
+      $explodeddbapiks = explode('}', $dbapiks);
+      foreach ($explodeddbapiks as $key => $value) {
+        $valuetodecode = json_decode($value . "}");
+        foreach ($valuetodecode as $key => $value) {
+          if (password_verify($_POST['apikey'], $key)) {
+            $result = true;
+          }
         }
       }
     }
@@ -57,6 +55,7 @@ if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
         ]);
         $_SESSION['success'] = 'Account toegevoegd!';
         header('Location: ../');
+        exit();
       } else {
         // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
         $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
