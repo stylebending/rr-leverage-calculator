@@ -20,7 +20,7 @@ if (!isset($_POST['email'], $_POST['password'])) {
 
 $pdo = new PDO($con);
 
-if ($_POST['registercheckbox'] === "on") {
+if (isset($_POST['registercheckbox']) === "on") {
   // Register a user
   // We need to check if the account with that username exists.
   if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -73,7 +73,7 @@ if ($_POST['registercheckbox'] === "on") {
     $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
     header('Location: ../');
   }
-} else if ($_POST['registercheckbox'] !== "on" && $stmt = $pdo->prepare('SELECT id, password, activation_code FROM users WHERE email = :email')) {
+} else if (isset($_POST['registercheckbox']) !== "on" && $stmt = $pdo->prepare('SELECT id, password, activation_code FROM users WHERE email = :email')) {
   // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
   // Bind :email to user input email
   $stmt->execute([

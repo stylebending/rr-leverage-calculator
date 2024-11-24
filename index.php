@@ -1,4 +1,9 @@
-<?php session_start() ?>
+<?php if (!session_id()) {
+  session_start();
+} ?>
+<?php if (isset($_SESSION['loggedin'])) {
+  require 'api/phemex.php';
+} ?>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -70,9 +75,10 @@
             </div>
           </div>
         <?php } elseif (isset($_SESSION['loggedin'])) { ?>
+          Phemex server tijd: <?php getServerTime() ?>
           <div class="card shadow-lg text-white mb-3 panel panel-default">
             <h1 class="card-header text-center shadow-lg p-3 panel-heading">
-              <i class="bi bi-person-fill"></i> Welkom <?php echo $_SESSION['email'] ?>
+              <p class="float-start"><i class="bi bi-person-fill"></i> Welkom <?php echo $_SESSION['email'] ?></p>
               <a href="database/logout.php" class="btn btn-primary d-inline float-end"><i class="bi bi-box-arrow-right"></i> Log Out</a>
               <a href="addaccount.php" class="btn btn-success d-inline float-end mx-2"><i class="bi bi-plus-lg"></i> Account toevoegen</a>
             </h1>
