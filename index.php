@@ -84,13 +84,7 @@
             </h1>
             <div class="card-body panel-body p-5">
               <div class="row">
-                <?php if (isset($_SESSION['accounts'])) { ?>
-                  <?php foreach ($_SESSION['accounts'] as $accounts) { ?>
-                    <!-- TODO: display accounts here with delete button and make delete button work (make new file database/deletekey.php) -->
-                  <?php } ?>
-                <?php } else { ?>
-                  <p>Je hebt nog geen accounts toegevoegd.</p>
-                <?php } ?>
+                <?php getClosedTrades() ?>
               </div>
             </div>
           </div>

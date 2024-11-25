@@ -15,6 +15,9 @@ $pdo = new PDO($con);
 
 $result = false;
 
+$cipher_algo = 'AES-256-CBC';
+$key = 'fejJoPDtzZF7u6gwGYzS8QOIRK0A8c0r';
+
 if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
   if ($stmt = $pdo->prepare('SELECT apiks FROM users')) {
     // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
@@ -24,11 +27,11 @@ if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
       $dbapiks = $newapiks['apiks'];
       if ($dbapiks !== null) {
         $explodeddbapiks = explode('}', $dbapiks);
-        foreach ($explodeddbapiks as $key => $value) {
+        foreach ($explodeddbapiks as $explodeddbkey => $value) {
           $valuetodecode = json_decode($value . "}");
           if ($valuetodecode !== null) {
-            foreach ($valuetodecode as $key => $value) {
-              if (password_verify($_POST['apikey'], $key)) {
+            foreach ($valuetodecode as $dbkey => $value) {
+              if (openssl_decrypt($dbkey, $cipher_algo, $key) === $_POST['apikey']) {
                 $result = true;
               }
             }
@@ -48,11 +51,11 @@ if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
       ]);
       $apiks = $stmt->fetchAll();
       $dbapiks = $apiks[0]['apiks'];
-      $newapiks = json_encode([password_hash($_POST['apikey'], PASSWORD_DEFAULT) => password_hash($_POST['apisecret'], PASSWORD_DEFAULT)]);
+      $newapiks = json_encode([openssl_encrypt($_POST['apikey'], $cipher_algo, $key) => openssl_encrypt($_POST['apisecret'], $cipher_algo, $key)]);
+      // $newapiks = json_encode([password_hash($_POST['apikey'], PASSWORD_DEFAULT) => password_hash($_POST['apisecret'], PASSWORD_DEFAULT)]);
       $newdbapiks = $dbapiks . $newapiks;
       if ($stmt = $pdo->prepare('UPDATE users SET apiks = :apiks WHERE email = :email')) {
         // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
-        $apiks = [password_hash($_POST['apikey'], PASSWORD_DEFAULT) => password_hash($_POST['apisecret'], PASSWORD_DEFAULT)];
         $stmt->execute([
           ':apiks' => $newdbapiks,
           ':email' => htmlspecialchars($_SESSION['email'])
