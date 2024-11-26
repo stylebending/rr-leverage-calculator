@@ -53,7 +53,6 @@ function getClosedTrades()
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
             // TODO: OP PHEMEX API GITHUB (TAB STAAT OPEN) STAAT GOEIE LOGICA VOOR IF ERROR OF NIET, OVERNEMEN
-            // TODO: de $m - 1 hieronder heel het jaar door werkend maken
             // TODO: https://phemex-docs.github.io/#query-closed-positions
             $requestPath = "/api-data/g-futures/closedPosition";
             $queryString = "";
