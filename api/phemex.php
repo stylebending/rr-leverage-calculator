@@ -52,8 +52,6 @@ function getClosedTrades()
             $d = date("d", $now);
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
-            // TODO: OP PHEMEX API GITHUB (TAB STAAT OPEN) STAAT GOEIE LOGICA VOOR IF ERROR OF NIET, OVERNEMEN
-            // TODO: https://phemex-docs.github.io/#query-closed-positions
             $requestPath = "/api-data/g-futures/closedPosition";
             $queryString = "";
             $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
@@ -76,6 +74,7 @@ function getClosedTrades()
             {
               return (substr(strval($value), 0, 1) == "-");
             }
+            echo '<h3 class="mb-3">Afgelopen trades </h3><small class="mb-3">(volgens API gelimiteerd voor afgelopen 90 dagen)</small>';
             foreach ($tradeHistory as $trade => $tradeData) {
               $actDateUnix = round($tradeData['openedTimeNs'] / 1000);
               $actUpdateUnix = round($tradeData['updatedTimeNs'] / 1000);
@@ -95,7 +94,6 @@ function getClosedTrades()
               $tFundingFeeRv = round($tradeData['fundingFeeRv'], 2);
               $tRoi = round($tradeData['roi'], 2) * 100;
               $tLeverage = $tradeData['leverage'];
-              // TODO: formule hieronder werkend maken zodat de echte RR wordt berekend met de info die we hebben, of anders TPs queryen?
               if ($tClosedPnlRv != 0 && $tRoi != 0) {
                 $tRisk = round($tClosedPnlRv / ($tRoi / 100), 2);
                 $tRr = round($tClosedPnlRv / $tRisk, 2);
@@ -103,13 +101,14 @@ function getClosedTrades()
                 $tRisk = "";
                 $tRr = "";
               }
+
               if (hasMinusSign($tClosedPnlRv)) {
                 $wl = "Loss";
               } else {
                 $wl = "Win";
               }
               echo '<div class="card tCard shadow-lg text-white mb-3">' .
-                '<h5 class="card-header float-start">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><label class="float-end">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
+                '<h5 class="card-header float-start shadow-lg">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><label class="float-end">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
                 '<div class="card-body row p-5">' .
                 '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
                 "Pair: " . $tSymbol . "<br>" .
