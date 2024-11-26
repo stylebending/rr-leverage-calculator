@@ -97,8 +97,8 @@ function getClosedTrades()
               $tLeverage = $tradeData['leverage'];
               // TODO: formule hieronder werkend maken zodat de echte RR wordt berekend met de info die we hebben, of anders TPs queryen?
               if ($tClosedPnlRv != 0 && $tRoi != 0) {
-                $tRisk = $tClosedPnlRv / ($tRoi / 100);
-                $tRr = $tClosedPnlRv / $tRisk;
+                $tRisk = round($tClosedPnlRv / ($tRoi / 100), 2);
+                $tRr = round($tClosedPnlRv / $tRisk, 2);
               } else {
                 $tRisk = "";
                 $tRr = "";
@@ -123,7 +123,7 @@ function getClosedTrades()
                 '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
                 "Prijs geopened: "  . "$ " . $tOpenPrice . "<br>" .
                 "Prijs gesloten: "  . "$ " . $tClosePrice . "<br>" .
-                "Positiegrootte: "  . "$ " . $tClosedSize . "<br>" .
+                "Positiegrootte: " . $tClosedSize . "<br>" .
                 "Gesloten PnL: " . "$ " . $tClosedPnlRv . "<br>" .
                 "</div>" .
                 '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
