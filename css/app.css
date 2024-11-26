@@ -7,6 +7,10 @@ body {
   background-color: #1E2761;
 }
 
+.tCard {
+  background-color: #111739;
+}
+
 .form-control {
   font-weight: bold;
 }
@@ -32,6 +36,7 @@ body {
 #draggablePanelList .panel-heading {
   cursor: move;
 }
+
 #draggablePanelList2 .panel-heading {
   cursor: move;
 }

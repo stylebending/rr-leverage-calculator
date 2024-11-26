@@ -72,6 +72,10 @@ function getClosedTrades()
             $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
             $responseData = json_decode($response, true);
             $tradeHistory = $responseData['data'];
+            function hasMinusSign($value)
+            {
+              return (substr(strval($value), 0, 1) == "-");
+            }
             foreach ($tradeHistory as $trade => $tradeData) {
               $actDateUnix = round($tradeData['openedTimeNs'] / 1000);
               $actUpdateUnix = round($tradeData['updatedTimeNs'] / 1000);
@@ -91,18 +95,45 @@ function getClosedTrades()
               $tFundingFeeRv = round($tradeData['fundingFeeRv'], 2);
               $tRoi = round($tradeData['roi'], 2) * 100;
               $tLeverage = $tradeData['leverage'];
-              echo "Datum geopened: " . $tOpenDate . "<br>" .
-                "Datum gesloten: " . $tUpdateDate . "<br>" .
+              // TODO: formule hieronder werkend maken zodat de echte RR wordt berekend met de info die we hebben, of anders TPs queryen?
+              if ($tClosedPnlRv != 0 && $tRoi != 0) {
+                $tRisk = $tClosedPnlRv / ($tRoi / 100);
+                $tRr = $tClosedPnlRv / $tRisk;
+              } else {
+                $tRisk = "";
+                $tRr = "";
+              }
+              if (hasMinusSign($tClosedPnlRv)) {
+                $wl = "Loss";
+              } else {
+                $wl = "Win";
+              }
+              echo '<div class="card tCard shadow-lg text-white mb-3">' .
+                '<h5 class="card-header float-start">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><label class="float-end">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
+                '<div class="card-body row p-5">' .
+                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
                 "Pair: " . $tSymbol . "<br>" .
                 "Richting: " . $tSide . "<br>" .
+                "Win/Loss: " . $wl . "<br>" .
+                "</div>" .
+                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
+                "Fees betaald: " . "$ " . $tExchangeFeeRv . "<br>" .
+                "Funding betaald: " . "$ " . $tFundingFeeRv . "<br>" .
+                "</div>" .
+                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
                 "Prijs geopened: "  . "$ " . $tOpenPrice . "<br>" .
                 "Prijs gesloten: "  . "$ " . $tClosePrice . "<br>" .
                 "Positiegrootte: "  . "$ " . $tClosedSize . "<br>" .
                 "Gesloten PnL: " . "$ " . $tClosedPnlRv . "<br>" .
-                "Fees betaald: " . "$ " . $tExchangeFeeRv . "<br>" .
-                "Funding betaald: " . "$ " . $tFundingFeeRv . "<br>" .
+                "</div>" .
+                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
                 "ROI: " . $tRoi . " " . "%" . "<br>" .
-                "Leverage: " . $tLeverage;
+                "Leverage: " . $tLeverage . "<br>" .
+                "risk = " . $tRisk . "<br>" .
+                "RR = " . $tRr . "<br>" .
+                "</div>" .
+                "</div>" .
+                "</div>";
               echo "<br>";
               echo "<br>";
             }
