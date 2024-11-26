@@ -44,38 +44,48 @@ function getClosedTrades()
           foreach ($valuetodecode as $dbkey => $value) {
             $actKey = openssl_decrypt($dbkey, $cipher_algo, $key);
             $actSec = openssl_decrypt($value, $cipher_algo, $key);
-            echo $actKey;
-            echo "<br>";
-            echo $actSec;
-            echo "<br>";
             $now = time();
             $h = date("H", $now);
-            $i = date("i", $now);
+            $i = date("i", $now) + 1;
             $s = date("s", $now);
             $m = date("m", $now);
             $d = date("d", $now);
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
-            // TODO: API CALLS GELUKT!!! nu moeten we de juiste request path en string vinden, deze hieronder nu geven alle ingegeven orders ipv alleen echte orders denk ik
-            $requestPath = "/exchange/public/nomics/trades";
-            $queryString = "?market=BTCUSD&since=0-0-0";
-            $stringToHash = $requestPath . $queryString . $expiry;
+            $symbol = "BTCUSD";
+            $currency = "USDT";
+            $start = mktime($h, $i, $s, $m - 1, $d, $y);
+            $end = $now;
+            $offset = 0;
+            $limit = 100;
+            // TODO: https://phemex-docs.github.io/#query-open-orders-by-symbol-2
+            $requestPath = "/exchange/order/v2/orderList";
+            $queryString = "?currency=" . $currency . "&start=" . $start . "&end=" . $end . "&offset=" . $offset . "&limit=" . $limit;
+            $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
+            $signature = hash_hmac('sha256', $stringToHash, $actSec);
             $context = stream_context_create([
               'http' => [
                 'method' => 'GET',
                 'header' => [
-                  'x-phemex-access-token:' . $actKey,
-                  'x-phemex-request-expiry:' . $expiry,
-                  'x-phemex-request-signature:' . hash_hmac('sha256', $stringToHash, $actSec)
+                  'Content-Type: application/json',
+                  'x-phemex-access-token: ' . $actKey,
+                  'x-phemex-request-expiry: ' . $expiry,
+                  'x-phemex-request-signature: ' . $signature
                 ],
               ]
             ]);
             $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
             $responseData = json_decode($response, true);
+            var_dump($responseData);
+            die();
             $tradeHistory = $responseData['data'];
             foreach ($tradeHistory as $trade => $tradeData) {
-              $timestamp = $tradeData['timestamp'];
-              echo $timestamp . "<br>";
+              $actDateUnix = round($tradeData['updatedTimeNs'] / 1000000000);
+              $actDate = date("d-m-Y H:i:s", $actDateUnix);
+              $deze = $tradeData['symbol'];
+              var_dump($actDate);
+              echo "<br>";
+              var_dump($deze);
             }
           }
         }
