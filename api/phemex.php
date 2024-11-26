@@ -52,15 +52,11 @@ function getClosedTrades()
             $d = date("d", $now);
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
-            $symbol = "BTCUSD";
-            $currency = "USDT";
-            $start = mktime($h, $i, $s, $m - 1, $d, $y);
-            $end = $now;
-            $offset = 0;
-            $limit = 100;
-            // TODO: https://phemex-docs.github.io/#query-open-orders-by-symbol-2
-            $requestPath = "/exchange/order/v2/orderList";
-            $queryString = "?currency=" . $currency . "&start=" . $start . "&end=" . $end . "&offset=" . $offset . "&limit=" . $limit;
+            // TODO: OP PHEMEX API GITHUB (TAB STAAT OPEN) STAAT GOEIE LOGICA VOOR IF ERROR OF NIET, OVERNEMEN
+            // TODO: de $m - 1 hieronder heel het jaar door werkend maken
+            // TODO: https://phemex-docs.github.io/#query-closed-positions
+            $requestPath = "/api-data/g-futures/closedPosition";
+            $queryString = "";
             $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
             $signature = hash_hmac('sha256', $stringToHash, $actSec);
             $context = stream_context_create([
@@ -76,16 +72,40 @@ function getClosedTrades()
             ]);
             $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
             $responseData = json_decode($response, true);
-            var_dump($responseData);
-            die();
             $tradeHistory = $responseData['data'];
             foreach ($tradeHistory as $trade => $tradeData) {
-              $actDateUnix = round($tradeData['updatedTimeNs'] / 1000000000);
-              $actDate = date("d-m-Y H:i:s", $actDateUnix);
-              $deze = $tradeData['symbol'];
-              var_dump($actDate);
+              $actDateUnix = round($tradeData['openedTimeNs'] / 1000);
+              $actUpdateUnix = round($tradeData['updatedTimeNs'] / 1000);
+              $tOpenDate = date("d-m-Y H:i:s", $actDateUnix);
+              $tUpdateDate = date("d-m-Y H:i:s", $actUpdateUnix);
+              $tSymbol = $tradeData['symbol'];
+              if ($tradeData['side'] === 1) {
+                $tSide = "Long";
+              } else if ($tradeData['side'] === 2) {
+                $tSide = "Short";
+              }
+              $tOpenPrice = round($tradeData['openPrice'], 4);
+              $tClosePrice = round($tradeData['closePrice'], 4);
+              $tClosedSize = $tradeData['closedSizeRq'];
+              $tClosedPnlRv = round($tradeData['closedPnlRv'], 2);
+              $tExchangeFeeRv = round($tradeData['exchangeFeeRv'], 2);
+              $tFundingFeeRv = round($tradeData['fundingFeeRv'], 2);
+              $tRoi = round($tradeData['roi'], 2) * 100;
+              $tLeverage = $tradeData['leverage'];
+              echo "Datum geopened: " . $tOpenDate . "<br>" .
+                "Datum gesloten: " . $tUpdateDate . "<br>" .
+                "Pair: " . $tSymbol . "<br>" .
+                "Richting: " . $tSide . "<br>" .
+                "Prijs geopened: "  . "$ " . $tOpenPrice . "<br>" .
+                "Prijs gesloten: "  . "$ " . $tClosePrice . "<br>" .
+                "Positiegrootte: "  . "$ " . $tClosedSize . "<br>" .
+                "Gesloten PnL: " . "$ " . $tClosedPnlRv . "<br>" .
+                "Fees betaald: " . "$ " . $tExchangeFeeRv . "<br>" .
+                "Funding betaald: " . "$ " . $tFundingFeeRv . "<br>" .
+                "ROI: " . $tRoi . " " . "%" . "<br>" .
+                "Leverage: " . $tLeverage;
               echo "<br>";
-              var_dump($deze);
+              echo "<br>";
             }
           }
         }
