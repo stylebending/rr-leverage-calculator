@@ -14,6 +14,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
   <script src="js/jquery-3.7.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
+  <script src="js/app.js"></script>
   <link rel="stylesheet" href="css/bootstrap-icons.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css">
@@ -186,7 +187,14 @@
             </h1>
             <div class="card-body panel-body p-5">
               <div class="row">
-                <?php getClosedTrades() ?>
+                <div class="col border-primary-subtle border-end">
+                  <h3 class="mb-3">Gesloten USDT Trades</h3>
+                  <?php getClosedPositions() ?>
+                </div>
+                <div class="col">
+                  <h3 class="mb-3">Gesloten Inverse Trades</h3>
+                  <?php getClosedInversePositions() ?>
+                </div>
               </div>
             </div>
           </div>
@@ -194,7 +202,6 @@
       </div>
     </div>
   </div>
-  <script src="js/app.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
