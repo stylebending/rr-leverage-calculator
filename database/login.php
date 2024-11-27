@@ -19,8 +19,7 @@ if (!isset($_POST['email'], $_POST['password'])) {
 }
 
 $pdo = new PDO($con);
-
-if (isset($_POST['registercheckbox']) === "on") {
+if (isset($_POST['registercheckbox']) == "on") {
   // Register a user
   // We need to check if the account with that username exists.
   if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -57,7 +56,7 @@ if (isset($_POST['registercheckbox']) === "on") {
         $subject = 'Account Activatie';
         $headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $from . "\r\n" . 'X-Mailer: PHP/' . phpversion() . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-Type: text/html; charset=UTF-8' . "\r\n";
         // Update the activation variable below
-        $activate_link = 'localhost:8000/database/activate.php?email=' . htmlspecialchars($_POST['email']) . '&code=' . $uniqid;
+        $activate_link = 'https://besterestaurantsnederland.nl/database/activate.php?email=' . htmlspecialchars($_POST['email']) . '&code=' . $uniqid;
         $message = '<p>Klik op deze link om je account te activeren: <a href="' . $activate_link . '">' . $activate_link . '</a></p>';
         mail($_POST['email'], $subject, $message, $headers);
         $_SESSION['success'] = 'Check je email adres om je account te activeren!';
@@ -73,7 +72,7 @@ if (isset($_POST['registercheckbox']) === "on") {
     $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
     header('Location: ../');
   }
-} else if (isset($_POST['registercheckbox']) !== "on" && $stmt = $pdo->prepare('SELECT id, password, activation_code FROM users WHERE email = :email')) {
+} else if (!isset($_POST['registercheckbox']) && $stmt = $pdo->prepare('SELECT id, password, activation_code FROM users WHERE email = :email')) {
   // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
   // Bind :email to user input email
   $stmt->execute([
