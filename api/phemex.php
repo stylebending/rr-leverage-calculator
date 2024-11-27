@@ -100,30 +100,34 @@ function getClosedPositions()
                 $tRr = "";
               }
 
+              $wlColor = "";
+
               if (hasMinusSign($tClosedPnlRv)) {
                 $wl = "Loss";
+                $wlColor = "text-bg-danger ";
               } else {
                 $wl = "Win";
+                $wlColor = "text-bg-success ";
               }
-              echo '<div class="card tCard shadow-lg text-white mb-3">' .
+              echo '<div class="card tCard ' . $wlColor . 'shadow-lg text-white mb-3">' .
                 '<h5 class="card-header float-start shadow-lg">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><label class="float-end">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
                 '<div class="card-body row p-5">' .
-                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
+                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
                 "Pair: " . $tSymbol . "<br>" .
                 "Richting: " . $tSide . "<br>" .
                 "Win/Loss: " . $wl . "<br>" .
                 "</div>" .
-                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
+                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
                 "Fees betaald: " . "$ " . $tExchangeFeeRv . "<br>" .
                 "Funding betaald: " . "$ " . $tFundingFeeRv . "<br>" .
                 "</div>" .
-                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
+                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
                 "Prijs geopened: "  . "$ " . $tOpenPrice . "<br>" .
                 "Prijs gesloten: "  . "$ " . $tClosePrice . "<br>" .
                 "Positiegrootte: " . $tClosedSize . "<br>" .
                 "Gesloten PnL: " . "$ " . $tClosedPnlRv . "<br>" .
                 "</div>" .
-                '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
+                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
                 "ROI: " . $tRoi . " " . "%" . "<br>" .
                 "Leverage: " . $tLeverage . "<br>" .
                 "RR = " . $tRr . "<br>" .
