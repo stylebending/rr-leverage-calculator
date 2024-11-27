@@ -104,13 +104,13 @@ function getClosedPositions()
 
               if (hasMinusSign($tClosedPnlRv)) {
                 $wl = "Loss";
-                $wlColor = "text-bg-danger ";
+                $wlColor = "bg-danger bg-opacity-75 ";
               } else {
                 $wl = "Win";
-                $wlColor = "text-bg-success ";
+                $wlColor = "bg-success bg-opacity-75 ";
               }
               echo '<div class="card tCard ' . $wlColor . 'shadow-lg text-white mb-3">' .
-                '<h5 class="card-header float-start shadow-lg">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><label class="float-end">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
+                '<h5 class="card-header float-start shadow-lg">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><br><label class="float-start">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
                 '<div class="card-body row p-5">' .
                 '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
                 "Pair: " . $tSymbol . "<br>" .
