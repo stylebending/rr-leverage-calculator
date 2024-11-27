@@ -91,13 +91,12 @@ function getClosedPositions()
               $tClosedPnlRv = round($tradeData['closedPnlRv'], 2);
               $tExchangeFeeRv = round($tradeData['exchangeFeeRv'], 2);
               $tFundingFeeRv = round($tradeData['fundingFeeRv'], 2);
-              $tRoi = round($tradeData['roi'], 2) * 100;
+              $tRoi = round($tradeData['roi'], 2);
               $tLeverage = $tradeData['leverage'];
+              // TODO: Risk en RR berekeningen werken niet, ROI is winst op positiegrootte?
               if ($tClosedPnlRv != 0 && $tRoi != 0) {
-                $tRisk = round($tClosedPnlRv / ($tRoi / 100), 2);
-                $tRr = round($tClosedPnlRv / $tRisk, 2);
+                $tRr = round($tradeData['roi'] * 100, 2);
               } else {
-                $tRisk = "";
                 $tRr = "";
               }
 
@@ -127,7 +126,6 @@ function getClosedPositions()
                 '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
                 "ROI: " . $tRoi . " " . "%" . "<br>" .
                 "Leverage: " . $tLeverage . "<br>" .
-                "risk = " . $tRisk . "<br>" .
                 "RR = " . $tRr . "<br>" .
                 "</div>" .
                 "</div>" .
@@ -196,67 +194,6 @@ function getClosedPositions()
                 $tradeHistory = $responseData['data'];
                 var_dump($tradeHistory);
                 die();
-                foreach ($tradeHistory as $trade => $tradeData) {
-                  $actDateUnix = round($tradeData['openedTimeNs'] / 1000);
-                  $actUpdateUnix = round($tradeData['updatedTimeNs'] / 1000);
-                  $tOpenDate = date("d-m-Y H:i:s", $actDateUnix);
-                  $tUpdateDate = date("d-m-Y H:i:s", $actUpdateUnix);
-                  $tSymbol = $tradeData['symbol'];
-                  if ($tradeData['side'] === 1) {
-                    $tSide = "Long";
-                  } else if ($tradeData['side'] === 2) {
-                    $tSide = "Short";
-                  }
-                  $tOpenPrice = round($tradeData['openPrice'], 4);
-                  $tClosePrice = round($tradeData['closePrice'], 4);
-                  $tClosedSize = $tradeData['closedSizeRq'];
-                  $tClosedPnlRv = round($tradeData['closedPnlRv'], 2);
-                  $tExchangeFeeRv = round($tradeData['exchangeFeeRv'], 2);
-                  $tFundingFeeRv = round($tradeData['fundingFeeRv'], 2);
-                  $tRoi = round($tradeData['roi'], 2) * 100;
-                  $tLeverage = $tradeData['leverage'];
-                  if ($tClosedPnlRv != 0 && $tRoi != 0) {
-                    $tRisk = round($tClosedPnlRv / ($tRoi / 100), 2);
-                    $tRr = round($tClosedPnlRv / $tRisk, 2);
-                  } else {
-                    $tRisk = "";
-                    $tRr = "";
-                  }
-
-                  if (hasMinusSign($tClosedPnlRv)) {
-                    $wl = "Loss";
-                  } else {
-                    $wl = "Win";
-                  }
-                  echo '<div class="card tCard shadow-lg text-white mb-3">' .
-                    '<h5 class="card-header float-start shadow-lg">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><label class="float-end">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
-                    '<div class="card-body row p-5">' .
-                    '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
-                    "Pair: " . $tSymbol . "<br>" .
-                    "Richting: " . $tSide . "<br>" .
-                    "Win/Loss: " . $wl . "<br>" .
-                    "</div>" .
-                    '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
-                    "Fees betaald: " . "$ " . $tExchangeFeeRv . "<br>" .
-                    "Funding betaald: " . "$ " . $tFundingFeeRv . "<br>" .
-                    "</div>" .
-                    '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
-                    "Prijs geopened: "  . "$ " . $tOpenPrice . "<br>" .
-                    "Prijs gesloten: "  . "$ " . $tClosePrice . "<br>" .
-                    "Positiegrootte: " . $tClosedSize . "<br>" .
-                    "Gesloten PnL: " . "$ " . $tClosedPnlRv . "<br>" .
-                    "</div>" .
-                    '<div class="col border border-2 border-primary-subtle shadow-lg rounded m-2 p-3">' .
-                    "ROI: " . $tRoi . " " . "%" . "<br>" .
-                    "Leverage: " . $tLeverage . "<br>" .
-                    "risk = " . $tRisk . "<br>" .
-                    "RR = " . $tRr . "<br>" .
-                    "</div>" .
-                    "</div>" .
-                    "</div>";
-                  echo "<br>";
-                  echo "<br>";
-                }
               }
             }
           }
