@@ -181,7 +181,7 @@
         <?php } elseif (isset($_SESSION['loggedin'])) { ?>
           Phemex server tijd: <?php getServerTime() ?>
           <div class="card shadow-lg text-white mb-3 panel panel-default">
-            <h1 class="card-header text-center shadow-lg p-3 panel-heading">
+            <h1 class="card-header text-center shadow-lg p-5 panel-heading">
               <p class="float-start"><i class="bi bi-person-fill"></i> Welkom <?php echo $_SESSION['email'] ?></p>
               <a href="database/logout.php" class="btn btn-primary d-inline float-end"><i class="bi bi-box-arrow-right"></i> Log Out</a>
               <a href="addaccount.php" class="btn btn-success d-inline float-end mx-2"><i class="bi bi-plus-lg"></i> Account toevoegen</a>
@@ -194,7 +194,7 @@
                       <h3 class="mb-3">Gesloten USDT Posities</h3>
                     </div>
                     <div class="col-4">
-                      <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedPositions" aria-expanded="false" aria-controls="collapseExample">
+                      <button class="btn btn-primary mb-3 float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedPositions" aria-expanded="false" aria-controls="collapseExample">
                         Laden
                       </button>
                     </div>
@@ -209,7 +209,7 @@
                       <h3 class="mb-3">Gesloten Inverse Posities</h3>
                     </div>
                     <div class="col-4">
-                      <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedInversePositions" aria-expanded="false" aria-controls="collapseExample">
+                      <button class="btn btn-primary mb-3 float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedInversePositions" aria-expanded="false" aria-controls="collapseExample">
                         Laden
                       </button>
                     </div>
