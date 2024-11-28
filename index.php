@@ -15,6 +15,7 @@
   <script src="js/jquery-3.7.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap-icons.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css">
@@ -188,12 +189,34 @@
             <div class="card-body panel-body p-5">
               <div class="row">
                 <div class="col border-primary-subtle border-end">
-                  <h3 class="mb-3">Gesloten USDT Trades</h3>
-                  <?php getClosedPositions() ?>
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="mb-3">Gesloten USDT Posities</h3>
+                    </div>
+                    <div class="col-4">
+                      <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedPositions" aria-expanded="false" aria-controls="collapseExample">
+                        Laden
+                      </button>
+                    </div>
+                  </div>
+                  <div class="collapse" id="collapseClosedPositions">
+                    <?php getClosedPositions() ?>
+                  </div>
                 </div>
                 <div class="col">
-                  <h3 class="mb-3">Gesloten Inverse Trades</h3>
-                  <?php getClosedInversePositions() ?>
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="mb-3">Gesloten Inverse Posities</h3>
+                    </div>
+                    <div class="col-4">
+                      <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedInversePositions" aria-expanded="false" aria-controls="collapseExample">
+                        Laden
+                      </button>
+                    </div>
+                  </div>
+                  <div class="collapse" id="collapseClosedInversePositions">
+                    <?php getClosedInversePositions() ?>
+                  </div>
                 </div>
               </div>
             </div>
@@ -202,7 +225,6 @@
       </div>
     </div>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
