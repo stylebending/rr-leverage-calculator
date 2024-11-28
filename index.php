@@ -53,7 +53,7 @@
               <div class="row p-3 mt-4">
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="rrcheckbox" name="fees" checked>
-                  <label class="form-check-label" for="rrcheckbox">Fees meenemen in berekening?</label>
+                  <label class="form-check-label" for="rrcheckbox">Fees meenemen in berekening</label>
                 </div>
               </div>
               <div class="row">
@@ -102,13 +102,13 @@
               <div class="row p-3 mt-4">
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="levcheckbox" name="levfees" checked>
-                  <label class="form-check-label" for="levcheckbox">Fees meenemen in berekening?</label>
+                  <label class="form-check-label" for="levcheckbox">Fees meenemen in berekening</label>
                 </div>
               </div>
               <div class="row p-3">
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="kacheckbox" name="kalevfees">
-                  <label class="form-check-label" for="kacheckbox">Klein account?</label>
+                  <label class="form-check-label" for="kacheckbox">Klein account</label>
                 </div>
               </div>
               <div class="row">

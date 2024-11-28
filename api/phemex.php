@@ -53,7 +53,7 @@ function getClosedPositions()
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
             $requestPath = "/api-data/g-futures/closedPosition";
-            $queryString = "";
+            $queryString = "?currency=USDT";
             $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
             $signature = hash_hmac('sha256', $stringToHash, $actSec);
             $context = stream_context_create([
@@ -110,27 +110,53 @@ function getClosedPositions()
                 $wlColor = "bg-success bg-opacity-75 ";
               }
               echo '<div class="card tCard ' . $wlColor . 'shadow-lg text-white mb-3">' .
-                '<h5 class="card-header float-start shadow-lg">' . '<label class="float-start">Datum geopened: ' . $tOpenDate . '</label><br><label class="float-start">Datum gesloten: ' . $tUpdateDate . "</label></h5>" .
+                '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $tSide . '</h5><h5 class="col text-center">' . $tSymbol . '</h5><h5 class="col text-end">' . $wl . '</h5></div>' .
+                '<div class="row">' . '<h5 class="col text-start">' . $tOpenDate . '</h5> | <h5 class="col text-end">' . $tUpdateDate . '</h5></div></div>' .
                 '<div class="card-body row p-5">' .
-                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
-                "Pair: " . $tSymbol . "<br>" .
-                "Richting: " . $tSide . "<br>" .
-                "Win/Loss: " . $wl . "<br>" .
-                "</div>" .
-                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
-                "Fees betaald: " . "$ " . $tExchangeFeeRv . "<br>" .
-                "Funding betaald: " . "$ " . $tFundingFeeRv . "<br>" .
-                "</div>" .
-                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
-                "Prijs geopened: "  . "$ " . $tOpenPrice . "<br>" .
-                "Prijs gesloten: "  . "$ " . $tClosePrice . "<br>" .
-                "Positiegrootte: " . $tClosedSize . "<br>" .
-                "Gesloten PnL: " . "$ " . $tClosedPnlRv . "<br>" .
-                "</div>" .
-                '<div class="col border border-2 border-dark shadow-lg rounded m-2 p-3">' .
-                "ROI: " . $tRoi . " " . "%" . "<br>" .
-                "Leverage: " . $tLeverage . "<br>" .
-                "RR = " . $tRr . "<br>" .
+                '<div class="border border-white text-center text-justify shadow-lg text-white rounded m-2 p-3">' .
+                '<div class="row p-5">' .
+                '<div class="col border-white border-end p-2">' .
+                "Leverage: " . "<br>" .
+                "<hr>" .
+                "Positiegrootte: " . "<br>" .
+                "<hr>" .
+                "Entry: " . "<br>" .
+                "<hr>" .
+                "Exit: " . "<br>" .
+                "<hr>" .
+                "Fees betaald: " . "<br>" .
+                "<hr>" .
+                "Funding betaald: " . "<br>" .
+                "<hr>" .
+                "Gesloten PnL: " . "<br>" .
+                "<hr>" .
+                "ROI: " . "<br>" .
+                "<hr>" .
+                "RR " . "<br>" .
+                "<hr>" .
+                '</div>' .
+                '<div class="col p-2">' .
+                $tLeverage . " X" . "<br>" .
+                "<hr>" .
+                "$ " . $tClosedSize . "<br>" .
+                "<hr>" .
+                "$ " . $tOpenPrice . "<br>" .
+                "<hr>" .
+                "$ " . $tClosePrice . "<br>" .
+                "<hr>" .
+                "$ " . $tExchangeFeeRv . "<br>" .
+                "<hr>" .
+                "$ " . $tFundingFeeRv . "<br>" .
+                "<hr>" .
+                "$ " . $tClosedPnlRv . "<br>" .
+                "<hr>" .
+                $tRoi * 100 . " " . "%" . "<br>" .
+                "<hr>" .
+                $tRr . "<br>" .
+                "<hr>" .
+                '</div>' .
+                '</div>' .
+                "RR klopt waarschijnlijk niet!<br>" .
                 "</div>" .
                 "</div>" .
                 "</div>";
