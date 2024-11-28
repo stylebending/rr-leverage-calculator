@@ -2,6 +2,26 @@
 
 include 'models/Trade.php';
 
+function connectDB()
+{
+  $con = "sqlite:database/database.sqlite";
+  $cipher_algo = 'AES-256-CBC';
+  $key = 'fejJoPDtzZF7u6gwGYzS8QOIRK0A8c0r';
+
+  try {
+    $pdo = new PDO($con);
+  } catch (PDOException $e) {
+    echo $e->getMessage();
+  }
+
+  $pdo = new PDO($con);
+  return [
+    'pdo' => $pdo,
+    'cipher_algo' => $cipher_algo,
+    'key' => $key
+  ];
+}
+
 function getServerTime()
 {
   $context = stream_context_create([
@@ -19,19 +39,9 @@ function getServerTime()
 
 function getClosedPositions()
 {
-  $con = "sqlite:database/database.sqlite";
-  $cipher_algo = 'AES-256-CBC';
-  $key = 'fejJoPDtzZF7u6gwGYzS8QOIRK0A8c0r';
-
-  try {
-    $pdo = new PDO($con);
-  } catch (PDOException $e) {
-    echo $e->getMessage();
-  }
-
-  $pdo = new PDO($con);
+  $connection = connectDB();
   // gebruiker accounts ophalen dus van db en foreach key value pair decrypten en api call maken
-  $stmt = $pdo->prepare('SELECT apiks FROM users WHERE email = :email');
+  $stmt = $connection['pdo']->prepare('SELECT apiks FROM users WHERE email = :email');
   $stmt->execute([
     ':email' => $_SESSION['email']
   ]);
@@ -44,8 +54,8 @@ function getClosedPositions()
         $valuetodecode = json_decode($value . "}");
         if ($valuetodecode !== null) {
           foreach ($valuetodecode as $dbkey => $value) {
-            $actKey = openssl_decrypt($dbkey, $cipher_algo, $key);
-            $actSec = openssl_decrypt($value, $cipher_algo, $key);
+            $actKey = openssl_decrypt($dbkey, $connection['cipher_algo'], $connection['key']);
+            $actSec = openssl_decrypt($value, $connection['cipher_algo'], $connection['key']);
             $now = time();
             $h = date("H", $now);
             $i = date("i", $now) + 1;
@@ -194,19 +204,9 @@ function getClosedPositions()
     }
     function getClosedInversePositions()
     {
-      $con = "sqlite:database/database.sqlite";
-      $cipher_algo = 'AES-256-CBC';
-      $key = 'fejJoPDtzZF7u6gwGYzS8QOIRK0A8c0r';
-
-      try {
-        $pdo = new PDO($con);
-      } catch (PDOException $e) {
-        echo $e->getMessage();
-      }
-
-      $pdo = new PDO($con);
+      $connection = connectDB();
       // gebruiker accounts ophalen dus van db en foreach key value pair decrypten en api call maken
-      $stmt = $pdo->prepare('SELECT apiks FROM users WHERE email = :email');
+      $stmt = $connection['pdo']->prepare('SELECT apiks FROM users WHERE email = :email');
       $stmt->execute([
         ':email' => $_SESSION['email']
       ]);
@@ -219,8 +219,8 @@ function getClosedPositions()
             $valuetodecode = json_decode($value . "}");
             if ($valuetodecode !== null) {
               foreach ($valuetodecode as $dbkey => $value) {
-                $actKey = openssl_decrypt($dbkey, $cipher_algo, $key);
-                $actSec = openssl_decrypt($value, $cipher_algo, $key);
+                $actKey = openssl_decrypt($dbkey, $connection['cipher_algo'], $connection['key']);
+                $actSec = openssl_decrypt($value, $connection['cipher_algo'], $connection['key']);
                 $now = time();
                 $h = date("H", $now);
                 $i = date("i", $now) + 1;
