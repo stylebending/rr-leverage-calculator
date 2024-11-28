@@ -188,7 +188,7 @@
             </h1>
             <div class="card-body panel-body p-5">
               <div class="row">
-                <div class="col border-primary-subtle border-end">
+                <div class="col border-primary-subtle border-end p-5">
                   <div class="row">
                     <div class="col-8">
                       <h3 class="mb-3">Gesloten USDT Posities</h3>
@@ -203,7 +203,7 @@
                     <?php getClosedPositions() ?>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col p-5">
                   <div class="row">
                     <div class="col-8">
                       <h3 class="mb-3">Gesloten Inverse Posities</h3>

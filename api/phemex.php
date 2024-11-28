@@ -1,5 +1,7 @@
 <?php
 
+include 'models/Trade.php';
+
 function getServerTime()
 {
   $context = stream_context_create([
@@ -74,6 +76,9 @@ function getClosedPositions()
             {
               return (substr(strval($value), 0, 1) == "-");
             }
+
+            $trades = [];
+
             foreach ($tradeHistory as $trade => $tradeData) {
               $actDateUnix = round($tradeData['openedTimeNs'] / 1000);
               $actUpdateUnix = round($tradeData['updatedTimeNs'] / 1000);
@@ -109,13 +114,33 @@ function getClosedPositions()
                 $wl = "Win";
                 $wlColor = "bg-success bg-opacity-75 ";
               }
+
+
+              $trade = new Trade();
+              $trade->setSymbol($tSymbol);
+              $trade->setDirection($tSide);
+              $trade->setWinLoss($wl);
+              $trade->setOpenDate($tOpenDate);
+              $trade->setCloseDate($tUpdateDate);
+              $trade->setLeverage($tLeverage);
+              $trade->setPositionSize($tClosedSize);
+              $trade->setEntry($tOpenPrice);
+              $trade->setExit($tClosePrice);
+              $trade->setFees($tExchangeFeeRv);
+              $trade->setFunding($tFundingFeeRv);
+              $trade->setClosedPnl($tClosedPnlRv);
+              $trade->setRoi($tRoi);
+              $trade->setRr($tRr);
+
+              $trades[] = $trade;
+
               echo '<div class="card tCard ' . $wlColor . 'shadow-lg text-white mb-3">' .
                 '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $tSide . '</h5><h5 class="col text-center">' . $tSymbol . '</h5><h5 class="col text-end">' . $wl . '</h5></div>' .
                 '<div class="row">' . '<h5 class="col text-start">' . $tOpenDate . '</h5> | <h5 class="col text-end">' . $tUpdateDate . '</h5></div></div>' .
-                '<div class="card-body row p-5">' .
-                '<div class="border border-white text-center text-justify shadow-lg text-white rounded m-2 p-3">' .
-                '<div class="row p-5">' .
-                '<div class="col border-white border-end p-2">' .
+                '<div class="card-body row mx-auto">' .
+                '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
+                '<div class="row">' .
+                '<div class="col border-white border-end">' .
                 "Leverage: " . "<br>" .
                 "<hr>" .
                 "Positiegrootte: " . "<br>" .
@@ -124,9 +149,9 @@ function getClosedPositions()
                 "<hr>" .
                 "Exit: " . "<br>" .
                 "<hr>" .
-                "Fees betaald: " . "<br>" .
+                "Fees: " . "<br>" .
                 "<hr>" .
-                "Funding betaald: " . "<br>" .
+                "Funding: " . "<br>" .
                 "<hr>" .
                 "Gesloten PnL: " . "<br>" .
                 "<hr>" .
@@ -135,7 +160,7 @@ function getClosedPositions()
                 "RR " . "<br>" .
                 "<hr>" .
                 '</div>' .
-                '<div class="col p-2">' .
+                '<div class="col">' .
                 $tLeverage . " X" . "<br>" .
                 "<hr>" .
                 "$ " . $tClosedSize . "<br>" .
