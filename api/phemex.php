@@ -246,9 +246,17 @@ function getClosedPositions()
                 ]);
                 $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
                 $responseData = json_decode($response, true);
-                $tradeHistory = $responseData['data'];
-                var_dump($tradeHistory);
-                die();
+                $tradeHistory = $responseData['data']['rows'];
+                foreach ($tradeHistory as $trade => $tradeData) {
+                  if ($tradeData['ordStatus'] == "Filled") {
+                    $actDateUnix = round($tradeData['actionTimeNs'] / 1000000000);
+                    $tOpenDate = date("d-m-Y H:i:s", $actDateUnix);
+                    $actDateUnix2 = round($tradeData['transactTimeNs'] / 1000000000);
+                    $tOpenDate2 = date("d-m-Y H:i:s", $actDateUnix2); // DIT IS DE ECHTE TIJD WAAROP ORDER IS DOORGEGAAN
+                    $tGroupID = $tradeData['orderID'];
+                    echo round($tradeData['priceEp'] / 10000, 2) . " " . $tOpenDate  . " " . $tOpenDate2 . " " . $tGroupID . "<br>";
+                  }
+                }
               }
             }
           }
