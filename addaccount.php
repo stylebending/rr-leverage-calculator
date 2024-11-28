@@ -37,14 +37,14 @@
               <div class="row">
                 <form id="addAccForm" class="p-5 w-50 mx-auto" action="database/doaddaccount.php" method="POST">
                   <div class="row">
-                    <label for="apikey" class="text-start">API Key</label>
+                    <label for="apikey" class="text-start">Phemex API Key</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="bi bi-key"></i></span>
                       </div>
                       <input type="text" class="form-control" id="apikey" name="apikey" placeholder="Phemex API Key" required />
                     </div>
-                    <label for="password" class="text-start mt-4">API Secret</label>
+                    <label for="password" class="text-start mt-4">Phemex API Secret</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="bi bi-key"></i></span>
