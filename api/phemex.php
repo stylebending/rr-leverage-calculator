@@ -67,8 +67,8 @@ function getClosedPositions()
             $d = date("d", $now);
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
-            // TODO: de m-2 hieronder hele jaar door werkend maken
-            $start = mktime($h, $i, $s, $m - 2, $d, $y);
+            $startMonth = date("m", strtotime("-2 months"));
+            $start = mktime($h, $i, $s, $startMonth, $d, $y);
             $requestPath = "/exchange/order/v2/orderList";
             $queryString = "?currency=USDT&ordStatus=7&start=" . $start . "000" . "&end=" . $now . "000" . "&offset=0&limit=200";
             $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
