@@ -1,7 +1,5 @@
 <?php
 
-include 'models/Trade.php';
-
 function connectDB()
 {
   $con = "sqlite:database/database.sqlite";
@@ -20,6 +18,11 @@ function connectDB()
     'cipher_algo' => $cipher_algo,
     'key' => $key
   ];
+}
+
+function hasMinusSign($value)
+{
+  return (substr(strval($value), 0, 1) == "-");
 }
 
 function getServerTime()
@@ -64,8 +67,9 @@ function getClosedPositions()
             $d = date("d", $now);
             $y = date("Y", $now);
             $expiry = mktime($h, $i, $s, $m, $d, $y);
-            $requestPath = "/api-data/g-futures/closedPosition";
-            $queryString = "?currency=USDT";
+            $start = mktime($h, $i, $s, $m - 2, $d, $y);
+            $requestPath = "/exchange/order/v2/orderList";
+            $queryString = "?currency=USDT&ordStatus=7&start=" . $start . "000" . "&end=" . $now . "000" . "&offset=0&limit=200";
             $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
             $signature = hash_hmac('sha256', $stringToHash, $actSec);
             $context = stream_context_create([
@@ -82,116 +86,73 @@ function getClosedPositions()
             $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
             $responseData = json_decode($response, true);
             $tradeHistory = $responseData['data'];
-            function hasMinusSign($value)
-            {
-              return (substr(strval($value), 0, 1) == "-");
-            }
-
-            $trades = [];
 
             foreach ($tradeHistory as $trade => $tradeData) {
-              $actDateUnix = round($tradeData['openedTimeNs'] / 1000);
-              $actUpdateUnix = round($tradeData['updatedTimeNs'] / 1000);
-              $tOpenDate = date("d-m-Y H:i:s", $actDateUnix);
-              $tUpdateDate = date("d-m-Y H:i:s", $actUpdateUnix);
-              $tSymbol = $tradeData['symbol'];
+              $actDateUnix = round($tradeData['createdAt'] / 1000);
+              $actUpdateUnix = round($tradeData['updatedAt'] / 1000);
+              $openDate = date("d-m-Y H:i:s", $actDateUnix);
+              $updateDate = date("d-m-Y H:i:s", $actUpdateUnix);
+              $symbol = $tradeData['symbol'];
               if ($tradeData['side'] === 1) {
-                $tSide = "Long";
+                $side = "Long";
               } else if ($tradeData['side'] === 2) {
-                $tSide = "Short";
+                $side = "Short";
               }
-              $tOpenPrice = round($tradeData['openPrice'], 4);
-              $tClosePrice = round($tradeData['closePrice'], 4);
-              $tClosedSize = $tradeData['closedSizeRq'];
-              $tClosedPnlRv = round($tradeData['closedPnlRv'], 2);
-              $tExchangeFeeRv = round($tradeData['exchangeFeeRv'], 2);
-              $tFundingFeeRv = round($tradeData['fundingFeeRv'], 2);
-              $tRoi = round($tradeData['roi'], 2);
-              $tLeverage = $tradeData['leverage'];
-              // TODO: Risk en RR berekeningen werken niet, ROI is winst op positiegrootte?
-              if ($tClosedPnlRv != 0 && $tRoi != 0) {
-                $tRr = round($tradeData['roi'] * 100, 2);
-              } else {
-                $tRr = "";
+              $execOrderPrice = round($tradeData['execPriceRp'], 4);
+              $execOrderQty = $tradeData['execQtyRq'];
+              if ($tradeData['ordType'] == 0) {
+                $ordType = "Liquidatie";
+              } else if ($tradeData['ordType'] == 1) {
+                $ordType = "Market";
+              } else if ($tradeData['ordType'] == 2) {
+                $ordType = "Limit";
+              } else if ($tradeData['ordType'] == 3) {
+                $ordType = "Stop";
+              } else if ($tradeData['ordType'] == 4) {
+                $ordType = "StopLimit";
+              } else if ($tradeData['ordType'] == 5) {
+                $ordType = "MarketIfTouched";
+              } else if ($tradeData['ordType'] == 6) {
+                $ordType = "LimitIfTouched";
+              }
+              if ($tradeData['tradeType'] == 1) {
+                $tradeType = "Trade";
+              } else if ($tradeData['tradeType'] == 4) {
+                $tradeType = "Funding";
+              } else if ($tradeData['tradeType'] == 6) {
+                $tradeType = "LiqTrade";
+              } else if ($tradeData['tradeType'] == 7) {
+                $tradeType = "AdlTrade";
+                $tradeType = $tradeData['tradeType'];
               }
 
-              $wlColor = "";
-
-              if (hasMinusSign($tClosedPnlRv)) {
-                $wl = "Loss";
-                $wlColor = "bg-danger bg-opacity-75 ";
-              } else {
-                $wl = "Win";
-                $wlColor = "bg-success bg-opacity-75 ";
-              }
-
-
-              $trade = new Trade();
-              $trade->setSymbol($tSymbol);
-              $trade->setDirection($tSide);
-              $trade->setWinLoss($wl);
-              $trade->setOpenDate($tOpenDate);
-              $trade->setCloseDate($tUpdateDate);
-              $trade->setLeverage($tLeverage);
-              $trade->setPositionSize($tClosedSize);
-              $trade->setEntry($tOpenPrice);
-              $trade->setExit($tClosePrice);
-              $trade->setFees($tExchangeFeeRv);
-              $trade->setFunding($tFundingFeeRv);
-              $trade->setClosedPnl($tClosedPnlRv);
-              $trade->setRoi($tRoi);
-              $trade->setRr($tRr);
-
-              $trades[] = $trade;
-
-              echo '<div class="card tCard ' . $wlColor . 'shadow-lg text-white mb-3">' .
-                '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $tSide . '</h5><h5 class="col text-center">' . $tSymbol . '</h5><h5 class="col text-end">' . $wl . '</h5></div>' .
-                '<div class="row">' . '<h5 class="col text-start">' . $tOpenDate . '</h5> | <h5 class="col text-end">' . $tUpdateDate . '</h5></div></div>' .
+              echo '<div class="card tCard shadow-lg text-white mb-3">' .
+                '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $updateDate . '</h5></div>' .
+                '</div>' .
                 '<div class="card-body row mx-auto">' .
                 '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
                 '<div class="row">' .
                 '<div class="col border-white border-end">' .
-                "Leverage: " . "<br>" .
+                "Ordergrootte " . "<br>" .
                 "<hr>" .
-                "Positiegrootte: " . "<br>" .
+                "Orderprijs " . "<br>" .
                 "<hr>" .
-                "Entry: " . "<br>" .
+                "Ordertype " . "<br>" .
                 "<hr>" .
-                "Exit: " . "<br>" .
-                "<hr>" .
-                "Fees: " . "<br>" .
-                "<hr>" .
-                "Funding: " . "<br>" .
-                "<hr>" .
-                "Gesloten PnL: " . "<br>" .
-                "<hr>" .
-                "ROI: " . "<br>" .
-                "<hr>" .
-                "RR " . "<br>" .
+                "Tradetype " . "<br>" .
                 "<hr>" .
                 '</div>' .
                 '<div class="col">' .
-                $tLeverage . " X" . "<br>" .
+                "$ " . $execOrderQty . "<br>" .
                 "<hr>" .
-                "$ " . $tClosedSize . "<br>" .
+                "$ " . $execOrderPrice . "<br>" .
                 "<hr>" .
-                "$ " . $tOpenPrice . "<br>" .
+                $ordType . "<br>" .
                 "<hr>" .
-                "$ " . $tClosePrice . "<br>" .
-                "<hr>" .
-                "$ " . $tExchangeFeeRv . "<br>" .
-                "<hr>" .
-                "$ " . $tFundingFeeRv . "<br>" .
-                "<hr>" .
-                "$ " . $tClosedPnlRv . "<br>" .
-                "<hr>" .
-                $tRoi * 100 . " " . "%" . "<br>" .
-                "<hr>" .
-                $tRr . "<br>" .
+                $tradeType . "<br>" .
                 "<hr>" .
                 '</div>' .
                 '</div>' .
-                "RR klopt waarschijnlijk niet!<br>" .
                 "</div>" .
                 "</div>" .
                 "</div>";
