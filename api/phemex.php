@@ -192,7 +192,7 @@ function getClosedPositions()
                 $y = date("Y", $now);
                 $expiry = mktime($h, $i, $s, $m, $d, $y);
                 $requestPath = "/exchange/order/list";
-                $queryString = "?symbol=BTCUSD";
+                $queryString = "?symbol=BTCUSD&ordStatus=Filled";
                 $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
                 $signature = hash_hmac('sha256', $stringToHash, $actSec);
                 $context = stream_context_create([
@@ -210,14 +210,16 @@ function getClosedPositions()
                 $responseData = json_decode($response, true);
                 $tradeHistory = $responseData['data']['rows'];
                 foreach ($tradeHistory as $trade => $tradeData) {
-                  if ($tradeData['ordStatus'] == "Filled") {
-                    $actDateUnix = round($tradeData['actionTimeNs'] / 1000000000);
-                    $tOpenDate = date("d-m-Y H:i:s", $actDateUnix);
-                    $actDateUnix2 = round($tradeData['transactTimeNs'] / 1000000000);
-                    $tOpenDate2 = date("d-m-Y H:i:s", $actDateUnix2); // DIT IS DE ECHTE TIJD WAAROP ORDER IS DOORGEGAAN
-                    $tGroupID = $tradeData['orderID'];
-                    echo round($tradeData['priceEp'] / 10000, 2) . " " . $tOpenDate  . " " . $tOpenDate2 . " " . $tGroupID . "<br>";
+                  $transactTimeUnix = round($tradeData['transactTimeNs'] / 1000000000);
+                  $transactTime = date("d-m-Y H:i:s", $transactTimeUnix);
+                  $price = round($tradeData['priceEp'] / 10000, 2);
+                  $orderType = $tradeData['orderType'];
+                  if ($tradeData['reduceOnly'] === true) {
+                    $reduceOnly = "Reduce Only";
+                  } else if ($tradeData['reduceOnly'] === false) {
+                    $reduceOnly = "Geen Reduce Only";
                   }
+                  echo $price . " " . $transactTime . " " . $orderType . " " . $reduceOnly . "<br>";
                 }
               }
             }
