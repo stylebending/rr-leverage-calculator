@@ -158,7 +158,6 @@ function getClosedPositions()
                 "</div>" .
                 "</div>";
               echo "<br>";
-              echo "<br>";
             }
           }
         }
@@ -212,14 +211,57 @@ function getClosedPositions()
                 foreach ($tradeHistory as $trade => $tradeData) {
                   $transactTimeUnix = round($tradeData['transactTimeNs'] / 1000000000);
                   $transactTime = date("d-m-Y H:i:s", $transactTimeUnix);
-                  $price = round($tradeData['priceEp'] / 10000, 2);
+                  $price = round($tradeData['closedPnlEv'], 2);
                   $orderType = $tradeData['orderType'];
-                  if ($tradeData['reduceOnly'] === true) {
-                    $reduceOnly = "Reduce Only";
-                  } else if ($tradeData['reduceOnly'] === false) {
-                    $reduceOnly = "Geen Reduce Only";
+                  $timeInForce = $tradeData['timeInForce'];
+                  $symbol = $tradeData['symbol'];
+                  $orderQty = $tradeData['orderQty'];
+                  if ($tradeData['side'] === "Buy") {
+                    $side = "Long";
+                  } else if ($tradeData['side'] === "Sell") {
+                    $side = "Short";
                   }
-                  echo $price . " " . $transactTime . " " . $orderType . " " . $reduceOnly . "<br>";
+                  if ($tradeData['reduceOnly'] === true) {
+                    $reduceOnly = "Ja";
+                  } else if ($tradeData['reduceOnly'] === false) {
+                    $reduceOnly = "Nee";
+                  }
+
+                  echo '<div class="card tCard shadow-lg text-white mb-3">' .
+                    '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $transactTime . '</h5></div>' .
+                    '</div>' .
+                    '<div class="card-body row mx-auto">' .
+                    '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
+                    '<div class="row">' .
+                    '<div class="col border-white border-end">' .
+                    "Ordergrootte " . "<br>" .
+                    "<hr>" .
+                    "Orderprijs " . "<br>" .
+                    "<hr>" .
+                    "Ordertype " . "<br>" .
+                    "<hr>" .
+                    "Reduce only " . "<br>" .
+                    "<hr>" .
+                    "Tijd geldig " . "<br>" .
+                    "<hr>" .
+                    '</div>' .
+                    '<div class="col">' .
+                    "$ " . $orderQty . "<br>" .
+                    "<hr>" .
+                    "$ " . $price . "<br>" .
+                    "<hr>" .
+                    $orderType . "<br>" .
+                    "<hr>" .
+                    $reduceOnly . "<br>" .
+                    "<hr>" .
+                    $timeInForce . "<br>" .
+                    "<hr>" .
+                    '</div>' .
+                    '</div>' .
+                    "</div>" .
+                    "</div>" .
+                    "</div>";
+                  echo "<br>";
                 }
               }
             }
