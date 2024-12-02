@@ -211,7 +211,7 @@ function getClosedPositions()
                 foreach ($tradeHistory as $trade => $tradeData) {
                   $transactTimeUnix = round($tradeData['transactTimeNs'] / 1000000000);
                   $transactTime = date("d-m-Y H:i:s", $transactTimeUnix);
-                  $price = round($tradeData['closedPnlEv'], 2);
+                  $closedPnlEv = round($tradeData['closedPnlEv'], 2);
                   $orderType = $tradeData['orderType'];
                   $timeInForce = $tradeData['timeInForce'];
                   $symbol = $tradeData['symbol'];
@@ -236,7 +236,7 @@ function getClosedPositions()
                     '<div class="col border-white border-end">' .
                     "Ordergrootte " . "<br>" .
                     "<hr>" .
-                    "Orderprijs " . "<br>" .
+                    "Gesloten PnL " . "<br>" .
                     "<hr>" .
                     "Ordertype " . "<br>" .
                     "<hr>" .
@@ -248,7 +248,7 @@ function getClosedPositions()
                     '<div class="col">' .
                     "$ " . $orderQty . "<br>" .
                     "<hr>" .
-                    "$ " . $price . "<br>" .
+                    "$ " . $closedPnlEv . "<br>" .
                     "<hr>" .
                     $orderType . "<br>" .
                     "<hr>" .
