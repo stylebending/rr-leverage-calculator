@@ -89,76 +89,8 @@ function getClosedPositions()
             $tradeHistory = $responseData['data'];
 
             foreach ($tradeHistory as $trade => $tradeData) {
-              $actDateUnix = round($tradeData['createdAt'] / 1000);
-              $actUpdateUnix = round($tradeData['updatedAt'] / 1000);
-              $openDate = date("d-m-Y H:i:s", $actDateUnix);
-              $updateDate = date("d-m-Y H:i:s", $actUpdateUnix);
-              $symbol = $tradeData['symbol'];
-              if ($tradeData['side'] === 1) {
-                $side = "Long";
-              } else if ($tradeData['side'] === 2) {
-                $side = "Short";
-              }
-              $execOrderPrice = round($tradeData['execPriceRp'], 4);
-              $execOrderQty = $tradeData['execQtyRq'];
-              if ($tradeData['ordType'] == 0) {
-                $ordType = "Liquidatie";
-              } else if ($tradeData['ordType'] == 1) {
-                $ordType = "Market";
-              } else if ($tradeData['ordType'] == 2) {
-                $ordType = "Limit";
-              } else if ($tradeData['ordType'] == 3) {
-                $ordType = "Stop";
-              } else if ($tradeData['ordType'] == 4) {
-                $ordType = "StopLimit";
-              } else if ($tradeData['ordType'] == 5) {
-                $ordType = "MarketIfTouched";
-              } else if ($tradeData['ordType'] == 6) {
-                $ordType = "LimitIfTouched";
-              }
-              if ($tradeData['tradeType'] == 1) {
-                $tradeType = "Trade";
-              } else if ($tradeData['tradeType'] == 4) {
-                $tradeType = "Funding";
-              } else if ($tradeData['tradeType'] == 6) {
-                $tradeType = "LiqTrade";
-              } else if ($tradeData['tradeType'] == 7) {
-                $tradeType = "AdlTrade";
-                $tradeType = $tradeData['tradeType'];
-              }
-
-              echo '<div class="card tCard shadow-lg text-white mb-3">' .
-                '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $updateDate . '</h5></div>' .
-                '</div>' .
-                '<div class="card-body row mx-auto">' .
-                '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
-                '<div class="row">' .
-                '<div class="col border-white border-end">' .
-                "Ordergrootte " . "<br>" .
-                "<hr>" .
-                "Orderprijs " . "<br>" .
-                "<hr>" .
-                "Ordertype " . "<br>" .
-                "<hr>" .
-                "Tradetype " . "<br>" .
-                "<hr>" .
-                '</div>' .
-                '<div class="col">' .
-                "$ " . $execOrderQty . "<br>" .
-                "<hr>" .
-                "$ " . $execOrderPrice . "<br>" .
-                "<hr>" .
-                $ordType . "<br>" .
-                "<hr>" .
-                $tradeType . "<br>" .
-                "<hr>" .
-                '</div>' .
-                '</div>' .
-                "</div>" .
-                "</div>" .
-                "</div>";
-              echo "<br>";
             }
+            echo "Komt binnenkort, inverse posities wel beschikbaar.";
           }
         }
       }
@@ -250,21 +182,15 @@ function getClosedPositions()
                 $groupedOrders = groupOrdersIntoTrades($tradeHistory);
                 // Voor elke trade
                 foreach ($groupedOrders as $trade) {
+                  $laatsteDatum = array_key_last($trade);
+                  $laatsteD = round($trade[$laatsteDatum]['transactTimeNs'] / 1000000000);
+                  $lD = date("d-m-Y H:i:s", $laatsteD);
                   $slGrootte = "";
                   $slPrijs = "";
                   $tps = [];
                   // Voor elke order
                   foreach ($trade as $order) {
-                    $closedPnlEv = round($order['closedPnlEv'], 2);
-                    $orderType = $order['orderType'];
-                    $timeInForce = $order['timeInForce'];
                     $symbol = $order['symbol'];
-                    $orderQty = $order['orderQty'];
-                    if ($order['reduceOnly'] === true) {
-                      $reduceOnly = "Ja";
-                    } else if ($order['reduceOnly'] === false) {
-                      $reduceOnly = "Nee";
-                    }
                     // Als order een entry is
                     if ($order['closedPnlEv'] == 0) {
                       $entryTransactTimeUnix = round($order['transactTimeNs'] / 1000000000);
@@ -302,14 +228,12 @@ function getClosedPositions()
                     $actualWp = $wp + $slToSubstract;
 
                     // RR = WP% / SL%
-                    $rr = $actualWp / $slp;
+                    $rr = round($actualWp / $slp, 2);
                   } else {
                     $rr = "Open trade";
                   }
 
-                  // TODO: rr berekenen per trade
-                  // TODO: open positie duidelijk maken, als (entry positiegrootte - tps positiegrootte - sl positiegrootte) boven nul is, is het open trade
-                  // TODO: trade close datum toevoegen, dit is de sl datum of de tp datum
+                  // TODO: rr berekening werkend maken voor elk scenario, bijvoorbeeld entry en alleen tps of alleen sl of beide
                   // TODO: voor nu 1 entry, 1 sl en meerdere tps, maar iets verzinnen voor trades met meerdere entrie en sls
 
                   echo '<div class="card tCard shadow-lg text-white mb-3">' .
@@ -319,15 +243,15 @@ function getClosedPositions()
                     '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
                     '<div class="row">' .
                     '<div class="col border-white border-end">' .
-                    "Positiegrootte " . "<br>" .
-                    "<hr>" .
                     "RR " . "<br>" .
+                    "<hr>" .
+                    "Laatste order " . "<br>" .
                     "<hr>" .
                     '</div>' .
                     '<div class="col">' .
-                    "$ " . $positieGroottte . "<br>" .
-                    "<hr>" .
                     $rr . "<br>" .
+                    "<hr>" .
+                    $lD . "<br>" .
                     "<hr>" .
                     '</div>' .
                     '</div>' .
