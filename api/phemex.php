@@ -204,12 +204,12 @@ function getClosedPositions()
                       $entry = round($order['priceEp'] / 10000, 2);
                     }
                     // Als order een sl is
-                    if ($order['timeInForce'] == "ImmediateOrCancel") {
+                    if ($order['orderType'] == "Stop") {
                       $slGrootte = ($order['orderQty'] / $positieGroottte) * 100;
                       $slPrijs = round($order['priceEp'] / 10000, 2);
                     }
                     // Als order een tp is
-                    if ($order['closedPnlEv'] > 0 && $order['timeInForce'] == "PostOnly") {
+                    if ($order['closedPnlEv'] > 0 && $order['orderType'] == "Limit") {
                       $tpPrijs = round($order['priceEp'] / 10000, 2);
                       $tpGrootte = ($order['orderQty'] / $positieGroottte) * 100;
                       $tps[$tpPrijs] = $tpGrootte;
@@ -218,19 +218,37 @@ function getClosedPositions()
 
                   $rr = 0;
                   $wp = 0;
-                  foreach ($tps as $tpP => $tpG) {
-                    $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
-                  }
-                  if (!empty($slPrijs)) {
-                    $slp = $slGrootte / 100;
+                  // TODO: Deze berekening goed checken bij allemaal verschillende trade scenarios
+                  if ($side == "Long") {
+                    foreach ($tps as $tpP => $tpG) {
+                      $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
+                    }
+                    if (!empty($slPrijs)) {
+                      $slp = $slGrootte / 100;
 
-                    $slToSubstract = ((($slPrijs - $entry) / $entry) * 100) * $slp;
-                    $actualWp = $wp + $slToSubstract;
+                      $slToSubstract = ((($slPrijs - $entry) / $entry) * 100) * $slp;
+                      $actualWp = $wp + $slToSubstract;
 
-                    // RR = WP% / SL%
-                    $rr = round($actualWp / $slp, 2);
-                  } else {
-                    $rr = "Open trade";
+                      // RR = WP% / SL%
+                      $rr = round($actualWp / ($slp * 100), 2);
+                    } else {
+                      $rr = "Open trade";
+                    }
+                  } else if ($side == "Short") {
+                    foreach ($tps as $tpP => $tpG) {
+                      $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100) * -1;
+                    }
+                    if (!empty($slPrijs)) {
+                      $slp = $slGrootte / 100;
+
+                      $slToSubstract = ((($slPrijs - $entry) / $entry) * 100) * $slp * -1;
+                      $actualWp = $wp + $slToSubstract;
+
+                      // RR = WP% / SL%
+                      $rr = round($actualWp / ($slp * 100), 2);
+                    } else {
+                      $rr = "Open trade";
+                    }
                   }
 
                   // TODO: rr berekening werkend maken voor elk scenario, bijvoorbeeld entry en alleen tps of alleen sl of beide
