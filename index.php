@@ -206,7 +206,7 @@
                 <div class="col p-5">
                   <div class="row">
                     <div class="col-8">
-                      <h3 class="mb-3">Gesloten Inverse Orders</h3>
+                      <h3 class="mb-3">Gesloten Inverse Posities</h3>
                     </div>
                     <div class="col-4">
                       <button class="btn btn-primary mb-3 float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClosedInversePositions" aria-expanded="false" aria-controls="collapseExample">

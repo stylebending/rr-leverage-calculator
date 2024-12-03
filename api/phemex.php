@@ -163,6 +163,44 @@ function getClosedPositions()
         }
       }
     }
+
+
+    function groupOrdersIntoTrades($orders)
+    {
+      $trades = [];
+      $currentTrade = [];
+      $isInTrade = false;
+      // Reverse the orders array so that we start from the last order
+      $orders = array_reverse($orders);
+
+      foreach ($orders as $order) {
+        // Check for an entry order (closedPnlEv == 0)
+        if ($order['closedPnlEv'] == 0) {
+          // If we were already in a trade, finalize the current trade and start a new one
+          if ($isInTrade) {
+            $trades[] = $currentTrade;
+            $currentTrade = [];
+          }
+
+          // Start a new trade with the current entry order
+          $isInTrade = true;
+        }
+
+        // If we are in a trade, add the current order to the trade
+        if ($isInTrade) {
+          $currentTrade[] = $order;
+        }
+      }
+
+      // Add the last trade if it's still open (i.e., there was no subsequent entry order)
+      if ($isInTrade) {
+        $trades[] = $currentTrade;
+      }
+
+      return array_reverse($trades);
+    }
+
+
     function getClosedInversePositions()
     {
       $connection = connectDB();
@@ -208,53 +246,88 @@ function getClosedPositions()
                 $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
                 $responseData = json_decode($response, true);
                 $tradeHistory = $responseData['data']['rows'];
-                foreach ($tradeHistory as $trade => $tradeData) {
-                  $transactTimeUnix = round($tradeData['transactTimeNs'] / 1000000000);
-                  $transactTime = date("d-m-Y H:i:s", $transactTimeUnix);
-                  $closedPnlEv = round($tradeData['closedPnlEv'], 2);
-                  $orderType = $tradeData['orderType'];
-                  $timeInForce = $tradeData['timeInForce'];
-                  $symbol = $tradeData['symbol'];
-                  $orderQty = $tradeData['orderQty'];
-                  if ($tradeData['side'] === "Buy") {
-                    $side = "Long";
-                  } else if ($tradeData['side'] === "Sell") {
-                    $side = "Short";
-                  }
-                  if ($tradeData['reduceOnly'] === true) {
-                    $reduceOnly = "Ja";
-                  } else if ($tradeData['reduceOnly'] === false) {
-                    $reduceOnly = "Nee";
+
+                $groupedOrders = groupOrdersIntoTrades($tradeHistory);
+                // Voor elke trade
+                foreach ($groupedOrders as $trade) {
+                  $slGrootte = "";
+                  $slPrijs = "";
+                  $tps = [];
+                  // Voor elke order
+                  foreach ($trade as $order) {
+                    $closedPnlEv = round($order['closedPnlEv'], 2);
+                    $orderType = $order['orderType'];
+                    $timeInForce = $order['timeInForce'];
+                    $symbol = $order['symbol'];
+                    $orderQty = $order['orderQty'];
+                    if ($order['reduceOnly'] === true) {
+                      $reduceOnly = "Ja";
+                    } else if ($order['reduceOnly'] === false) {
+                      $reduceOnly = "Nee";
+                    }
+                    // Als order een entry is
+                    if ($order['closedPnlEv'] == 0) {
+                      $entryTransactTimeUnix = round($order['transactTimeNs'] / 1000000000);
+                      $entryTransactTime = date("d-m-Y H:i:s", $entryTransactTimeUnix);
+                      $positieGroottte = $order['orderQty'];
+                      if ($order['side'] === "Buy") {
+                        $side = "Long";
+                      } else if ($order['side'] === "Sell") {
+                        $side = "Short";
+                      }
+                      $entry = round($order['priceEp'] / 10000, 2);
+                    }
+                    // Als order een sl is
+                    if ($order['timeInForce'] == "ImmediateOrCancel") {
+                      $slGrootte = ($order['orderQty'] / $positieGroottte) * 100;
+                      $slPrijs = round($order['priceEp'] / 10000, 2);
+                    }
+                    // Als order een tp is
+                    if ($order['closedPnlEv'] > 0 && $order['timeInForce'] == "PostOnly") {
+                      $tpPrijs = round($order['priceEp'] / 10000, 2);
+                      $tpGrootte = ($order['orderQty'] / $positieGroottte) * 100;
+                      $tps[$tpPrijs] = $tpGrootte;
+                    }
                   }
 
+                  $rr = 0;
+                  $wp = 0;
+                  foreach ($tps as $tpP => $tpG) {
+                    $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
+                  }
+                  if (!empty($slPrijs)) {
+                    $slp = $slGrootte / 100;
+
+                    $slToSubstract = ((($slPrijs - $entry) / $entry) * 100) * $slp;
+                    $actualWp = $wp + $slToSubstract;
+
+                    // RR = WP% / SL%
+                    $rr = $actualWp / $slp;
+                  } else {
+                    $rr = "Open trade";
+                  }
+
+                  // TODO: rr berekenen per trade
+                  // TODO: open positie duidelijk maken, als (entry positiegrootte - tps positiegrootte - sl positiegrootte) boven nul is, is het open trade
+                  // TODO: trade close datum toevoegen, dit is de sl datum of de tp datum
+                  // TODO: voor nu 1 entry, 1 sl en meerdere tps, maar iets verzinnen voor trades met meerdere entrie en sls
+
                   echo '<div class="card tCard shadow-lg text-white mb-3">' .
-                    '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $transactTime . '</h5></div>' .
+                    '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $entryTransactTime . '</h5></div>' .
                     '</div>' .
                     '<div class="card-body row mx-auto">' .
                     '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
                     '<div class="row">' .
                     '<div class="col border-white border-end">' .
-                    "Ordergrootte " . "<br>" .
+                    "Positiegrootte " . "<br>" .
                     "<hr>" .
-                    "Gesloten PnL " . "<br>" .
-                    "<hr>" .
-                    "Ordertype " . "<br>" .
-                    "<hr>" .
-                    "Reduce only " . "<br>" .
-                    "<hr>" .
-                    "Tijd geldig " . "<br>" .
+                    "RR " . "<br>" .
                     "<hr>" .
                     '</div>' .
                     '<div class="col">' .
-                    "$ " . $orderQty . "<br>" .
+                    "$ " . $positieGroottte . "<br>" .
                     "<hr>" .
-                    "$ " . $closedPnlEv . "<br>" .
-                    "<hr>" .
-                    $orderType . "<br>" .
-                    "<hr>" .
-                    $reduceOnly . "<br>" .
-                    "<hr>" .
-                    $timeInForce . "<br>" .
+                    $rr . "<br>" .
                     "<hr>" .
                     '</div>' .
                     '</div>' .
