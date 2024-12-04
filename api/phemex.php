@@ -182,9 +182,13 @@ function getClosedPositions()
                 $groupedOrders = groupOrdersIntoTrades($tradeHistory);
                 // Voor elke trade
                 foreach ($groupedOrders as $trade) {
-                  $laatsteDatum = array_key_last($trade);
-                  $laatsteD = round($trade[$laatsteDatum]['transactTimeNs'] / 1000000000);
-                  $lD = date("d-m-Y H:i:s", $laatsteD);
+                  // Sort orders in the current trade by transaction time
+                  usort($trade, function ($a, $b) {
+                    return $a['transactTimeNs'] <=> $b['transactTimeNs']; // Compare transactTimeNs values
+                  });
+                  $laatsteOrder = array_key_last($trade);
+                  $laatsteDatum = round($trade[$laatsteOrder]['transactTimeNs'] / 1000000000);
+                  $lD = date("d-m-Y H:i:s", $laatsteDatum);
                   $slGrootte = "";
                   $slPrijs = "";
                   $tps = [];
@@ -205,6 +209,8 @@ function getClosedPositions()
                     }
                     // Als order een sl is
                     if ($order['orderType'] == "Stop") {
+                      $slTransactTimeUnix = round($order['transactTimeNs'] / 1000000000);
+                      $slTransactTime = date("d-m-Y H:i:s", $slTransactTimeUnix);
                       $slGrootte = ($order['orderQty'] / $positieGroottte) * 100;
                       $slPrijs = round($order['priceEp'] / 10000, 2);
                     }
@@ -219,6 +225,7 @@ function getClosedPositions()
                   $rr = 0;
                   $wp = 0;
                   // TODO: Deze berekening goed checken bij allemaal verschillende trade scenarios
+                  // voor elk scenaria uitdenken, long, short, win, loss, no tps only sl, only sl no tps
                   if ($side == "Long") {
                     foreach ($tps as $tpP => $tpG) {
                       $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
@@ -263,11 +270,15 @@ function getClosedPositions()
                     '<div class="col border-white border-end">' .
                     "RR " . "<br>" .
                     "<hr>" .
+                    "SL prijs " . "<br>" .
+                    "<hr>" .
                     "Laatste order " . "<br>" .
                     "<hr>" .
                     '</div>' .
                     '<div class="col">' .
                     $rr . "<br>" .
+                    "<hr>" .
+                    $slPrijs . "<br>" .
                     "<hr>" .
                     $lD . "<br>" .
                     "<hr>" .
