@@ -179,12 +179,15 @@ function getClosedPositions()
                   $entryTransactTimeUnix = round($order['updatedAt'] / 1000);
                   $entryTransactTime = date("d-m-Y H:i:s", $entryTransactTimeUnix);
                   $positieGroottte = $order['execQtyRq'];
+                  $entry = round($order['priceRp'], 4);
+                  $slArea = round($order['stopPxRp'] / 10000, 2);
                   if ($order['side'] == 1) {
                     $side = "Long";
+                    $ogRisk = ((($slArea - $entry) / $entry) * -1) * 100;
                   } else if ($order['side'] == 2) {
                     $side = "Short";
+                    $ogRisk = (($slArea - $entry) / $entry) * 100;
                   }
-                  $entry = round($order['priceRp'], 4);
                 }
                 // Als order een sl is
                 if ($order['tradeType'] == 6) {
@@ -214,7 +217,7 @@ function getClosedPositions()
                   $actualWp = $wp + $slToSubstract;
 
                   // RR = WP% / SL%
-                  $rr = round($actualWp / ($slp * 100), 2);
+                  $rr = round($actualWp / $ogRisk, 2);
                 } else {
                   $rr = "Open trade";
                 }
@@ -229,7 +232,7 @@ function getClosedPositions()
                   $actualWp = $wp + $slToSubstract;
 
                   // RR = WP% / SL%
-                  $rr = round($actualWp / ($slp * 100), 2);
+                  $rr = round($actualWp / $ogRisk, 2);
                 } else {
                   $rr = "Open trade";
                 }
@@ -340,12 +343,15 @@ function getClosedPositions()
                       $entryTransactTimeUnix = round($order['transactTimeNs'] / 1000000000);
                       $entryTransactTime = date("d-m-Y H:i:s", $entryTransactTimeUnix);
                       $positieGroottte = $order['orderQty'];
+                      $entry = round($order['priceEp'] / 10000, 2);
+                      $slArea = round($order['stopLossEp'] / 10000, 2);
                       if ($order['side'] === "Buy") {
                         $side = "Long";
+                        $ogRisk = ((($slArea - $entry) / $entry) * -1) * 100;
                       } else if ($order['side'] === "Sell") {
                         $side = "Short";
+                        $ogRisk = (($slArea - $entry) / $entry) * 100;
                       }
-                      $entry = round($order['priceEp'] / 10000, 2);
                     }
                     // Als order een sl is
                     if ($order['orderType'] == "Stop") {
@@ -375,7 +381,7 @@ function getClosedPositions()
                       $actualWp = $wp + $slToSubstract;
 
                       // RR = WP% / SL%
-                      $rr = round($actualWp / ($slp * 100), 2);
+                      $rr = round($actualWp / $ogRisk, 2);
                     } else {
                       $rr = "Open trade";
                     }
@@ -390,7 +396,7 @@ function getClosedPositions()
                       $actualWp = $wp + $slToSubstract;
 
                       // RR = WP% / SL%
-                      $rr = round($actualWp / ($slp * 100), 2);
+                      $rr = round($actualWp / $ogRisk, 2);
                     } else {
                       $rr = "Open trade";
                     }
