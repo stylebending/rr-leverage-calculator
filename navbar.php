@@ -1,6 +1,14 @@
 <nav class="navbar navbar-dark bg-dark fixed-top shadow-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Simple Trading</a>
+    <?php if (!isset($_SESSION['loggedin'])) { ?>
+      <a class="nav-link me-auto" href="/login.php">Login</a>
+    <?php } else if (isset($_SESSION['loggedin'])) { ?>
+      <div class="d-flex me-auto">
+        <a class="nav-link me-3" href="/account.php">Account</a>
+        <a class="nav-link" href="/database/logout.php">Logout</a>
+      </div>
+    <?php } ?>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
