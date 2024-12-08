@@ -1,10 +1,10 @@
+<?php require('header.php'); ?>
 <?php
-if (!isset($_SESSION['loggedin'])) {
+if (isset($_SESSION['loggedin']) !== true) {
   header('Location: login.php');
   exit();
 }
 ?>
-<?php require('header.php'); ?>
 <?php require('navbar.php'); ?>
 <?php if (isset($_SESSION['loggedin'])) {
   require 'api/phemex.php';
