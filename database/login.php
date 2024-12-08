@@ -24,11 +24,11 @@ if (isset($_POST['registercheckbox']) == "on") {
   // We need to check if the account with that username exists.
   if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     $_SESSION['message'] = 'Vul een correct email adres in.';
-    header('Location: ../');
+    header('Location: ../login.php');
   }
   if (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 5) {
     $_SESSION['message'] = 'Wachtwoord moet tussen de 5 en 20 tekens bevatten.';
-    header('Location: ../');
+    header('Location: ../login.php');
   }
   if ($stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = :email')) {
     // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
@@ -40,7 +40,7 @@ if (isset($_POST['registercheckbox']) == "on") {
     if ($result !== false) {
       // Username already exists
       $_SESSION['message'] = 'Dit email adres heeft al een account, probeer in te loggen.';
-      header('Location: ../');
+      header('Location: ../login.php');
     } else {
       // Username doesn't exists, insert new account
       if ($stmt = $pdo->prepare('INSERT INTO users (email, password, activation_code) VALUES (:email, :password, :activation_code)')) {
@@ -64,13 +64,13 @@ if (isset($_POST['registercheckbox']) == "on") {
       } else {
         // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
         $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
-        header('Location: ../');
+        header('Location: ../login.php');
       }
     }
   } else {
     // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all 3 fields.
     $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
-    header('Location: ../');
+    header('Location: ../login.php');
   }
 } else if (!isset($_POST['registercheckbox']) && $stmt = $pdo->prepare('SELECT id, password, activation_code FROM users WHERE email = :email')) {
   // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
@@ -96,20 +96,20 @@ if (isset($_POST['registercheckbox']) == "on") {
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['email'] = htmlspecialchars($_POST['email']);
         $_SESSION['id'] = $id;
-        header('Location: ../');
+        header('Location: ../account.php');
       } else {
         // Incorrect password
         $_SESSION['message'] = 'Verkeerd wachtwoord.';
-        header('Location: ../');
+        header('Location: ../login.php');
       }
     } else {
       // Account is not activated
       $_SESSION['message'] = 'Activeer je account voordat je verder kunt, check je email.';
-      header('Location: ../');
+      header('Location: ../login.php');
     }
   } else {
     // Incorrect email 
     $_SESSION['message'] = 'Verkeerd email adres ingevoerd of nog geen account aangemaakt.';
-    header('Location: ../');
+    header('Location: ../login.php');
   }
 }

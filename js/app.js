@@ -465,7 +465,6 @@ $(function() {
     })
       .then(function(res) {
         let data = JSON.parse(res);
-        console.log(data);
         if (data.error) {
           $error.removeClass("d-none").html(data.error);
           setTimeout(function() {
@@ -483,7 +482,6 @@ $(function() {
       })
       .fail(function(res) {
         let data = JSON.parse(res);
-        console.log(data);
         $error.removeClass("d-none").html(data.error);
         setTimeout(function() {
           errorToHide = document.getElementById("error");

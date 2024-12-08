@@ -23,7 +23,7 @@
             <h1 class="card-header text-center shadow-lg p-3 panel-heading">
               <i class="bi bi-person-fill"></i> Welkom <?php echo $_SESSION['email'] ?>
               <a href="database/logout.php" class="btn btn-primary d-inline float-end"><i class="bi bi-box-arrow-right"></i> Log Out</a>
-              <a href="/" class="btn btn-primary d-inline float-end mx-2"><i class="bi bi-arrow-left"></i> Terug</a>
+              <a href="/account.php" class="btn btn-primary d-inline float-end mx-2"><i class="bi bi-arrow-left"></i> Terug</a>
             </h1>
             <div class="card-body panel-body p-5">
               <?php if (isset($_SESSION['message'])) { ?>
