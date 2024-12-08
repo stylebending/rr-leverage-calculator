@@ -27,6 +27,10 @@ body {
   background-color: #111739;
 }
 
+.positie-tp-div {
+  background-color: #111739;
+}
+
 @media screen and (max-width: 900px) {
   .card {
     width: fit-content;
@@ -38,5 +42,9 @@ body {
 }
 
 #draggablePanelList2 .panel-heading {
+  cursor: move;
+}
+
+#draggablePanelList3 .panel-heading {
   cursor: move;
 }

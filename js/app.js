@@ -3,8 +3,11 @@ $(function() {
   // Defining variables
   var $form = $("#my-form");
   var $levForm = $("#lev-form");
+  var $tpForm = $("#tp-form");
   var $fields = $form.find(".fields");
+  var $tpFields = $tpForm.find(".tpfields");
   var $levrow = $("#levrow");
+  var positieTpCount = 0;
   var tpCount = 0;
   var slTpCount = 0;
 
@@ -292,6 +295,75 @@ $(function() {
     }
   });
 
+  // Function to add TPs when user wants to
+  $tpForm.on("click", ".add-tp-fields", function() {
+    // Setting the unique tpCount per tp
+    positieTpCount += 1;
+
+    // Creating the div for the TPs
+    var tpDiv = document.createElement("div");
+    tpDiv.classList =
+      "row input-group rounded shadow-lg positie-tp-div mb-5 p-5 positie-tp-fields positie-tp-fields-" +
+      positieTpCount;
+    tpDiv.id = "positie-tp-fields-" + positieTpCount;
+    // Creating the label for tpp
+    var positieTppLabel = document.createElement("label");
+    positieTppLabel.classList = "text-start mt-4";
+    positieTppLabel.setAttribute("for", "positie-tpp-input-" + positieTpCount);
+    positieTppLabel.id = "positie-tpp-label-" + positieTpCount;
+    positieTppLabel.innerText = "TP percentage";
+    // Creating the tpp input
+    var positieTppInput = document.createElement("input");
+    positieTppInput.classList = "form-control";
+    positieTppInput.id = "positie-tpp-input-" + positieTpCount;
+    positieTppInput.name = "positie-tpp-input-" + positieTpCount;
+    positieTppInput.type = "number";
+    positieTppInput.placeholder = "30";
+    positieTppInput.step = ".0001";
+    positieTppInput.min = ".0001";
+    positieTppInput.required = true;
+    // Creating the tp delete button
+    var positieTpBtn = document.createElement("button");
+    var positieTpBtnI = document.createElement("i");
+    positieTpBtnI.classList = "bi bi-trash-fill";
+    positieTpBtn.classList = "remove-tp-fields m-2 btn btn-danger shadow-lg";
+    positieTpBtn.type = "button";
+    positieTpBtn.id = "positieTpBtn-" + positieTpCount;
+    positieTpBtn.appendChild(positieTpBtnI);
+    positieTpBtn.innerHTML += " TP verwijderen";
+    // Creating $ and %
+    var tpPsI = document.createElement("i");
+    tpPsI.classList = "bi bi-percent";
+    var tpPs = document.createElement("span");
+    tpPs.classList = "input-group-text";
+    tpPs.appendChild(tpPsI);
+    // Tpp percentage input group div
+    var tpIgdd = document.createElement("div");
+    tpIgdd.classList = "input-group";
+    // Tpp input group prepend div
+    var tpIgpdd = document.createElement("div");
+    tpIgpdd.classList = "input-group-prepend";
+    tpIgpdd.appendChild(tpPs);
+    tpIgdd.appendChild(tpIgpdd);
+    tpIgdd.appendChild(positieTppInput);
+
+    // Row
+    var tpRow = document.createElement("row");
+
+    // Adding all of these together
+    tpDiv.appendChild(positieTppLabel);
+    tpDiv.appendChild(tpIgdd);
+    tpDiv.appendChild(positieTpBtn);
+    tpRow.appendChild(tpDiv);
+    // Putting them into the fields div
+    $tpFields.prepend($(tpRow));
+  });
+
+  // Function to remove TPs when user wants to
+  $tpForm.on("click", ".remove-tp-fields", function(event) {
+    $(event.target).closest(".positie-tp-fields").remove();
+  });
+
   // Form submit and AJAX request
   $form.on("submit", function(e) {
     e.preventDefault();
@@ -377,8 +449,51 @@ $(function() {
       });
   });
 
+  // Form submit and AJAX request
+  $tpForm.on("submit", function(e) {
+    e.preventDefault();
+
+    // Getting the error en resdata div
+    let $error = $("#error");
+    let $tpdata = $("#tpdata");
+
+    // Handling the AJAX request
+    $.ajax({
+      type: "GET",
+      url: "api/calculate.php",
+      data: $(this).serialize(),
+    })
+      .then(function(res) {
+        let data = JSON.parse(res);
+        console.log(data);
+        if (data.error) {
+          $error.removeClass("d-none").html(data.error);
+          setTimeout(function() {
+            errorToHide = document.getElementById("error");
+            errorToHide.classList.add("d-none");
+          }, 3000);
+          return;
+        } else if (data.tpdata) {
+          // Join the array of TP strings into a single string and display it
+          $tpdata.removeClass("d-none").html("TPs grootte: <br>" +
+            data.tps.join("<br>")  // Use join to display each element on a new line
+          );
+          return;
+        }
+      })
+      .fail(function(res) {
+        let data = JSON.parse(res);
+        console.log(data);
+        $error.removeClass("d-none").html(data.error);
+        setTimeout(function() {
+          errorToHide = document.getElementById("error");
+          errorToHide.classList.add("d-none");
+        }, 3000);
+      });
+  });
+
   $(function() {
-    $("#draggablePanelList, #draggablePanelList2")
+    $("#draggablePanelList, #draggablePanelList2, #draggablePanelList3")
       .sortable({
         connectWith: ".connectedSortable",
         handle: ".panel-heading",

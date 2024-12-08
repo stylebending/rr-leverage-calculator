@@ -171,6 +171,7 @@ function getClosedPositions()
               $slGrootte = "";
               $slPrijs = "";
               $tps = [];
+              // TODO: er kunnen meerdere stop losses zijn, zoals bij andere todo dus werkend maken voor meerdere entries en sls net als tps
               // Voor elke order
               foreach ($trade as $order) {
                 $symbol = $order['symbol'];
@@ -207,8 +208,10 @@ function getClosedPositions()
               // TODO: Deze berekening goed checken bij allemaal verschillende trade scenarios
               // voor elk scenaria uitdenken, long, short, win, loss, no tps only sl, only sl no tps
               if ($side == "Long") {
-                foreach ($tps as $tpP => $tpG) {
-                  $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
+                if (!empty($tps)) {
+                  foreach ($tps as $tpP => $tpG) {
+                    $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
+                  }
                 }
                 if (!empty($slPrijs)) {
                   $slp = $slGrootte / 100;
@@ -222,8 +225,10 @@ function getClosedPositions()
                   $rr = "Open trade";
                 }
               } else if ($side == "Short") {
-                foreach ($tps as $tpP => $tpG) {
-                  $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100) * -1;
+                if (!empty($tps)) {
+                  foreach ($tps as $tpP => $tpG) {
+                    $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100) * -1;
+                  }
                 }
                 if (!empty($slPrijs)) {
                   $slp = $slGrootte / 100;
@@ -371,8 +376,10 @@ function getClosedPositions()
                   // TODO: Deze berekening goed checken bij allemaal verschillende trade scenarios
                   // voor elk scenaria uitdenken, long, short, win, loss, no tps only sl, only sl no tps
                   if ($side == "Long") {
-                    foreach ($tps as $tpP => $tpG) {
-                      $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
+                    if (!empty($tps)) {
+                      foreach ($tps as $tpP => $tpG) {
+                        $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100);
+                      }
                     }
                     if (!empty($slPrijs)) {
                       $slp = $slGrootte / 100;
@@ -386,8 +393,10 @@ function getClosedPositions()
                       $rr = "Open trade";
                     }
                   } else if ($side == "Short") {
-                    foreach ($tps as $tpP => $tpG) {
-                      $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100) * -1;
+                    if (!empty($tps)) {
+                      foreach ($tps as $tpP => $tpG) {
+                        $wp += ((($tpP - $entry) / $entry) * 100) * ($tpG / 100) * -1;
+                      }
                     }
                     if (!empty($slPrijs)) {
                       $slp = $slGrootte / 100;

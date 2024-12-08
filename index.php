@@ -26,7 +26,7 @@
     <div class="row">
       <div id="draggablePanelList" class="col connectedSortable">
         <div class="card shadow-lg text-white mb-3 panel panel-default">
-          <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-currency-exchange"></i> RR</h1>
+          <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-calculator-fill"></i> RR</h1>
           <div class="card-body panel-body">
             <form id="my-form" class="p-5">
               <div class="row">
@@ -118,6 +118,39 @@
               <div class="row">
                 <button type="submit" class="m-2 btn btn-primary shadow-lg">
                   <i class="bi bi-plus-slash-minus"></i> Leverage Berekenen
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="draggablePanelList3" class="col connectedSortable">
+        <div class="card shadow-lg text-white mb-3 panel panel-default">
+          <h1 class="card-header text-center shadow-lg p-3 panel-heading"><i class="bi bi-currency-exchange"></i> TPs</h1>
+          <div class="card-body panel-body">
+            <form id="tp-form" class="p-5">
+              <div class="row" id="tprow">
+                <div id="tpdata" class="d-none alert alert-info"></div>
+              </div>
+              <div class="row">
+                <label for="positiegrootte" class="text-start">Positiegrootte</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                  </div>
+                  <input type="number" class="form-control" placeholder="1000" id="positiegrootte" name="positiegrootte" step=".0001" min="0.0001" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="tpfields grid row-gap-2 m-3">
+                </div>
+              </div>
+              <div class="row">
+                <button type="submit" class="m-2 btn btn-primary shadow-lg">
+                  <i class="bi bi-plus-slash-minus"></i> TPs Berekenen
+                </button>
+                <button type="button" class="add-tp-fields m-2 btn btn-success shadow-lg">
+                  <i class="bi bi-plus-lg"></i> TP Toevoegen
                 </button>
               </div>
             </form>

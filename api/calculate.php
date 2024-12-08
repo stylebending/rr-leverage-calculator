@@ -274,6 +274,27 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
       'lev' => round($leverage, 2)
     ]);
   }
+} else if (isset($_GET['positiegrootte'])) {
+  $positieTpArr = [];
+  $positiegrootte = $_GET['positiegrootte'];
+  $tpCount = 0;
+  $tps = [];
+  // Fill tpArr
+  foreach ($_GET as $key => $value) {
+    if (str_contains($key, 'positie-tpp-input-')) {
+      $positieTpArr[$value] = ($positiegrootte * ($value / 100));
+    }
+  }
+  foreach ($positieTpArr as $key => $value) {
+    $tpCount += 1;
+    $key = round($key, 2) . "%";
+    $value = "$" . round($value, 4);
+    $tps[] = $key . " is " . $value;
+  }
+  echo json_encode([
+    'tpdata' => true,
+    'tps' => $tps
+  ]);
 } else {
   // If all the fields are not set return an error message
   echo json_encode(['error' => 'Er is iets fout gegaan, voeg één of meerdere TPs toe, vul alle velden in en probeer het opnieuw.']);
