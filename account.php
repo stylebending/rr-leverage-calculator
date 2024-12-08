@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: login.php');
+  exit();
+}
+?>
 <?php require('header.php'); ?>
 <?php require('navbar.php'); ?>
 <?php if (isset($_SESSION['loggedin'])) {
