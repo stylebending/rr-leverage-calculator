@@ -4,7 +4,7 @@
     <?php if (!isset($_SESSION['loggedin'])) { ?>
       <a class="nav-link me-auto" href="/login.php">Login</a>
     <?php } else if (isset($_SESSION['loggedin'])) { ?>
-      <div class="d-flex me-auto">
+      <div class="d-flex me-auto navdiv">
         <a class="nav-link me-3" href="/account.php">Account</a>
         <a class="nav-link" href="/database/logout.php">Logout</a>
       </div>
