@@ -18,7 +18,43 @@ $result = false;
 $cipher_algo = 'AES-256-CBC';
 $key = 'fejJoPDtzZF7u6gwGYzS8QOIRK0A8c0r';
 
-if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
+function checkAccount($actKey, $actSec)
+{
+  $now = time();
+  $h = date("H", $now);
+  $i = date("i", $now) + 1;
+  $s = date("s", $now);
+  $m = date("m", $now);
+  $d = date("d", $now);
+  $y = date("Y", $now);
+  $expiry = mktime($h, $i, $s, $m, $d, $y);
+  $startMonth = date("m", strtotime("-2 months"));
+  $start = mktime($h, $i, $s, $startMonth, $d, $y);
+  $requestPath = "/exchange/order/v2/orderList";
+  $queryString = "?currency=USDT&ordStatus=7&start=" . $start . "000" . "&end=" . $now . "000" . "&offset=0&limit=200";
+  $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
+  $signature = hash_hmac('sha256', $stringToHash, $actSec);
+  $context = stream_context_create([
+    'http' => [
+      'method' => 'GET',
+      'header' => [
+        'Content-Type: application/json',
+        'x-phemex-access-token: ' . $actKey,
+        'x-phemex-request-expiry: ' . $expiry,
+        'x-phemex-request-signature: ' . $signature
+      ],
+    ]
+  ]);
+  $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
+  $responseData = json_decode($response, true);
+  if ($responseData['code'] !== NULL) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+if (!empty($_POST['apikey']) && !empty($_POST['apisecret']) && checkAccount($_POST['apikey'], $_POST['apisecret']) == true) {
   if ($stmt = $pdo->prepare('SELECT apiks FROM users')) {
     // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
     $stmt->execute();
@@ -43,7 +79,7 @@ if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
       // API Key already exists
       $_SESSION['message'] = 'Deze API Key is al gekoppeld aan een account.';
       header('Location: ../addaccount.php');
-    } else {
+    } else if ($result == false && checkAccount($_POST['apikey'], $_POST['apisecret']) == true) {
       // API Key doesn't exists, insert new account
       $stmt = $pdo->prepare('SELECT apiks FROM users WHERE email = :email');
       $stmt->execute([
@@ -59,7 +95,7 @@ if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
           ':email' => htmlspecialchars($_SESSION['email'])
         ]);
         $_SESSION['success'] = 'Account toegevoegd!';
-        header('Location: ../');
+        header('Location: ../dashboard.php');
       } else {
         // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
         $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
@@ -72,6 +108,6 @@ if (!empty($_POST['apikey']) || !empty($_POST['apisecret'])) {
     header('Location: ../addaccount.php');
   }
 } else {
-  $_SESSION['message'] = 'Vul beide velden in.';
+  $_SESSION['message'] = 'Vul beide velden correct in.';
   header('Location: ../addaccount.php');
 }

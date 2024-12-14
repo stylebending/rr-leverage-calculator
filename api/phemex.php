@@ -38,8 +38,6 @@ function getServerTime()
   echo $serverTime;
 }
 
-// TODO: functie getAccounts maken om daarop getClosedTrades te callen in de view indien nodig
-
 function groupOrdersIntoTrades($orders)
 {
   $trades = [];
