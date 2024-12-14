@@ -96,7 +96,7 @@ if (isset($_POST['registercheckbox']) == "on") {
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['email'] = htmlspecialchars($_POST['email']);
         $_SESSION['id'] = $id;
-        header('Location: ../account.php');
+        header('Location: ../dashboard.php');
       } else {
         // Incorrect password
         $_SESSION['message'] = 'Verkeerd wachtwoord.';

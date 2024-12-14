@@ -5,7 +5,7 @@
       <a class="nav-link me-auto" href="/login.php">Login</a>
     <?php } else if (isset($_SESSION['loggedin'])) { ?>
       <div class="d-flex me-auto navdiv">
-        <a class="nav-link me-3" href="/account.php">Accounts</a>
+        <a class="nav-link me-3" href="/dashboard.php">Accounts</a>
         <a class="nav-link" href="/database/logout.php">Logout</a>
       </div>
     <?php } ?>
@@ -28,7 +28,7 @@
             </li>
           <?php } else if (isset($_SESSION['loggedin'])) { ?>
             <li class="nav-item">
-              <a class="nav-link" href="/account.php">Accounts</a>
+              <a class="nav-link" href="/dashboard.php">Accounts</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/database/logout.php">Logout</a>
