@@ -1,6 +1,6 @@
 <?php
 
-// Check if the form was submitted
+// Check if the account selection form was submitted
 if (isset($_POST['selectedAccount'])) {
   // Sanitize and validate input
   $selectedAccountName = htmlspecialchars($_POST['selectedAccount'], ENT_QUOTES, 'UTF-8');
@@ -30,6 +30,60 @@ if (isset($_POST['selectedAccount'])) {
     exit();
   }
 }
+
+// Check if the account delete form was submitted
+if (isset($_POST['selectedAccountToDelete'])) {
+  $connection = connectDB();
+  // Sanitize and validate input
+  $selectedAccountNameDel = htmlspecialchars($_POST['selectedAccountToDelete'], ENT_QUOTES, 'UTF-8');
+
+  // Fetch user's API keys
+  $apiKeysDel = getUserApiKeys();
+
+  // Find the matching account by position
+  $phemexNamesDel = getPhemexNames();
+  $indexDel = array_search($selectedAccountNameDel, $phemexNamesDel);
+
+  if ($indexDel !== false && isset($apiKeysDel[$indexDel])) {
+
+    // Delete the apikeysdel with indexdel and then update the database
+
+    unset($apiKeysDel[$indexDel]);
+
+    $stmt = $connection['pdo']->prepare('SELECT apiks FROM users WHERE email = :email');
+    $stmt->execute([
+      ':email' => $_SESSION['email']
+    ]);
+    $apiks = $stmt->fetchAll();
+    $dbapiks = $apiks[0]['apiks'];
+    $newdbapiks = "";
+    $cipher_algo = 'AES-256-CBC';
+    $cipher_key = 'fejJoPDtzZF7u6gwGYzS8QOIRK0A8c0r';
+    foreach ($apiKeysDel as $apiKeysDel) {
+      foreach ($apiKeysDel as $keyDel => $valueDel) {
+        $newdbapiks = $newdbapiks . json_encode([openssl_encrypt($keyDel, $cipher_algo, $cipher_key) => openssl_encrypt($valueDel, $cipher_algo, $cipher_key)]);
+      }
+    }
+    if ($stmt = $connection['pdo']->prepare('UPDATE users SET apiks = :apiks WHERE email = :email')) {
+      $stmt->execute([
+        ':apiks' => $newdbapiks,
+        ':email' => htmlspecialchars($_SESSION['email'])
+      ]);
+      $_SESSION['success'] = 'Account verwijderd!';
+      unset($_SESSION['currentAccountToDelete']);
+      unset($_SESSION['currentAccount']);
+      header('Location: ../dashboard.php');
+      exit();
+    } else {
+      // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
+      $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
+      unset($_SESSION['currentAccountToDelete']);
+      header('Location: ../addaccount.php');
+      exit();
+    }
+  }
+}
+
 function connectDB()
 {
   $con = "sqlite:database/database.sqlite";
@@ -68,13 +122,6 @@ function getServerTime()
   echo $serverTime;
 }
 
-function getUserApiKey()
-{
-  // the order in dropdown select is same as api keysecret combos in db so match them like that
-  foreach (getPhemexNames() as $account) {
-  }
-}
-
 function getUserApiKeys()
 {
   $connection = connectDB();
@@ -102,37 +149,6 @@ function getUserApiKeys()
     }
   }
   return $combos;
-}
-
-function getPhemexName($actKey, $actSec)
-{
-  $now = time();
-  $h = date("H", $now);
-  $i = date("i", $now) + 1;
-  $s = date("s", $now);
-  $m = date("m", $now);
-  $d = date("d", $now);
-  $y = date("Y", $now);
-  $expiry = mktime($h, $i, $s, $m, $d, $y);
-  $requestPath = "/phemex-user/users/children";
-  $queryString = "";
-  $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
-  $signature = hash_hmac('sha256', $stringToHash, $actSec);
-  $context = stream_context_create([
-    'http' => [
-      'method' => 'GET',
-      'header' => [
-        'Content-Type: application/json',
-        'x-phemex-access-token: ' . $actKey,
-        'x-phemex-request-expiry: ' . $expiry,
-        'x-phemex-request-signature: ' . $signature
-      ],
-    ]
-  ]);
-  $response = file_get_contents('https://api.phemex.com' . $requestPath . $queryString, false, $context);
-  $responseData = json_decode($response, true);
-  $nickName = $responseData['data']['0']['nickName'];
-  return $nickName;
 }
 
 function getPhemexNames()

@@ -15,7 +15,36 @@ if (isset($_SESSION['loggedin']) !== true) {
       <div class="card shadow-lg text-white mb-3 panel panel-default">
         <h1 class="card-header text-center shadow-lg p-5 panel-heading">
           <p class="float-start"><i class="bi bi-person-fill"></i> Welkom <?php echo $_SESSION['email'] ?></p>
-          <a href="addaccount.php" class="btn btn-success d-inline float-end mx-2"><i class="bi bi-plus-lg"></i> Account toevoegen</a>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-danger d-inline float-end mx-2"><i class="bi bi-person-x-fill"></i> Account verwijderen</button>
+          <!-- Modal -->
+          <div data-bs-theme="dark" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Account verwijderen</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p class="mb-5">Selecteer het account dat je wil verwijderen</p>
+                  <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <select class="form-select mb-5" name="selectedAccountToDelete">
+                      <?php
+                      // Assuming you have an array of accounts stored in $phemexAccounts
+                      foreach (getPhemexNames() as $account) {
+                        echo "<option value='" . htmlspecialchars($account) . "'>" . htmlspecialchars($account) . "</option>";
+                      }
+                      ?>
+                    </select>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                    <input type="submit" value="Verwijderen" class="btn btn-danger">
+                  </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="addaccount.php" class="btn btn-outline-success d-inline float-end mx-2"><i class="bi bi-person-plus-fill"></i> Account toevoegen</a>
         </h1>
         <div class="card-body panel-body p-5">
           <div class="row mb-5">
