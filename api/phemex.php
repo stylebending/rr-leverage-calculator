@@ -1,34 +1,35 @@
 <?php
 
-if (!isset($_SESSION['currentAccount'])) {
-  if (isset(getUserApiKeys()[0])) {
-    $_SESSION['currentAccount'] = getUserApiKeys()[0];
+// Check if the form was submitted
+if (isset($_POST['selectedAccount'])) {
+  // Sanitize and validate input
+  $selectedAccountName = htmlspecialchars($_POST['selectedAccount'], ENT_QUOTES, 'UTF-8');
+
+  // Fetch user's API keys
+  $apiKeys = getUserApiKeys();
+
+  // Find the matching account by position
+  $phemexNames = getPhemexNames();
+  $index = array_search($selectedAccountName, $phemexNames);
+
+  if ($index !== false && isset($apiKeys[$index])) {
+    // Get the API key and secret for the selected account
+    $selectedAccountDetails = $apiKeys[$index];
+    foreach ($selectedAccountDetails as $apiKey => $apiSecret) {
+      // Set the selected account details in the session
+      $_SESSION['currentAccount'] = [
+        'name' => $selectedAccountName,
+        'api_key' => $apiKey,
+        'api_secret' => $apiSecret
+      ];
+      break; // Assuming there's only one key-value pair per account
+    }
+
+    // Optionally, redirect or refresh the page to reflect the new session state
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
   }
 }
-
-foreach ($_SESSION['currentAccount'] as $key => $value) {
-  global $currentApiKey, $currentApiSec;
-  $currentApiKey = $key;
-  $currentApiSec = $value;
-}
-
-if (isset($_POST['selectedAccount'])) {
-  $_SESSION['selectedAccount'] = $_POST['selectedAccount'];
-}
-
-// Check if the form was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Sanitize and validate input
-  $selectedAccount = htmlspecialchars($_POST['selectedAccount'], ENT_QUOTES, 'UTF-8');
-
-  // Set the selected account to the session
-  $_SESSION['currentAccount'] = ['name' => $selectedAccount, 'api_key' => getUserApiKey($selectedAccount)['apiKey'], 'api_secret' => getUserApiKey($selectedAccount)['apiSec']];
-
-  // Optionally, redirect or refresh the page to reflect the new session state
-  header("Location: " . $_SERVER['PHP_SELF']);
-  exit();
-}
-
 function connectDB()
 {
   $con = "sqlite:database/database.sqlite";
@@ -242,7 +243,6 @@ function groupInverseOrdersIntoTrades($orders)
 
 function getClosedPositions()
 {
-  global $currentApiKey, $currentApiSec;
   $now = time();
   $h = date("H", $now);
   $i = date("i", $now) + 1;
@@ -256,13 +256,13 @@ function getClosedPositions()
   $requestPath = "/exchange/order/v2/orderList";
   $queryString = "?currency=USDT&ordStatus=7&start=" . $start . "000" . "&end=" . $now . "000" . "&offset=0&limit=200";
   $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
-  $signature = hash_hmac('sha256', $stringToHash, $currentApiSec);
+  $signature = hash_hmac('sha256', $stringToHash, $_SESSION['currentAccount']['api_secret']);
   $context = stream_context_create([
     'http' => [
       'method' => 'GET',
       'header' => [
         'Content-Type: application/json',
-        'x-phemex-access-token: ' . $currentApiKey,
+        'x-phemex-access-token: ' . $_SESSION['currentAccount']['api_key'],
         'x-phemex-request-expiry: ' . $expiry,
         'x-phemex-request-signature: ' . $signature
       ],
@@ -392,7 +392,6 @@ function getClosedPositions()
 if (!function_exists('getClosedInversePositions')) {
   function getClosedInversePositions()
   {
-    global $currentApiKey, $currentApiSec;
     $now = time();
     $h = date("H", $now);
     $i = date("i", $now) + 1;
@@ -404,13 +403,13 @@ if (!function_exists('getClosedInversePositions')) {
     $requestPath = "/exchange/order/list";
     $queryString = "?symbol=BTCUSD&ordStatus=Filled";
     $stringToHash = $requestPath . substr($queryString, 1) . $expiry;
-    $signature = hash_hmac('sha256', $stringToHash, $currentApiSec);
+    $signature = hash_hmac('sha256', $stringToHash, $_SESSION['currentAccount']['api_secret']);
     $context = stream_context_create([
       'http' => [
         'method' => 'GET',
         'header' => [
           'Content-Type: application/json',
-          'x-phemex-access-token: ' . $currentApiKey,
+          'x-phemex-access-token: ' . $_SESSION['currentAccount']['api_key'],
           'x-phemex-request-expiry: ' . $expiry,
           'x-phemex-request-signature: ' . $signature
         ],
