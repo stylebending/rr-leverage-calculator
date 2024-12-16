@@ -19,8 +19,13 @@ if (isset($_SESSION['loggedin']) !== true) {
               <select class="form-select" name="selectedAccount">
                 <?php
                 // Assuming you have an array of accounts stored in $phemexAccounts
+                $selected = "";
                 foreach (getPhemexNames() as $account) {
-                  echo "<option value='" . htmlspecialchars($account) . "'>" . htmlspecialchars($account) . "</option>";
+                  if ($account == $_SESSION['currentAccount']['name']) {
+                    $selected = "selected";
+                  }
+                  echo "<option value='" . htmlspecialchars($account) . "'" . $selected . ">" . htmlspecialchars($account) . "</option>";
+                  $selected = "";
                 }
                 ?>
               </select>
