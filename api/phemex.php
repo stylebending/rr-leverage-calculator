@@ -309,7 +309,7 @@ function getClosedPositions()
       if ($order['side'] == $order['posSide']) {
         $entryTransactTimeUnix = round($order['updatedAt'] / 1000);
         $entryTransactTime = date("d-m-Y H:i:s", $entryTransactTimeUnix);
-        $positieGroottte = $order['execQtyRq'];
+        $positieGrootte = $order['execQtyRq'];
         $entry = round($order['priceRp'], 4);
         $slArea = round($order['stopPxRp'] / 10000, 2);
         if ($order['side'] == 1) {
@@ -322,13 +322,13 @@ function getClosedPositions()
       }
       // Als order een sl is
       if ($order['tradeType'] == 6) {
-        $slGrootte = ($order['execQtyRq'] / $positieGroottte) * 100;
+        $slGrootte = ($order['execQtyRq'] / $positieGrootte) * 100;
         $slPrijs = round($order['priceRp'], 4);
       }
       // Als order een tp is
       if ($order['tradeType'] == 7) {
         $tpPrijs = round($order['priceRp'], 4);
-        $tpGrootte = ($order['execQtyRq'] / $positieGroottte) * 100;
+        $tpGrootte = ($order['execQtyRq'] / $positieGrootte) * 100;
         $tps[$tpPrijs] = $tpGrootte;
       }
     }
@@ -455,7 +455,7 @@ if (!function_exists('getClosedInversePositions')) {
         if ($order['closedPnlEv'] == 0) {
           $entryTransactTimeUnix = round($order['transactTimeNs'] / 1000000000);
           $entryTransactTime = date("d-m-Y H:i:s", $entryTransactTimeUnix);
-          $positieGroottte = $order['orderQty'];
+          $positieGrootte = $order['orderQty'];
           $entry = round($order['priceEp'] / 10000, 2);
           $slArea = round($order['stopLossEp'] / 10000, 2);
           if ($order['side'] === "Buy") {
@@ -468,14 +468,15 @@ if (!function_exists('getClosedInversePositions')) {
         }
         // Als order een sl is
         if ($order['orderType'] == "Stop") {
-          $slGrootte = ($order['orderQty'] / $positieGroottte) * 100;
+          $slGrootte = ($order['orderQty'] / $positieGrootte) * 100;
           $slPrijs = round($order['priceEp'] / 10000, 2);
         }
         // Als order een tp is
         if ($order['closedPnlEv'] > 0 && $order['orderType'] == "Limit") {
           $tpPrijs = round($order['priceEp'] / 10000, 2);
-          $tpGrootte = ($order['orderQty'] / $positieGroottte) * 100;
-          $tps[$tpPrijs] = $tpGrootte;
+          $tpGrootte = ($order['orderQty'] / $positieGrootte) * 100;
+          // Convert $tpPrijs to string to use as an array key
+          $tps[(string)$tpPrijs] = $tpGrootte;
         }
       }
 
