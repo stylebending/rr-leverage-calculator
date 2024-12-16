@@ -101,6 +101,22 @@ if (isset($_SESSION['loggedin']) !== true) {
           </div>
         </h1>
         <div class="card-body panel-body p-5">
+          <?php if (isset($_SESSION['message'])) { ?>
+            <div class="row">
+              <div class="alert alert-danger"><?php echo $_SESSION['message'] ?></div>
+              <?php if (isset($_SESSION['message'])) {
+                unset($_SESSION['message']);
+              } ?>
+            </div>
+          <?php } ?>
+          <?php if (isset($_SESSION['success'])) { ?>
+            <div class="row">
+              <div class="alert alert-success"><?php echo $_SESSION['success'] ?></div>
+              <?php if (isset($_SESSION['success'])) {
+                unset($_SESSION['success']);
+              } ?>
+            </div>
+          <?php } ?>
           <?php if (isset($_SESSION['currentAccount'])) { ?>
             <div class="row">
               <div class="col border-primary-subtle border-end p-5">
