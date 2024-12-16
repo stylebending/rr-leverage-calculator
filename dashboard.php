@@ -14,7 +14,7 @@ if (isset($_SESSION['loggedin']) !== true) {
     <?php if (isset($_SESSION['loggedin'])) { ?>
       <div class="card shadow-lg text-white mb-3 panel panel-default">
         <h1 class="card-header text-center shadow-lg p-5 panel-heading">
-          <div class="float-start" data-bs-theme="dark">
+          <div class="float-start w-50" data-bs-theme="dark">
             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex">
               <select class="form-select" name="selectedAccount">
                 <?php
@@ -24,7 +24,7 @@ if (isset($_SESSION['loggedin']) !== true) {
                 }
                 ?>
               </select>
-              <input type="submit" value="Selecteer Account" class="btn btn-outline-primary m-3">
+              <button type="submit" class="btn btn-outline-primary m-3 w-50"><i class="bi bi-person-check-fill"></i> Selecteer Account</button>
             </form>
           </div>
           <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-danger d-inline float-end mx-2 mt-3"><i class="bi bi-person-x-fill"></i> Account verwijderen</button>
