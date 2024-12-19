@@ -1,7 +1,7 @@
     <?php require('header.php'); ?>
     <?php require('navbar.php'); ?>
     <div class="flex space-x-5 columns-3 place-content-center">
-      <div class="card bg-base-300 shadow-xl mb-3 panel panel-default">
+      <div class="card bg-base-300 shadow-xl panel panel-default">
         <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -10,7 +10,7 @@
             </g>
           </svg> RR</h1>
         <div class="card-body panel-body">
-          <form id="my-form" class="p-5 mb-10">
+          <form id="my-form" class="p-5">
             <div class="flex">
               <div id="error" class="hidden alert alert-error"></div>
             </div>
@@ -51,7 +51,7 @@
               <div class="fields m-3">
               </div>
             </div>
-            <div class="card-actions">
+            <div class="card-actions inset-x-0 bottom-0">
               <button type="button" class="flex-auto add-fields m-2 btn btn-success shadow-xl">
                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -90,7 +90,7 @@
           </form>
         </div>
       </div>
-      <div class="card bg-base-300 shadow-xl mb-3 panel panel-default">
+      <div class="card bg-base-300 shadow-xl panel panel-default">
         <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading"><svg width="32px" height="32px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -99,7 +99,7 @@
             </g>
           </svg> Leverage</h1>
         <div class="card-body panel-body">
-          <form id="lev-form" class="p-5 mb-10">
+          <form id="lev-form" class="p-5">
             <div class="place-content-center" id="levrow">
               <div class="flex">
                 <div id="levdata" class="hidden alert alert-info"></div>
@@ -157,7 +157,7 @@
           </form>
         </div>
       </div>
-      <div class="card bg-base-300 shadow-xl mb-3 panel panel-default">
+      <div class="card bg-base-300 shadow-xl panel panel-default">
         <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading">
           <svg fill="#ffffff" height="32px" width="32px" version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-351 153 256 256" xml:space="preserve" stroke="#ffffff">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -169,7 +169,7 @@
           TPs
         </h1>
         <div class="card-body panel-body">
-          <form id="tp-form" class="p-5 mb-10">
+          <form id="tp-form" class="p-5">
             <div class="flex" id="tprow">
               <div id="tpdata" class="hidden alert alert-info"></div>
             </div>
