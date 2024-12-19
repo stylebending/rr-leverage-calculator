@@ -2,7 +2,7 @@
     <?php require('navbar.php'); ?>
     <div class="flex space-x-5">
       <div id="draggablePanelList" class="col connectedSortable">
-        <div class="card shadow-xl mb-3 panel panel-default">
+        <div class="card bg-base-300 shadow-xl mb-3 panel panel-default">
           <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -105,7 +105,7 @@
         </div>
       </div>
       <div id="draggablePanelList2" class="col connectedSortable">
-        <div class="card shadow-xl mb-3 panel panel-default">
+        <div class="card bg-base-300 shadow-xl mb-3 panel panel-default">
           <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading"><svg width="32px" height="32px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -159,7 +159,7 @@
         </div>
       </div>
       <div id="draggablePanelList3" class="col connectedSortable">
-        <div class="card shadow-xl mb-3 panel panel-default">
+        <div class="card bg-base-300 shadow-xl mb-3 panel panel-default">
           <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading">
             <svg fill="#ffffff" height="32px" width="32px" version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-351 153 256 256" xml:space="preserve" stroke="#ffffff">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

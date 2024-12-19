@@ -19,7 +19,7 @@ $(function() {
     // Creating the div for the TPs
     var div = document.createElement("div");
     div.classList =
-      "bg-base-300 rounded-lg shadow-xl tp-div my-5 p-8 tp-fields tp-fields-" +
+      "bg-base-100 rounded-lg shadow-xl tp-div my-5 p-8 tp-fields tp-fields-" +
       tpCount;
     div.id = "tp-fields-" + tpCount;
     // Creating the label for tp
@@ -105,24 +105,21 @@ $(function() {
       slTpCount += 1;
       // Creating the div for the SL as TP
       var slDiv = document.createElement("div");
-      slDiv.classList =
-        "row input-group rounded shadow-lg sl-tp-div mb-5 p-5 sl-tp-fields tp-sl-field";
+      slDiv.classList = "bg-base-100 rounded-lg shadow-xl my-5 p-8 sl-tp-div sl-tp-fields tp-sl-field";
       slDiv.id = "tp-sl-field";
       // Creating the label for sl as tp
       var slTpLabel = document.createElement("label");
-      slTpLabel.classList = "text-start";
-      slTpLabel.setAttribute("for", "tp-sl-input");
+      slTpLabel.classList = "";
       slTpLabel.id = "tp-sl-label";
-      slTpLabel.innerText = "SL bedrag";
+      slTpLabel.innerText = "SL price";
       // Creating the label for sl tpp
       var slTppLabel = document.createElement("label");
-      slTppLabel.classList = "text-start mt-4";
-      slTppLabel.setAttribute("for", "tpp-sl-input");
+      slTppLabel.classList = "";
       slTppLabel.id = "tpp-sl-label";
       slTppLabel.innerText = "SL percentage";
       // Creating the sl as tp input
       var slTpInput = document.createElement("input");
-      slTpInput.classList = "form-control";
+      slTpInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
       slTpInput.id = "tp-sl-input";
       slTpInput.name = "tp-sl-input";
       slTpInput.type = "number";
@@ -132,7 +129,7 @@ $(function() {
       slTpInput.required = true;
       // Creating the sl tpp input
       var slTppInput = document.createElement("input");
-      slTppInput.classList = "form-control";
+      slTppInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
       slTppInput.id = "tpp-sl-input";
       slTppInput.name = "tpp-sl-input";
       slTppInput.type = "number";
@@ -144,49 +141,42 @@ $(function() {
       var slTpBtn = document.createElement("button");
       var slTpBtnI = document.createElement("i");
       slTpBtnI.classList = "bi bi-trash-fill";
-      slTpBtn.classList = "remove-sl-tp-fields m-2 btn btn-danger shadow-lg";
+      slTpBtn.classList = "remove-sl-tp-fields mt-2 btn btn-error shadow-xl w-full";
       slTpBtn.type = "button";
       slTpBtn.id = "slTpBtn";
       slTpBtn.appendChild(slTpBtnI);
-      slTpBtn.innerHTML += " SL verwijderen";
+      slTpBtn.innerHTML += " Delete SL";
       // Creating $ and %
       var slDs = document.createElement("span");
       var slDsI = document.createElement("i");
       slDsI.classList = "bi bi-percent";
       var slPsI = document.createElement("i");
       slPsI.classList = "bi bi-currency-dollar";
-      slDs.classList = "input-group-text";
+      slDs.classList = "place-content-center mr-2";
       slDs.appendChild(slPsI);
       var slPs = document.createElement("span");
-      slPs.classList = "input-group-text";
+      slPs.classList = "place-content-center mr-2";
       slPs.appendChild(slDsI);
-      // SL as Tp bedrag input group div
-      var slIgd = document.createElement("div");
-      slIgd.classList = "input-group";
-      // SL as Tp input group prepend div
-      var slIgpd = document.createElement("div");
-      slIgpd.classList = "input-group-prepend";
-      slIgpd.appendChild(slDs);
-      slIgd.appendChild(slIgpd);
-      slIgd.appendChild(slTpInput);
-      // SL Tpp percentage input group div
-      var slIgdd = document.createElement("div");
-      slIgdd.classList = "input-group";
-      // SL Tpp input group prepend div
-      var slIgpdd = document.createElement("div");
-      slIgpdd.classList = "input-group-prepend";
-      slIgpdd.appendChild(slPs);
-      slIgdd.appendChild(slIgpdd);
-      slIgdd.appendChild(slTppInput);
 
       // SL Row
-      var slRow = document.createElement("row");
+      var slRow = document.createElement("div");
+      slRow.classList = "flex";
+      // Flex div for tp input
+      var inputFlexSlTp = document.createElement("div");
+      inputFlexSlTp.classList = "flex place-content-center mb-3";
+      inputFlexSlTp.appendChild(slDs);
+      inputFlexSlTp.appendChild(slTpInput);
+      // Flex div for tpp input
+      var inputFlexSlTpp = document.createElement("div");
+      inputFlexSlTpp.classList = "flex place-content-center mb-3";
+      inputFlexSlTpp.appendChild(slPs);
+      inputFlexSlTpp.appendChild(slTppInput);
 
       // Adding all of these together
       slDiv.appendChild(slTpLabel);
-      slDiv.appendChild(slIgd);
+      slDiv.appendChild(inputFlexSlTp);
       slDiv.appendChild(slTppLabel);
-      slDiv.appendChild(slIgdd);
+      slDiv.appendChild(inputFlexSlTpp);
       slDiv.appendChild(slTpBtn);
       slRow.appendChild(slDiv);
       // Putting them into the fields div
