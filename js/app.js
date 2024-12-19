@@ -357,7 +357,7 @@ $(function() {
           }, 3000);
           return;
         } else if (data.resdata) {
-          $resdata.removeClass("hidden").html("Totale eind RR: " + data.rr);
+          $resdata.removeClass("hidden").html("Total final RR: " + data.rr);
           return;
         }
       })
@@ -397,8 +397,8 @@ $(function() {
               .removeClass("hidden")
               .html(
                 "Leverage: " + data.lev + "<br>" +
-                "Positiegrootte: " + data.bedrag + "<br>" +
-                "Risk bedrag: " + data.rbedrag,
+                "Position size: " + data.bedrag + "<br>" +
+                "Risk amount: " + data.rbedrag,
               );
           } else if (typeof data.bedrag === "undefined") {
             $levdata.removeClass("hidden").html("Leverage: " + data.lev);
@@ -436,7 +436,7 @@ $(function() {
           return;
         } else if (data.tpdata) {
           // Join the array of TP strings into a single string and display it
-          $tpdata.removeClass("hidden").html("TPs grootte: <br>" +
+          $tpdata.removeClass("hidden").html("TPs size: <br>" +
             data.tps.join("<br>")  // Use join to display each element on a new line
           );
           return;

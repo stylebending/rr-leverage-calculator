@@ -226,7 +226,7 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
     ]);
   } else {
     // Return error message that the TP percentage must sum up to a number between 0.01 en 100
-    echo json_encode(['error' => 'Het totaal van de TPs en/of SL % moet tussen de 0.01% en 100%.']);
+    echo json_encode(['error' => 'The total TPs and/or SL percentage must be between 0.01% and 100%.']);
   }
 } else if (isset($_GET['risk']) && isset($_GET['stoploss']) && isset($_GET['kabop']) && isset($_GET['kabor'])) {
   // Handle the small account leverage request/response 
@@ -297,5 +297,5 @@ if (isset($_GET['entry']) && isset($_GET['sl'])) {
   ]);
 } else {
   // If all the fields are not set return an error message
-  echo json_encode(['error' => 'Er is iets fout gegaan, voeg één of meerdere TPs toe, vul alle velden in en probeer het opnieuw.']);
+  echo json_encode(['error' => 'Something went wrong, add one or multiple TPs, fill in all fields, and try again.']);
 }
