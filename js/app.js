@@ -19,24 +19,22 @@ $(function() {
     // Creating the div for the TPs
     var div = document.createElement("div");
     div.classList =
-      "row input-group rounded shadow-lg tp-div mb-5 p-5 tp-fields tp-fields-" +
+      "bg-base-300 rounded-lg shadow-xl tp-div my-5 p-8 tp-fields tp-fields-" +
       tpCount;
     div.id = "tp-fields-" + tpCount;
     // Creating the label for tp
-    var tpLabel = document.createElement("label");
-    tpLabel.classList = "text-start";
-    tpLabel.setAttribute("for", "tp-input-" + tpCount);
+    var tpLabel = document.createElement("p");
+    tpLabel.classList = "";
     tpLabel.id = "tp-label-" + tpCount;
-    tpLabel.innerText = "TP bedrag";
+    tpLabel.innerText = "TP price";
     // Creating the label for tpp
-    var tppLabel = document.createElement("label");
-    tppLabel.classList = "text-start mt-4";
-    tppLabel.setAttribute("for", "tpp-input-" + tpCount);
+    var tppLabel = document.createElement("p");
+    tppLabel.classList = "";
     tppLabel.id = "tpp-label-" + tpCount;
     tppLabel.innerText = "TP percentage";
     // Creating the tp input
     var tpInput = document.createElement("input");
-    tpInput.classList = "form-control";
+    tpInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
     tpInput.id = "tp-input-" + tpCount;
     tpInput.name = "tp-input-" + tpCount;
     tpInput.type = "number";
@@ -46,7 +44,7 @@ $(function() {
     tpInput.required = true;
     // Creating the tpp input
     var tppInput = document.createElement("input");
-    tppInput.classList = "form-control";
+    tppInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
     tppInput.id = "tpp-input-" + tpCount;
     tppInput.name = "tpp-input-" + tpCount;
     tppInput.type = "number";
@@ -58,49 +56,42 @@ $(function() {
     var tpBtn = document.createElement("button");
     var tpBtnI = document.createElement("i");
     tpBtnI.classList = "bi bi-trash-fill";
-    tpBtn.classList = "remove-fields m-2 btn btn-danger shadow-lg";
+    tpBtn.classList = "remove-fields mt-2 btn btn-error shadow-xl w-full";
     tpBtn.type = "button";
     tpBtn.id = "tpBtn-" + tpCount;
     tpBtn.appendChild(tpBtnI);
-    tpBtn.innerHTML += " TP verwijderen";
+    tpBtn.innerHTML += " Delete TP";
     // Creating $ and %
     var psI = document.createElement("i");
     psI.classList = "bi bi-percent";
     var dsI = document.createElement("i");
     dsI.classList = "bi bi-currency-dollar";
     var ds = document.createElement("span");
-    ds.classList = "input-group-text";
+    ds.classList = "place-content-center mr-2";
     ds.appendChild(dsI);
     var ps = document.createElement("span");
-    ps.classList = "input-group-text";
+    ps.classList = "place-content-center mr-2";
     ps.appendChild(psI);
-    // Tp bedrag input group div
-    var igd = document.createElement("div");
-    igd.classList = "input-group";
-    // Tp input group prepend div
-    var igpd = document.createElement("div");
-    igpd.classList = "input-group-prepend";
-    igpd.appendChild(ds);
-    igd.appendChild(igpd);
-    igd.appendChild(tpInput);
-    // Tpp percentage input group div
-    var igdd = document.createElement("div");
-    igdd.classList = "input-group";
-    // Tpp input group prepend div
-    var igpdd = document.createElement("div");
-    igpdd.classList = "input-group-prepend";
-    igpdd.appendChild(ps);
-    igdd.appendChild(igpdd);
-    igdd.appendChild(tppInput);
 
     // Row
-    var row = document.createElement("row");
+    var row = document.createElement("div");
+    row.classList = "flex";
+    // Flex div for tp input
+    var inputFlexTp = document.createElement("div");
+    inputFlexTp.classList = "flex place-content-center mb-3";
+    inputFlexTp.appendChild(ds);
+    inputFlexTp.appendChild(tpInput);
+    // Flex div for tpp input
+    var inputFlexTpp = document.createElement("div");
+    inputFlexTpp.classList = "flex place-content-center mb-3";
+    inputFlexTpp.appendChild(ps);
+    inputFlexTpp.appendChild(tppInput);
 
     // Adding all of these together
     div.appendChild(tpLabel);
-    div.appendChild(igd);
+    div.appendChild(inputFlexTp);
     div.appendChild(tppLabel);
-    div.appendChild(igdd);
+    div.appendChild(inputFlexTpp);
     div.appendChild(tpBtn);
     row.appendChild(div);
     // Putting them into the fields div
@@ -303,18 +294,18 @@ $(function() {
     // Creating the div for the TPs
     var tpDiv = document.createElement("div");
     tpDiv.classList =
-      "row input-group rounded shadow-lg positie-tp-div mb-5 p-5 positie-tp-fields positie-tp-fields-" +
+      "flex rounded shadow-xl positie-tp-div mb-5 p-3 positie-tp-fields positie-tp-fields-" +
       positieTpCount;
     tpDiv.id = "positie-tp-fields-" + positieTpCount;
     // Creating the label for tpp
     var positieTppLabel = document.createElement("label");
-    positieTppLabel.classList = "text-start mt-4";
+    positieTppLabel.classList = "mt-4";
     positieTppLabel.setAttribute("for", "positie-tpp-input-" + positieTpCount);
     positieTppLabel.id = "positie-tpp-label-" + positieTpCount;
     positieTppLabel.innerText = "TP percentage";
     // Creating the tpp input
     var positieTppInput = document.createElement("input");
-    positieTppInput.classList = "form-control";
+    positieTppInput.classList = "";
     positieTppInput.id = "positie-tpp-input-" + positieTpCount;
     positieTppInput.name = "positie-tpp-input-" + positieTpCount;
     positieTppInput.type = "number";
@@ -326,23 +317,23 @@ $(function() {
     var positieTpBtn = document.createElement("button");
     var positieTpBtnI = document.createElement("i");
     positieTpBtnI.classList = "bi bi-trash-fill";
-    positieTpBtn.classList = "remove-tp-fields m-2 btn btn-danger shadow-lg";
+    positieTpBtn.classList = "remove-tp-fields m-2 btn btn-error shadow-xl";
     positieTpBtn.type = "button";
     positieTpBtn.id = "positieTpBtn-" + positieTpCount;
     positieTpBtn.appendChild(positieTpBtnI);
-    positieTpBtn.innerHTML += " TP verwijderen";
+    positieTpBtn.innerHTML += " Delete TP";
     // Creating $ and %
     var tpPsI = document.createElement("i");
     tpPsI.classList = "bi bi-percent";
     var tpPs = document.createElement("span");
-    tpPs.classList = "input-group-text";
+    tpPs.classList = "";
     tpPs.appendChild(tpPsI);
     // Tpp percentage input group div
     var tpIgdd = document.createElement("div");
-    tpIgdd.classList = "input-group";
+    tpIgdd.classList = "";
     // Tpp input group prepend div
     var tpIgpdd = document.createElement("div");
-    tpIgpdd.classList = "input-group-prepend";
+    tpIgpdd.classList = "";
     tpIgpdd.appendChild(tpPs);
     tpIgdd.appendChild(tpIgpdd);
     tpIgdd.appendChild(positieTppInput);

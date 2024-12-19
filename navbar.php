@@ -1,43 +1,39 @@
-<nav class="navbar navbar-dark bg-dark fixed-top shadow-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand me-5" href="/">Simple Trading</a>
-    <?php if (!isset($_SESSION['loggedin'])) { ?>
-      <div class="d-flex me-auto navdiv">
-        <a class="nav-link me-auto" href="/login.php">Login</a>
+<div class="navbar bg-base-100 mb-5">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
       </div>
-    <?php } else if (isset($_SESSION['loggedin'])) { ?>
-      <div class="d-flex me-auto navdiv">
-        <a class="nav-link me-3" href="/dashboard.php">Dashboard</a>
-        <a class="nav-link" href="/database/logout.php">Logout</a>
-      </div>
-    <?php } ?>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Simple Trading</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <?php if (!isset($_SESSION['loggedin'])) { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="/login.php">Login</a>
-            </li>
-          <?php } else if (isset($_SESSION['loggedin'])) { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="/dashboard.php">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/database/logout.php">Logout</a>
-            </li>
-          <?php } ?>
-        </ul>
-      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li><a href="/freetools.php">Free Tools</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="/login.php">Login / Signup</a></li>
+      </ul>
     </div>
+    <a href="/" class="btn btn-ghost text-xl">Simple Trading</a>
   </div>
-</nav>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/freetools.php">Free Tools</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="/login.php">Login / Signup</a></li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+  </div>
+</div>

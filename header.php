@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
-<html lang="en-US">
+<html data-theme="night" lang="en-US">
 
 <head>
   <title>RR & Leverage Calculator</title>
@@ -10,11 +10,9 @@
   <script src="js/jquery-3.7.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap-icons.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/app2.css">
 </head>
 
-<body class="bg-dark">
-  <div class="container text-white p-5 m-5 rounded mx-auto">
+<body>
+  <div class="container mx-auto text-white">

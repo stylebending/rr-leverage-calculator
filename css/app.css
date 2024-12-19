@@ -1,45 +1,6 @@
-body {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 20px;
-}
-
-.card {
-  background-color: #1E2761;
-}
-
-.tCard {
-  background-color: #111739;
-}
-
-.form-control {
-  font-weight: bold;
-}
-
-.form-control::placeholder {
-  opacity: 0.3;
-}
-
-.tp-div {
-  background-color: #111739;
-}
-
-.sl-tp-div {
-  background-color: #111739;
-}
-
-.positie-tp-div {
-  background-color: #111739;
-}
-
-@media screen and (max-width: 900px) {
-  .card {
-    width: fit-content;
-  }
-
-  .navdiv {
-    visibility: hidden;
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 #draggablePanelList .panel-heading {
   cursor: move;
