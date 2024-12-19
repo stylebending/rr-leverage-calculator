@@ -1,16 +1,16 @@
     <?php require('header.php'); ?>
     <?php require('navbar.php'); ?>
     <div class="flex space-x-5 columns-3 place-content-center">
-      <div class="card bg-base-300 shadow-xl panel panel-default">
-        <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="card bg-base-300 shadow-xl flex flex-col grow w-1/3">
+        <h1 class="card-header card-title flex place-content-center shadow-xl p-3"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
             <g id="SVGRepo_iconCarrier">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM8.75 6.49998C8.75 6.08576 8.41421 5.74998 8 5.74998C7.58579 5.74998 7.25 6.08576 7.25 6.49998L7.25 7.74999H6C5.58579 7.74999 5.25 8.08578 5.25 8.49999C5.25 8.91421 5.58579 9.24999 6 9.24999L7.25 9.24999V10.5C7.25 10.9142 7.58579 11.25 8 11.25C8.41421 11.25 8.75 10.9142 8.75 10.5V9.24999H10C10.4142 9.24999 10.75 8.91421 10.75 8.49999C10.75 8.08578 10.4142 7.74999 10 7.74999H8.75L8.75 6.49998ZM14 7.74998C13.5858 7.74998 13.25 8.08576 13.25 8.49998C13.25 8.91419 13.5858 9.24998 14 9.24998H18C18.4142 9.24998 18.75 8.91419 18.75 8.49998C18.75 8.08576 18.4142 7.74998 18 7.74998H14ZM14 13.75C13.5858 13.75 13.25 14.0858 13.25 14.5C13.25 14.9142 13.5858 15.25 14 15.25H18C18.4142 15.25 18.75 14.9142 18.75 14.5C18.75 14.0858 18.4142 13.75 18 13.75H14ZM7.03033 13.9697C6.73744 13.6768 6.26256 13.6768 5.96967 13.9697C5.67678 14.2626 5.67678 14.7374 5.96967 15.0303L6.93935 16L5.96968 16.9697C5.67679 17.2626 5.67679 17.7374 5.96968 18.0303C6.26258 18.3232 6.73745 18.3232 7.03034 18.0303L8.00001 17.0607L8.96966 18.0303C9.26255 18.3232 9.73742 18.3232 10.0303 18.0303C10.3232 17.7374 10.3232 17.2626 10.0303 16.9697L9.06067 16L10.0303 15.0303C10.3232 14.7374 10.3232 14.2626 10.0303 13.9697C9.73744 13.6768 9.26256 13.6768 8.96967 13.9697L8.00001 14.9393L7.03033 13.9697ZM14 16.75C13.5858 16.75 13.25 17.0858 13.25 17.5C13.25 17.9142 13.5858 18.25 14 18.25H18C18.4142 18.25 18.75 17.9142 18.75 17.5C18.75 17.0858 18.4142 16.75 18 16.75H14Z" fill="#ffffff"></path>
             </g>
           </svg> RR</h1>
-        <div class="card-body panel-body">
-          <form id="my-form" class="p-5">
+        <div class="card-body">
+          <form id="my-form" class="flex-grow flex flex-col p-5">
             <div class="flex">
               <div id="error" class="hidden alert alert-error"></div>
             </div>
@@ -51,7 +51,7 @@
               <div class="fields m-3">
               </div>
             </div>
-            <div class="card-actions inset-x-0 bottom-0">
+            <div class="card-actions mt-auto flex justify-between">
               <button type="button" class="flex-auto add-fields m-2 btn btn-success shadow-xl">
                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -76,7 +76,7 @@
                 </svg>
                 Add SL
               </button>
-              <button type="submit" class="flex-auto m-2 btn btn-primary shadow-xl">
+              <button type="submit" class="flex-auto m-2 btn btn-primary shadow-xl w-full">
                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -90,16 +90,16 @@
           </form>
         </div>
       </div>
-      <div class="card bg-base-300 shadow-xl panel panel-default">
-        <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading"><svg width="32px" height="32px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+      <div class="card bg-base-300 shadow-xl flex flex-col grow w-1/3">
+        <h1 class="card-header card-title flex place-content-center shadow-xl p-3"><svg width="32px" height="32px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
             <g id="SVGRepo_iconCarrier">
               <path fill="#ffffff" d="M235.344 31.188c-35.92.543-70.472 6.628-102.97 18l5.72 17.468c30.61-10.843 63.185-16.653 97.187-17.156l.064-18.313zm18.687.187l-.06 18.375c46.9 1.963 96.236 13.842 146.56 36.47l9.376-16.25C356.84 45.9 304.253 33.282 254.03 31.374zm-139.093 24.5c-20.133 8.42-39.376 18.953-57.562 31.5l8.813 16.53c17.207-12.117 35.41-22.284 54.468-30.436l-5.72-17.595zm312.97 20.25l-61.5 106.53 55.124 31.814 61.5-106.532-55.124-31.813zm-174.063 6.313l-.03 18.406c39.736 1.29 80.36 11.3 120.342 31.062l9.375-16.22c-42.846-21.33-86.708-32.012-129.686-33.25zm-18.688.062c-29.644 1.034-58.722 6.555-86.625 16.156l5.72 17.53c26.066-9.063 53.198-14.28 80.875-15.28l.03-18.406zM42.126 98.53c-8.205 6.396-16.177 13.24-23.876 20.5l9.97 16.345c7.376-7.136 15.013-13.842 22.874-20.125l-8.938-16.72h-.03zm88.905 6.72c-17.292 7.142-34.04 15.886-50.124 26.125l8.813 16.5c15.13-9.78 30.847-18.16 47.06-25l-5.75-17.625zm122.626 35.28l-.062 18.44c30.17 1.18 61.405 7.815 93.156 20.405l9.438-16.344c-34.7-14.046-69.15-21.353-102.532-22.5zm-18.687.032c-23.744.82-46.85 4.73-69 11.563l5.718 17.5c20.297-6.28 41.433-9.915 63.218-10.688l.063-18.375zm-169.626 1.375c-7.647 5.49-15.13 11.32-22.406 17.5l9.874 16.157c6.96-6.02 14.107-11.72 21.407-17.063l-8.876-16.593zm82.97 16.344c-14.515 5.62-28.545 12.503-42.033 20.595l8.782 16.406c12.534-7.633 25.55-14.124 39-19.436l-5.75-17.563zM90.53 189.03c-6.896 4.782-13.607 9.887-20.155 15.314l9.844 16.125c6.23-5.272 12.61-10.237 19.155-14.876L90.53 189.03zm279.19 17.126L292.28 340.25c11.3 3.162 22.027 7.753 31.94 13.563l75.31-130.47-29.81-17.187zm-114.033 147.78c-60.607.002-110.206 45.816-116.406 104.752h82.126c-2.206-4.67-3.437-9.87-3.437-15.344 0-19.872 16.315-36.156 36.186-36.156 19.872 0 36.188 16.284 36.188 36.156 0 5.475-1.23 10.674-3.438 15.344h85.188c-6.2-58.936-55.8-104.75-116.406-104.75zm-1.53 71.94c-9.773 0-17.5 7.696-17.5 17.468 0 6.678 3.626 12.39 9.03 15.344h16.938c5.404-2.955 9.03-8.666 9.03-15.344 0-9.772-7.727-17.47-17.5-17.47zm-153.47 51.5v15.687h303.344v-15.688H100.69z"></path>
             </g>
           </svg> Leverage</h1>
-        <div class="card-body panel-body">
-          <form id="lev-form" class="p-5">
+        <div class="card-body">
+          <form id="lev-form" class="flex-grow flex flex-col p-5">
             <div class="place-content-center" id="levrow">
               <div class="flex">
                 <div id="levdata" class="hidden alert alert-info"></div>
@@ -142,8 +142,8 @@
             <div class="flex place-content-center">
               <div class="m-3"></div>
             </div>
-            <div class="card-actions">
-              <button type="submit" class="flex-auto m-2 btn btn-primary shadow-xl">
+            <div class="card-actions mt-auto flex justify-between">
+              <button type="submit" class="flex-auto m-2 btn btn-primary shadow-xl w-full">
                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -157,8 +157,8 @@
           </form>
         </div>
       </div>
-      <div class="card bg-base-300 shadow-xl panel panel-default">
-        <h1 class="card-header card-title flex place-content-center shadow-xl p-3 panel-heading">
+      <div class="card bg-base-300 shadow-xl flex flex-col grow w-1/3">
+        <h1 class="card-header card-title flex place-content-center shadow-xl p-3">
           <svg fill="#ffffff" height="32px" width="32px" version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-351 153 256 256" xml:space="preserve" stroke="#ffffff">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -168,8 +168,8 @@
           </svg>
           TPs
         </h1>
-        <div class="card-body panel-body">
-          <form id="tp-form" class="p-5">
+        <div class="card-body">
+          <form id="tp-form" class="flex-grow flex flex-col p-5">
             <div class="flex" id="tprow">
               <div id="tpdata" class="hidden alert alert-info"></div>
             </div>
@@ -190,17 +190,7 @@
               <div class="tpfields m-3">
               </div>
             </div>
-            <div class="card-actions">
-              <button type="submit" class="flex-auto m-2 btn btn-primary shadow-xl">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM8.75 6.49998C8.75 6.08576 8.41421 5.74998 8 5.74998C7.58579 5.74998 7.25 6.08576 7.25 6.49998L7.25 7.74999H6C5.58579 7.74999 5.25 8.08578 5.25 8.49999C5.25 8.91421 5.58579 9.24999 6 9.24999L7.25 9.24999V10.5C7.25 10.9142 7.58579 11.25 8 11.25C8.41421 11.25 8.75 10.9142 8.75 10.5V9.24999H10C10.4142 9.24999 10.75 8.91421 10.75 8.49999C10.75 8.08578 10.4142 7.74999 10 7.74999H8.75L8.75 6.49998ZM14 7.74998C13.5858 7.74998 13.25 8.08576 13.25 8.49998C13.25 8.91419 13.5858 9.24998 14 9.24998H18C18.4142 9.24998 18.75 8.91419 18.75 8.49998C18.75 8.08576 18.4142 7.74998 18 7.74998H14ZM14 13.75C13.5858 13.75 13.25 14.0858 13.25 14.5C13.25 14.9142 13.5858 15.25 14 15.25H18C18.4142 15.25 18.75 14.9142 18.75 14.5C18.75 14.0858 18.4142 13.75 18 13.75H14ZM7.03033 13.9697C6.73744 13.6768 6.26256 13.6768 5.96967 13.9697C5.67678 14.2626 5.67678 14.7374 5.96967 15.0303L6.93935 16L5.96968 16.9697C5.67679 17.2626 5.67679 17.7374 5.96968 18.0303C6.26258 18.3232 6.73745 18.3232 7.03034 18.0303L8.00001 17.0607L8.96966 18.0303C9.26255 18.3232 9.73742 18.3232 10.0303 18.0303C10.3232 17.7374 10.3232 17.2626 10.0303 16.9697L9.06067 16L10.0303 15.0303C10.3232 14.7374 10.3232 14.2626 10.0303 13.9697C9.73744 13.6768 9.26256 13.6768 8.96967 13.9697L8.00001 14.9393L7.03033 13.9697ZM14 16.75C13.5858 16.75 13.25 17.0858 13.25 17.5C13.25 17.9142 13.5858 18.25 14 18.25H18C18.4142 18.25 18.75 17.9142 18.75 17.5C18.75 17.0858 18.4142 16.75 18 16.75H14Z" fill="#000000"></path>
-                  </g>
-                </svg>
-                Calculate TP Size
-              </button>
+            <div class="card-actions mt-auto flex justify-between">
               <button type="button" class="add-tp-fields flex-auto m-2 btn btn-success shadow-xl">
                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -212,6 +202,16 @@
                   </g>
                 </svg>
                 Add TP
+              </button>
+              <button type="submit" class="flex-auto m-2 btn btn-primary shadow-xl w-full">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM8.75 6.49998C8.75 6.08576 8.41421 5.74998 8 5.74998C7.58579 5.74998 7.25 6.08576 7.25 6.49998L7.25 7.74999H6C5.58579 7.74999 5.25 8.08578 5.25 8.49999C5.25 8.91421 5.58579 9.24999 6 9.24999L7.25 9.24999V10.5C7.25 10.9142 7.58579 11.25 8 11.25C8.41421 11.25 8.75 10.9142 8.75 10.5V9.24999H10C10.4142 9.24999 10.75 8.91421 10.75 8.49999C10.75 8.08578 10.4142 7.74999 10 7.74999H8.75L8.75 6.49998ZM14 7.74998C13.5858 7.74998 13.25 8.08576 13.25 8.49998C13.25 8.91419 13.5858 9.24998 14 9.24998H18C18.4142 9.24998 18.75 8.91419 18.75 8.49998C18.75 8.08576 18.4142 7.74998 18 7.74998H14ZM14 13.75C13.5858 13.75 13.25 14.0858 13.25 14.5C13.25 14.9142 13.5858 15.25 14 15.25H18C18.4142 15.25 18.75 14.9142 18.75 14.5C18.75 14.0858 18.4142 13.75 18 13.75H14ZM7.03033 13.9697C6.73744 13.6768 6.26256 13.6768 5.96967 13.9697C5.67678 14.2626 5.67678 14.7374 5.96967 15.0303L6.93935 16L5.96968 16.9697C5.67679 17.2626 5.67679 17.7374 5.96968 18.0303C6.26258 18.3232 6.73745 18.3232 7.03034 18.0303L8.00001 17.0607L8.96966 18.0303C9.26255 18.3232 9.73742 18.3232 10.0303 18.0303C10.3232 17.7374 10.3232 17.2626 10.0303 16.9697L9.06067 16L10.0303 15.0303C10.3232 14.7374 10.3232 14.2626 10.0303 13.9697C9.73744 13.6768 9.26256 13.6768 8.96967 13.9697L8.00001 14.9393L7.03033 13.9697ZM14 16.75C13.5858 16.75 13.25 17.0858 13.25 17.5C13.25 17.9142 13.5858 18.25 14 18.25H18C18.4142 18.25 18.75 17.9142 18.75 17.5C18.75 17.0858 18.4142 16.75 18 16.75H14Z" fill="#000000"></path>
+                  </g>
+                </svg>
+                Calculate TP Size
               </button>
             </div>
           </form>
