@@ -21,17 +21,17 @@
         <li><a href="#">Free Tools</a></li>
         <li><a href="#">Features</a></li>
         <li><a href="#">Pricing</a></li>
-        <li><a href="/login.php">Login / Signup</a></li>
+        <li><a href="#">Login / Signup</a></li>
       </ul>
     </div>
     <a href="/" class="btn btn-ghost text-xl">Simple Trading</a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="/freetools.php">Free Tools</a></li>
+      <li><a href="#">Free Tools</a></li>
       <li><a href="#">Features</a></li>
       <li><a href="#">Pricing</a></li>
-      <li><a href="/login.php">Login / Signup</a></li>
+      <li><a href="#">Login / Signup</a></li>
     </ul>
   </div>
   <div class="navbar-end">
