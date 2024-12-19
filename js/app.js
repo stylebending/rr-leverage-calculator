@@ -19,7 +19,7 @@ $(function() {
     // Creating the div for the TPs
     var div = document.createElement("div");
     div.classList =
-      "bg-base-100 rounded-lg shadow-xl tp-div my-5 p-8 tp-fields tp-fields-" +
+      "bg-base-100 rounded-lg shadow-xl my-5 p-8 tp-div tp-fields tp-fields-" +
       tpCount;
     div.id = "tp-fields-" + tpCount;
     // Creating the label for tp
@@ -185,10 +185,10 @@ $(function() {
       // Display error if there is already a SL as TP added
       let $error = $("#error");
 
-      $error.removeClass("d-none").html("Je kan maximaal 1 SL meegeven.");
+      $error.removeClass("hidden").html("Je kan maximaal 1 SL meegeven.");
       setTimeout(function() {
         errorToHide = document.getElementById("error");
-        errorToHide.classList.add("d-none");
+        errorToHide.classList.add("hidden");
       }, 3000);
     }
   });
@@ -209,22 +209,19 @@ $(function() {
     if (document.getElementById("kacheckbox").checked === true) {
       // First input field
       var kalabel = document.createElement("label");
-      kalabel.for = "kabop";
       kalabel.id = "kalabel";
-      kalabel.classList = "text-start mt-4";
-      kalabel.innerText = "Bedrag op account";
+      kalabel.classList = "";
+      kalabel.innerText = "Account size";
       var kadiv = document.createElement("div");
-      kadiv.classList = "input-group";
+      kadiv.classList = "flex";
       kadiv.id = "kadiv";
-      var kadivdiv = document.createElement("div");
-      kadivdiv.classList = "input-group-prepend";
       var kaspan = document.createElement("span");
-      kaspan.classList = "input-group-text";
+      kaspan.classList = "place-content-center";
       var kai = document.createElement("i");
       kai.classList = "bi bi-currency-dollar";
       var kabopinput = document.createElement("input");
       kabopinput.type = "number";
-      kabopinput.classList = "form-control";
+      kabopinput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
       kabopinput.placeholder = "500";
       kabopinput.id = "kabop";
       kabopinput.name = "kabop";
@@ -232,27 +229,23 @@ $(function() {
       kabopinput.min = "0.0001";
       kabopinput.required = true;
       kaspan.appendChild(kai);
-      kadivdiv.appendChild(kaspan);
-      kadiv.appendChild(kadivdiv);
+      kadiv.appendChild(kaspan);
       kadiv.appendChild(kabopinput);
       // Second input field
       var kalabel2 = document.createElement("label");
-      kalabel2.for = "kabor";
       kalabel2.id = "kalabel2";
-      kalabel2.classList = "text-start mt-4";
-      kalabel2.innerText = "Bedrag waar je risico op wilt lopen";
+      kalabel2.classList = "";
+      kalabel2.innerText = "Account size to risk";
       var kadiv2 = document.createElement("div");
-      kadiv2.classList = "input-group";
+      kadiv2.classList = "flex";
       kadiv2.id = "kadiv2";
-      var kadivdiv2 = document.createElement("div");
-      kadivdiv2.classList = "input-group-prepend";
       var kaspan2 = document.createElement("span");
-      kaspan2.classList = "input-group-text";
+      kaspan2.classList = "place-content-center";
       var kai2 = document.createElement("i");
       kai2.classList = "bi bi-currency-dollar";
       var kabopinput2 = document.createElement("input");
       kabopinput2.type = "number";
-      kabopinput2.classList = "form-control";
+      kabopinput2.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
       kabopinput2.placeholder = "5000";
       kabopinput2.id = "kabor";
       kabopinput2.name = "kabor";
@@ -260,8 +253,7 @@ $(function() {
       kabopinput2.min = "0.0001";
       kabopinput2.required = true;
       kaspan2.appendChild(kai2);
-      kadivdiv2.appendChild(kaspan2);
-      kadiv2.appendChild(kadivdiv2);
+      kadiv2.appendChild(kaspan2);
       kadiv2.appendChild(kabopinput2);
       // Add them to the row
       $levrow.append(kalabel);
@@ -284,18 +276,17 @@ $(function() {
     // Creating the div for the TPs
     var tpDiv = document.createElement("div");
     tpDiv.classList =
-      "flex rounded shadow-xl positie-tp-div mb-5 p-3 positie-tp-fields positie-tp-fields-" +
+      "bg-base-100 rounded-lg shadow-xl my-5 p-8 positie-tp-div positie-tp-fields positie-tp-fields-" +
       positieTpCount;
     tpDiv.id = "positie-tp-fields-" + positieTpCount;
     // Creating the label for tpp
-    var positieTppLabel = document.createElement("label");
-    positieTppLabel.classList = "mt-4";
-    positieTppLabel.setAttribute("for", "positie-tpp-input-" + positieTpCount);
+    var positieTppLabel = document.createElement("p");
+    positieTppLabel.classList = "";
     positieTppLabel.id = "positie-tpp-label-" + positieTpCount;
     positieTppLabel.innerText = "TP percentage";
     // Creating the tpp input
     var positieTppInput = document.createElement("input");
-    positieTppInput.classList = "";
+    positieTppInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
     positieTppInput.id = "positie-tpp-input-" + positieTpCount;
     positieTppInput.name = "positie-tpp-input-" + positieTpCount;
     positieTppInput.type = "number";
@@ -307,7 +298,7 @@ $(function() {
     var positieTpBtn = document.createElement("button");
     var positieTpBtnI = document.createElement("i");
     positieTpBtnI.classList = "bi bi-trash-fill";
-    positieTpBtn.classList = "remove-tp-fields m-2 btn btn-error shadow-xl";
+    positieTpBtn.classList = "remove-tp-fields m-2 btn btn-error shadow-xl w-full";
     positieTpBtn.type = "button";
     positieTpBtn.id = "positieTpBtn-" + positieTpCount;
     positieTpBtn.appendChild(positieTpBtnI);
@@ -316,24 +307,21 @@ $(function() {
     var tpPsI = document.createElement("i");
     tpPsI.classList = "bi bi-percent";
     var tpPs = document.createElement("span");
-    tpPs.classList = "";
+    tpPs.classList = "place-content-center mr-2";
     tpPs.appendChild(tpPsI);
-    // Tpp percentage input group div
-    var tpIgdd = document.createElement("div");
-    tpIgdd.classList = "";
-    // Tpp input group prepend div
-    var tpIgpdd = document.createElement("div");
-    tpIgpdd.classList = "";
-    tpIgpdd.appendChild(tpPs);
-    tpIgdd.appendChild(tpIgpdd);
-    tpIgdd.appendChild(positieTppInput);
 
     // Row
-    var tpRow = document.createElement("row");
+    var tpRow = document.createElement("div");
+    tpRow.classList = "flex";
+    // Flex div for tp input
+    var inputFlexTpTp = document.createElement("div");
+    inputFlexTpTp.classList = "flex place-content-center mb-3";
+    inputFlexTpTp.appendChild(tpPs);
+    inputFlexTpTp.appendChild(positieTppInput);
+    tpDiv.appendChild(positieTppLabel);
+    tpDiv.appendChild(inputFlexTpTp);
 
     // Adding all of these together
-    tpDiv.appendChild(positieTppLabel);
-    tpDiv.appendChild(tpIgdd);
     tpDiv.appendChild(positieTpBtn);
     tpRow.appendChild(tpDiv);
     // Putting them into the fields div
@@ -362,23 +350,23 @@ $(function() {
       .then(function(res) {
         let data = JSON.parse(res);
         if (data.error) {
-          $error.removeClass("d-none").html(data.error);
+          $error.removeClass("hidden").html(data.error);
           setTimeout(function() {
             errorToHide = document.getElementById("error");
-            errorToHide.classList.add("d-none");
+            errorToHide.classList.add("hidden");
           }, 3000);
           return;
         } else if (data.resdata) {
-          $resdata.removeClass("d-none").html("Totale eind RR: " + data.rr);
+          $resdata.removeClass("hidden").html("Totale eind RR: " + data.rr);
           return;
         }
       })
       .fail(function(res) {
         let data = JSON.parse(res);
-        $error.removeClass("d-none").html(data.error);
+        $error.removeClass("hidden").html(data.error);
         setTimeout(function() {
           errorToHide = document.getElementById("error");
-          errorToHide.classList.add("d-none");
+          errorToHide.classList.add("hidden");
         }, 3000);
       });
   });
@@ -401,32 +389,25 @@ $(function() {
         console.log(res);
         let data = JSON.parse(res);
         if (data.error) {
-          $error.removeClass("d-none").html(data.error);
+          $error.removeClass("hidden").html(data.error);
           return;
         } else if (data.levdata) {
           if (typeof data.bedrag !== "undefined") {
             $levdata
-              .removeClass("d-none")
+              .removeClass("hidden")
               .html(
-                "Leverage: " +
-                data.lev +
-                "<br>" +
-                "Positiegrootte: " +
-                '<i class="bi bi-currency-dollar"></i>' +
-                data.bedrag +
-                "<br>" +
-                "Risk bedrag: " +
-                '<i class="bi bi-currency-dollar"></i>' +
-                data.rbedrag,
+                "Leverage: " + data.lev + "<br>" +
+                "Positiegrootte: " + data.bedrag + "<br>" +
+                "Risk bedrag: " + data.rbedrag,
               );
           } else if (typeof data.bedrag === "undefined") {
-            $levdata.removeClass("d-none").html("Leverage: " + data.lev);
+            $levdata.removeClass("hidden").html("Leverage: " + data.lev);
           }
           return;
         }
       })
       .fail(function() {
-        $error.removeClass("d-none").html(data.error);
+        $error.removeClass("hidden").html(data.error);
       });
   });
 
@@ -447,15 +428,15 @@ $(function() {
       .then(function(res) {
         let data = JSON.parse(res);
         if (data.error) {
-          $error.removeClass("d-none").html(data.error);
+          $error.removeClass("hidden").html(data.error);
           setTimeout(function() {
             errorToHide = document.getElementById("error");
-            errorToHide.classList.add("d-none");
+            errorToHide.classList.add("hidden");
           }, 3000);
           return;
         } else if (data.tpdata) {
           // Join the array of TP strings into a single string and display it
-          $tpdata.removeClass("d-none").html("TPs grootte: <br>" +
+          $tpdata.removeClass("hidden").html("TPs grootte: <br>" +
             data.tps.join("<br>")  // Use join to display each element on a new line
           );
           return;
@@ -463,20 +444,11 @@ $(function() {
       })
       .fail(function(res) {
         let data = JSON.parse(res);
-        $error.removeClass("d-none").html(data.error);
+        $error.removeClass("hidden").html(data.error);
         setTimeout(function() {
           errorToHide = document.getElementById("error");
-          errorToHide.classList.add("d-none");
+          errorToHide.classList.add("hidden");
         }, 3000);
       });
-  });
-
-  $(function() {
-    $("#draggablePanelList, #draggablePanelList2, #draggablePanelList3")
-      .sortable({
-        connectWith: ".connectedSortable",
-        handle: ".panel-heading",
-      })
-      .disableSelection();
   });
 });
