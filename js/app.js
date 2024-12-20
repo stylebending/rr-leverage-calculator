@@ -16,6 +16,109 @@ $(function() {
     // Setting the unique tpCount per tp
     tpCount += 1;
 
+    // Creating $ svg label
+    var dsSvgLabel = document.createElement("label");
+    dsSvgLabel.setAttribute('class', 'input input-bordered items-center flex');
+
+    // Creating $ svg
+    var dsSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+    dsSvg.setAttribute('width', '24px');
+    dsSvg.setAttribute('height', '24px');
+    dsSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+    dsSvg.setAttribute('fill', 'none');
+    dsSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    dsSvg.setAttribute('stroke', '#ffffff');
+
+    var dsSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+    dsSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+    dsSvgG.setAttribute('stroke-width', '0');
+
+    var dsSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    dsSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+    dsSvgG2.setAttribute('stroke-linecap', 'round');
+    dsSvgG2.setAttribute('stroke-linejoin', 'round');
+
+    var dsSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    dsSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+    var dsSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    dsSvgPath.setAttribute('fill-rule', 'evenodd');
+    dsSvgPath.setAttribute('clip-rule', 'evenodd');
+    dsSvgPath.setAttribute('d', 'M13 3.5C13 2.94772 12.5523 2.5 12 2.5C11.4477 2.5 11 2.94772 11 3.5V4.0592C9.82995 4.19942 8.75336 4.58509 7.89614 5.1772C6.79552 5.93745 6 7.09027 6 8.5C6 9.77399 6.49167 10.9571 7.5778 11.7926C8.43438 12.4515 9.58764 12.8385 11 12.959V17.9219C10.2161 17.7963 9.54046 17.5279 9.03281 17.1772C8.32378 16.6874 8 16.0903 8 15.5C8 14.9477 7.55228 14.5 7 14.5C6.44772 14.5 6 14.9477 6 15.5C6 16.9097 6.79552 18.0626 7.89614 18.8228C8.75336 19.4149 9.82995 19.8006 11 19.9408V20.5C11 21.0523 11.4477 21.5 12 21.5C12.5523 21.5 13 21.0523 13 20.5V19.9435C14.1622 19.8101 15.2376 19.4425 16.0974 18.8585C17.2122 18.1013 18 16.9436 18 15.5C18 14.1934 17.5144 13.0022 16.4158 12.1712C15.557 11.5216 14.4039 11.1534 13 11.039V6.07813C13.7839 6.20366 14.4596 6.47214 14.9672 6.82279C15.6762 7.31255 16 7.90973 16 8.5C16 9.05228 16.4477 9.5 17 9.5C17.5523 9.5 18 9.05228 18 8.5C18 7.09027 17.2045 5.93745 16.1039 5.17721C15.2467 4.58508 14.1701 4.19941 13 4.0592V3.5ZM11 6.07814C10.2161 6.20367 9.54046 6.47215 9.03281 6.8228C8.32378 7.31255 8 7.90973 8 8.5C8 9.22601 8.25834 9.79286 8.79722 10.2074C9.24297 10.5503 9.94692 10.8384 11 10.9502V6.07814ZM13 13.047V17.9263C13.7911 17.8064 14.4682 17.5474 14.9737 17.204C15.6685 16.7321 16 16.1398 16 15.5C16 14.7232 15.7356 14.1644 15.2093 13.7663C14.7658 13.4309 14.0616 13.1537 13 13.047Z');
+    dsSvgPath.setAttribute('fill', '#ffffff');
+    dsSvg.appendChild(dsSvgG);
+    dsSvg.appendChild(dsSvgG2);
+    dsSvgG3.appendChild(dsSvgPath);
+    dsSvg.appendChild(dsSvgG3);
+    dsSvgLabel.appendChild(dsSvg);
+
+    // Creating % svg label
+    var psSvgLabel = document.createElement("label");
+    psSvgLabel.setAttribute('class', 'input input-bordered items-center flex');
+
+    // Creating % svg
+    var psSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+    psSvg.setAttribute('width', '24px');
+    psSvg.setAttribute('height', '24px');
+    psSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+    psSvg.setAttribute('fill', 'none');
+    psSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    psSvg.setAttribute('stroke', '#ffffff');
+
+    var psSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+    psSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+    psSvgG.setAttribute('stroke-width', '0');
+
+    var psSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    psSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+    psSvgG2.setAttribute('stroke-linecap', 'round');
+    psSvgG2.setAttribute('stroke-linejoin', 'round');
+
+    var psSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    psSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+    var psSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    psSvgPath.setAttribute('fill-rule', 'evenodd');
+    psSvgPath.setAttribute('clip-rule', 'evenodd');
+    psSvgPath.setAttribute('d', 'M8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6ZM4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8ZM17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15ZM13 17C13 14.7909 14.7909 13 17 13C19.2091 13 21 14.7909 21 17C21 19.2091 19.2091 21 17 21C14.7909 21 13 19.2091 13 17ZM19.7071 6.70711C20.0976 6.31658 20.0976 5.68342 19.7071 5.29289C19.3166 4.90237 18.6834 4.90237 18.2929 5.29289L5.29289 18.2929C4.90237 18.6834 4.90237 19.3166 5.29289 19.7071C5.68342 20.0976 6.31658 20.0976 6.70711 19.7071L19.7071 6.70711Z');
+    psSvgPath.setAttribute('fill', '#ffffff');
+    psSvg.appendChild(psSvgG);
+    psSvg.appendChild(psSvgG2);
+    psSvgG3.appendChild(psSvgPath);
+    psSvg.appendChild(psSvgG3);
+    psSvgLabel.appendChild(psSvg);
+
+    // Creating trash svg
+    var trashSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+    trashSvg.setAttribute('width', '24px');
+    trashSvg.setAttribute('height', '24px');
+    trashSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+    trashSvg.setAttribute('fill', 'none');
+    trashSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    trashSvg.setAttribute('stroke', '#000000');
+
+    var trashSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+    trashSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+    trashSvgG.setAttribute('stroke-width', '0');
+
+    var trashSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    trashSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+    trashSvgG2.setAttribute('stroke-linecap', 'round');
+    trashSvgG2.setAttribute('stroke-linejoin', 'round');
+
+    var trashSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    trashSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+    var trashSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    trashSvgPath.setAttribute('fill-rule', 'evenodd');
+    trashSvgPath.setAttribute('clip-rule', 'evenodd');
+    trashSvgPath.setAttribute('d', 'M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z');
+    trashSvgPath.setAttribute('fill', '#000000');
+    trashSvg.appendChild(trashSvgG);
+    trashSvg.appendChild(trashSvgG2);
+    trashSvgG3.appendChild(trashSvgPath);
+    trashSvg.appendChild(trashSvgG3);
+
     // Creating the div for the TPs
     var div = document.createElement("div");
     div.classList =
@@ -34,7 +137,7 @@ $(function() {
     tppLabel.innerText = "TP percentage";
     // Creating the tp input
     var tpInput = document.createElement("input");
-    tpInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
+    tpInput.classList = "input input-bordered input-primary mb-3 w-full";
     tpInput.id = "tp-input-" + tpCount;
     tpInput.name = "tp-input-" + tpCount;
     tpInput.type = "number";
@@ -44,7 +147,7 @@ $(function() {
     tpInput.required = true;
     // Creating the tpp input
     var tppInput = document.createElement("input");
-    tppInput.classList = "input input-bordered input-primary place-content-center mb-5 w-full";
+    tppInput.classList = "input input-bordered input-primary mb-3 w-full";
     tppInput.id = "tpp-input-" + tpCount;
     tppInput.name = "tpp-input-" + tpCount;
     tppInput.type = "number";
@@ -59,7 +162,7 @@ $(function() {
     tpBtn.classList = "remove-fields mt-2 btn btn-error shadow-xl w-full";
     tpBtn.type = "button";
     tpBtn.id = "tpBtn-" + tpCount;
-    tpBtn.appendChild(tpBtnI);
+    tpBtn.appendChild(trashSvg);
     tpBtn.innerHTML += " Delete TP";
     // Creating $ and %
     var psI = document.createElement("i");
@@ -79,12 +182,12 @@ $(function() {
     // Flex div for tp input
     var inputFlexTp = document.createElement("div");
     inputFlexTp.classList = "flex place-content-center mb-3";
-    inputFlexTp.appendChild(ds);
+    inputFlexTp.appendChild(dsSvgLabel);
     inputFlexTp.appendChild(tpInput);
     // Flex div for tpp input
     var inputFlexTpp = document.createElement("div");
     inputFlexTpp.classList = "flex place-content-center mb-3";
-    inputFlexTpp.appendChild(ps);
+    inputFlexTpp.appendChild(psSvgLabel);
     inputFlexTpp.appendChild(tppInput);
 
     // Adding all of these together
@@ -103,6 +206,109 @@ $(function() {
     // Setting the unique tpCount per sl as tp
     if (slTpCount === 0) {
       slTpCount += 1;
+      // Creating $ svg label
+      var dsSvgLabel = document.createElement("label");
+      dsSvgLabel.setAttribute('class', 'input input-bordered items-center flex');
+
+      // Creating $ svg
+      var dsSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+      dsSvg.setAttribute('width', '24px');
+      dsSvg.setAttribute('height', '24px');
+      dsSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+      dsSvg.setAttribute('fill', 'none');
+      dsSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      dsSvg.setAttribute('stroke', '#ffffff');
+
+      var dsSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+      dsSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+      dsSvgG.setAttribute('stroke-width', '0');
+
+      var dsSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      dsSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+      dsSvgG2.setAttribute('stroke-linecap', 'round');
+      dsSvgG2.setAttribute('stroke-linejoin', 'round');
+
+      var dsSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      dsSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+      var dsSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      dsSvgPath.setAttribute('fill-rule', 'evenodd');
+      dsSvgPath.setAttribute('clip-rule', 'evenodd');
+      dsSvgPath.setAttribute('d', 'M13 3.5C13 2.94772 12.5523 2.5 12 2.5C11.4477 2.5 11 2.94772 11 3.5V4.0592C9.82995 4.19942 8.75336 4.58509 7.89614 5.1772C6.79552 5.93745 6 7.09027 6 8.5C6 9.77399 6.49167 10.9571 7.5778 11.7926C8.43438 12.4515 9.58764 12.8385 11 12.959V17.9219C10.2161 17.7963 9.54046 17.5279 9.03281 17.1772C8.32378 16.6874 8 16.0903 8 15.5C8 14.9477 7.55228 14.5 7 14.5C6.44772 14.5 6 14.9477 6 15.5C6 16.9097 6.79552 18.0626 7.89614 18.8228C8.75336 19.4149 9.82995 19.8006 11 19.9408V20.5C11 21.0523 11.4477 21.5 12 21.5C12.5523 21.5 13 21.0523 13 20.5V19.9435C14.1622 19.8101 15.2376 19.4425 16.0974 18.8585C17.2122 18.1013 18 16.9436 18 15.5C18 14.1934 17.5144 13.0022 16.4158 12.1712C15.557 11.5216 14.4039 11.1534 13 11.039V6.07813C13.7839 6.20366 14.4596 6.47214 14.9672 6.82279C15.6762 7.31255 16 7.90973 16 8.5C16 9.05228 16.4477 9.5 17 9.5C17.5523 9.5 18 9.05228 18 8.5C18 7.09027 17.2045 5.93745 16.1039 5.17721C15.2467 4.58508 14.1701 4.19941 13 4.0592V3.5ZM11 6.07814C10.2161 6.20367 9.54046 6.47215 9.03281 6.8228C8.32378 7.31255 8 7.90973 8 8.5C8 9.22601 8.25834 9.79286 8.79722 10.2074C9.24297 10.5503 9.94692 10.8384 11 10.9502V6.07814ZM13 13.047V17.9263C13.7911 17.8064 14.4682 17.5474 14.9737 17.204C15.6685 16.7321 16 16.1398 16 15.5C16 14.7232 15.7356 14.1644 15.2093 13.7663C14.7658 13.4309 14.0616 13.1537 13 13.047Z');
+      dsSvgPath.setAttribute('fill', '#ffffff');
+      dsSvg.appendChild(dsSvgG);
+      dsSvg.appendChild(dsSvgG2);
+      dsSvgG3.appendChild(dsSvgPath);
+      dsSvg.appendChild(dsSvgG3);
+      dsSvgLabel.appendChild(dsSvg);
+
+      // Creating % svg label
+      var psSvgLabel = document.createElement("label");
+      psSvgLabel.setAttribute('class', 'input input-bordered items-center flex');
+
+      // Creating % svg
+      var psSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+      psSvg.setAttribute('width', '24px');
+      psSvg.setAttribute('height', '24px');
+      psSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+      psSvg.setAttribute('fill', 'none');
+      psSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      psSvg.setAttribute('stroke', '#ffffff');
+
+      var psSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+      psSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+      psSvgG.setAttribute('stroke-width', '0');
+
+      var psSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      psSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+      psSvgG2.setAttribute('stroke-linecap', 'round');
+      psSvgG2.setAttribute('stroke-linejoin', 'round');
+
+      var psSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      psSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+      var psSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      psSvgPath.setAttribute('fill-rule', 'evenodd');
+      psSvgPath.setAttribute('clip-rule', 'evenodd');
+      psSvgPath.setAttribute('d', 'M8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6ZM4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8ZM17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15ZM13 17C13 14.7909 14.7909 13 17 13C19.2091 13 21 14.7909 21 17C21 19.2091 19.2091 21 17 21C14.7909 21 13 19.2091 13 17ZM19.7071 6.70711C20.0976 6.31658 20.0976 5.68342 19.7071 5.29289C19.3166 4.90237 18.6834 4.90237 18.2929 5.29289L5.29289 18.2929C4.90237 18.6834 4.90237 19.3166 5.29289 19.7071C5.68342 20.0976 6.31658 20.0976 6.70711 19.7071L19.7071 6.70711Z');
+      psSvgPath.setAttribute('fill', '#ffffff');
+      psSvg.appendChild(psSvgG);
+      psSvg.appendChild(psSvgG2);
+      psSvgG3.appendChild(psSvgPath);
+      psSvg.appendChild(psSvgG3);
+      psSvgLabel.appendChild(psSvg);
+
+      // Creating trash svg
+      var trashSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+      trashSvg.setAttribute('width', '24px');
+      trashSvg.setAttribute('height', '24px');
+      trashSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+      trashSvg.setAttribute('fill', 'none');
+      trashSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      trashSvg.setAttribute('stroke', '#000000');
+
+      var trashSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+      trashSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+      trashSvgG.setAttribute('stroke-width', '0');
+
+      var trashSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      trashSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+      trashSvgG2.setAttribute('stroke-linecap', 'round');
+      trashSvgG2.setAttribute('stroke-linejoin', 'round');
+
+      var trashSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      trashSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+      var trashSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      trashSvgPath.setAttribute('fill-rule', 'evenodd');
+      trashSvgPath.setAttribute('clip-rule', 'evenodd');
+      trashSvgPath.setAttribute('d', 'M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z');
+      trashSvgPath.setAttribute('fill', '#000000');
+      trashSvg.appendChild(trashSvgG);
+      trashSvg.appendChild(trashSvgG2);
+      trashSvgG3.appendChild(trashSvgPath);
+      trashSvg.appendChild(trashSvgG3);
+
       // Creating the div for the SL as TP
       var slDiv = document.createElement("div");
       slDiv.classList = "bg-base-100 rounded-lg shadow-xl my-5 p-8 sl-tp-div sl-tp-fields tp-sl-field";
@@ -144,7 +350,7 @@ $(function() {
       slTpBtn.classList = "remove-sl-tp-fields mt-2 btn btn-error shadow-xl w-full";
       slTpBtn.type = "button";
       slTpBtn.id = "slTpBtn";
-      slTpBtn.appendChild(slTpBtnI);
+      slTpBtn.appendChild(trashSvg);
       slTpBtn.innerHTML += " Delete SL";
       // Creating $ and %
       var slDs = document.createElement("span");
@@ -164,12 +370,12 @@ $(function() {
       // Flex div for tp input
       var inputFlexSlTp = document.createElement("div");
       inputFlexSlTp.classList = "flex place-content-center mb-3";
-      inputFlexSlTp.appendChild(slDs);
+      inputFlexSlTp.appendChild(dsSvgLabel);
       inputFlexSlTp.appendChild(slTpInput);
       // Flex div for tpp input
       var inputFlexSlTpp = document.createElement("div");
       inputFlexSlTpp.classList = "flex place-content-center mb-3";
-      inputFlexSlTpp.appendChild(slPs);
+      inputFlexSlTpp.appendChild(psSvgLabel);
       inputFlexSlTpp.appendChild(slTppInput);
 
       // Adding all of these together
@@ -185,7 +391,7 @@ $(function() {
       // Display error if there is already a SL as TP added
       let $error = $("#error");
 
-      $error.removeClass("hidden").html("Je kan maximaal 1 SL meegeven.");
+      $error.removeClass("hidden").html("Maximum 1 SL allowed.");
       setTimeout(function() {
         errorToHide = document.getElementById("error");
         errorToHide.classList.add("hidden");
@@ -207,6 +413,76 @@ $(function() {
   // If toggled on show the extra fields
   $levForm.on("click", "#kacheckbox", function() {
     if (document.getElementById("kacheckbox").checked === true) {
+      // Creating $ svg label
+      var dsSvgLabel = document.createElement("label");
+      dsSvgLabel.setAttribute('class', 'input input-bordered items-center flex');
+
+      // Creating $ svg
+      var dsSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+      dsSvg.setAttribute('width', '24px');
+      dsSvg.setAttribute('height', '24px');
+      dsSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+      dsSvg.setAttribute('fill', 'none');
+      dsSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      dsSvg.setAttribute('stroke', '#ffffff');
+
+      var dsSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+      dsSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+      dsSvgG.setAttribute('stroke-width', '0');
+
+      var dsSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      dsSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+      dsSvgG2.setAttribute('stroke-linecap', 'round');
+      dsSvgG2.setAttribute('stroke-linejoin', 'round');
+
+      var dsSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      dsSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+      var dsSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      dsSvgPath.setAttribute('fill-rule', 'evenodd');
+      dsSvgPath.setAttribute('clip-rule', 'evenodd');
+      dsSvgPath.setAttribute('d', 'M13 3.5C13 2.94772 12.5523 2.5 12 2.5C11.4477 2.5 11 2.94772 11 3.5V4.0592C9.82995 4.19942 8.75336 4.58509 7.89614 5.1772C6.79552 5.93745 6 7.09027 6 8.5C6 9.77399 6.49167 10.9571 7.5778 11.7926C8.43438 12.4515 9.58764 12.8385 11 12.959V17.9219C10.2161 17.7963 9.54046 17.5279 9.03281 17.1772C8.32378 16.6874 8 16.0903 8 15.5C8 14.9477 7.55228 14.5 7 14.5C6.44772 14.5 6 14.9477 6 15.5C6 16.9097 6.79552 18.0626 7.89614 18.8228C8.75336 19.4149 9.82995 19.8006 11 19.9408V20.5C11 21.0523 11.4477 21.5 12 21.5C12.5523 21.5 13 21.0523 13 20.5V19.9435C14.1622 19.8101 15.2376 19.4425 16.0974 18.8585C17.2122 18.1013 18 16.9436 18 15.5C18 14.1934 17.5144 13.0022 16.4158 12.1712C15.557 11.5216 14.4039 11.1534 13 11.039V6.07813C13.7839 6.20366 14.4596 6.47214 14.9672 6.82279C15.6762 7.31255 16 7.90973 16 8.5C16 9.05228 16.4477 9.5 17 9.5C17.5523 9.5 18 9.05228 18 8.5C18 7.09027 17.2045 5.93745 16.1039 5.17721C15.2467 4.58508 14.1701 4.19941 13 4.0592V3.5ZM11 6.07814C10.2161 6.20367 9.54046 6.47215 9.03281 6.8228C8.32378 7.31255 8 7.90973 8 8.5C8 9.22601 8.25834 9.79286 8.79722 10.2074C9.24297 10.5503 9.94692 10.8384 11 10.9502V6.07814ZM13 13.047V17.9263C13.7911 17.8064 14.4682 17.5474 14.9737 17.204C15.6685 16.7321 16 16.1398 16 15.5C16 14.7232 15.7356 14.1644 15.2093 13.7663C14.7658 13.4309 14.0616 13.1537 13 13.047Z');
+      dsSvgPath.setAttribute('fill', '#ffffff');
+      dsSvg.appendChild(dsSvgG);
+      dsSvg.appendChild(dsSvgG2);
+      dsSvgG3.appendChild(dsSvgPath);
+      dsSvg.appendChild(dsSvgG3);
+      dsSvgLabel.appendChild(dsSvg);
+      // Creating $ svg label2
+      var dsSvg2Label = document.createElement("label");
+      dsSvg2Label.setAttribute('class', 'input input-bordered items-center flex');
+
+      // Creating $ svg2
+      var dsSvg2 = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+      dsSvg2.setAttribute('width', '24px');
+      dsSvg2.setAttribute('height', '24px');
+      dsSvg2.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+      dsSvg2.setAttribute('fill', 'none');
+      dsSvg2.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      dsSvg2.setAttribute('stroke', '#ffffff');
+
+      var dsSvg2G = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+      dsSvg2G.setAttribute('id', 'SVGRepo_bgCarrier');
+      dsSvg2G.setAttribute('stroke-width', '0');
+
+      var dsSvg2G2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      dsSvg2G2.setAttribute('id', 'SVGRepo_tracerCarrier');
+      dsSvg2G2.setAttribute('stroke-linecap', 'round');
+      dsSvg2G2.setAttribute('stroke-linejoin', 'round');
+
+      var dsSvg2G3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      dsSvg2G3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+      var dsSvg2Path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      dsSvg2Path.setAttribute('fill-rule', 'evenodd');
+      dsSvg2Path.setAttribute('clip-rule', 'evenodd');
+      dsSvg2Path.setAttribute('d', 'M13 3.5C13 2.94772 12.5523 2.5 12 2.5C11.4477 2.5 11 2.94772 11 3.5V4.0592C9.82995 4.19942 8.75336 4.58509 7.89614 5.1772C6.79552 5.93745 6 7.09027 6 8.5C6 9.77399 6.49167 10.9571 7.5778 11.7926C8.43438 12.4515 9.58764 12.8385 11 12.959V17.9219C10.2161 17.7963 9.54046 17.5279 9.03281 17.1772C8.32378 16.6874 8 16.0903 8 15.5C8 14.9477 7.55228 14.5 7 14.5C6.44772 14.5 6 14.9477 6 15.5C6 16.9097 6.79552 18.0626 7.89614 18.8228C8.75336 19.4149 9.82995 19.8006 11 19.9408V20.5C11 21.0523 11.4477 21.5 12 21.5C12.5523 21.5 13 21.0523 13 20.5V19.9435C14.1622 19.8101 15.2376 19.4425 16.0974 18.8585C17.2122 18.1013 18 16.9436 18 15.5C18 14.1934 17.5144 13.0022 16.4158 12.1712C15.557 11.5216 14.4039 11.1534 13 11.039V6.07813C13.7839 6.20366 14.4596 6.47214 14.9672 6.82279C15.6762 7.31255 16 7.90973 16 8.5C16 9.05228 16.4477 9.5 17 9.5C17.5523 9.5 18 9.05228 18 8.5C18 7.09027 17.2045 5.93745 16.1039 5.17721C15.2467 4.58508 14.1701 4.19941 13 4.0592V3.5ZM11 6.07814C10.2161 6.20367 9.54046 6.47215 9.03281 6.8228C8.32378 7.31255 8 7.90973 8 8.5C8 9.22601 8.25834 9.79286 8.79722 10.2074C9.24297 10.5503 9.94692 10.8384 11 10.9502V6.07814ZM13 13.047V17.9263C13.7911 17.8064 14.4682 17.5474 14.9737 17.204C15.6685 16.7321 16 16.1398 16 15.5C16 14.7232 15.7356 14.1644 15.2093 13.7663C14.7658 13.4309 14.0616 13.1537 13 13.047Z');
+      dsSvg2Path.setAttribute('fill', '#ffffff');
+      dsSvg2.appendChild(dsSvg2G);
+      dsSvg2.appendChild(dsSvg2G2);
+      dsSvg2G3.appendChild(dsSvg2Path);
+      dsSvg2.appendChild(dsSvg2G3);
+      dsSvg2Label.appendChild(dsSvg2);
       // First input field
       var kalabel = document.createElement("label");
       kalabel.id = "kalabel";
@@ -229,7 +505,7 @@ $(function() {
       kabopinput.min = "0.0001";
       kabopinput.required = true;
       kaspan.appendChild(kai);
-      kadiv.appendChild(kaspan);
+      kadiv.appendChild(dsSvg2Label);
       kadiv.appendChild(kabopinput);
       // Second input field
       var kalabel2 = document.createElement("label");
@@ -253,7 +529,7 @@ $(function() {
       kabopinput2.min = "0.0001";
       kabopinput2.required = true;
       kaspan2.appendChild(kai2);
-      kadiv2.appendChild(kaspan2);
+      kadiv2.appendChild(dsSvgLabel);
       kadiv2.appendChild(kabopinput2);
       // Add them to the row
       $levrow.append(kalabel);
@@ -272,6 +548,73 @@ $(function() {
   $tpForm.on("click", ".add-tp-fields", function() {
     // Setting the unique tpCount per tp
     positieTpCount += 1;
+
+    // Creating % svg label
+    var psSvgLabel = document.createElement("label");
+    psSvgLabel.setAttribute('class', 'input input-bordered items-center flex');
+
+    // Creating % svg
+    var psSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+    psSvg.setAttribute('width', '24px');
+    psSvg.setAttribute('height', '24px');
+    psSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+    psSvg.setAttribute('fill', 'none');
+    psSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    psSvg.setAttribute('stroke', '#ffffff');
+
+    var psSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+    psSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+    psSvgG.setAttribute('stroke-width', '0');
+
+    var psSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    psSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+    psSvgG2.setAttribute('stroke-linecap', 'round');
+    psSvgG2.setAttribute('stroke-linejoin', 'round');
+
+    var psSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    psSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+    var psSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    psSvgPath.setAttribute('fill-rule', 'evenodd');
+    psSvgPath.setAttribute('clip-rule', 'evenodd');
+    psSvgPath.setAttribute('d', 'M8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6ZM4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8ZM17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15ZM13 17C13 14.7909 14.7909 13 17 13C19.2091 13 21 14.7909 21 17C21 19.2091 19.2091 21 17 21C14.7909 21 13 19.2091 13 17ZM19.7071 6.70711C20.0976 6.31658 20.0976 5.68342 19.7071 5.29289C19.3166 4.90237 18.6834 4.90237 18.2929 5.29289L5.29289 18.2929C4.90237 18.6834 4.90237 19.3166 5.29289 19.7071C5.68342 20.0976 6.31658 20.0976 6.70711 19.7071L19.7071 6.70711Z');
+    psSvgPath.setAttribute('fill', '#ffffff');
+    psSvg.appendChild(psSvgG);
+    psSvg.appendChild(psSvgG2);
+    psSvgG3.appendChild(psSvgPath);
+    psSvg.appendChild(psSvgG3);
+    psSvgLabel.appendChild(psSvg);
+
+    // Creating trash svg
+    var trashSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // Correct namespace
+    trashSvg.setAttribute('width', '24px');
+    trashSvg.setAttribute('height', '24px');
+    trashSvg.setAttribute('viewBox', '0 0 24 24'); // Note: viewBox should start with a capital 'B'
+    trashSvg.setAttribute('fill', 'none');
+    trashSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    trashSvg.setAttribute('stroke', '#000000');
+
+    var trashSvgG = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Namespace for groups
+    trashSvgG.setAttribute('id', 'SVGRepo_bgCarrier');
+    trashSvgG.setAttribute('stroke-width', '0');
+
+    var trashSvgG2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    trashSvgG2.setAttribute('id', 'SVGRepo_tracerCarrier');
+    trashSvgG2.setAttribute('stroke-linecap', 'round');
+    trashSvgG2.setAttribute('stroke-linejoin', 'round');
+
+    var trashSvgG3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    trashSvgG3.setAttribute('id', 'SVGRepo_iconCarrier');
+
+    var trashSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    trashSvgPath.setAttribute('fill-rule', 'evenodd');
+    trashSvgPath.setAttribute('clip-rule', 'evenodd');
+    trashSvgPath.setAttribute('d', 'M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z');
+    trashSvgPath.setAttribute('fill', '#000000');
+    trashSvg.appendChild(trashSvgG);
+    trashSvg.appendChild(trashSvgG2);
+    trashSvgG3.appendChild(trashSvgPath);
+    trashSvg.appendChild(trashSvgG3);
 
     // Creating the div for the TPs
     var tpDiv = document.createElement("div");
@@ -301,7 +644,7 @@ $(function() {
     positieTpBtn.classList = "remove-tp-fields m-2 btn btn-error shadow-xl w-full";
     positieTpBtn.type = "button";
     positieTpBtn.id = "positieTpBtn-" + positieTpCount;
-    positieTpBtn.appendChild(positieTpBtnI);
+    positieTpBtn.appendChild(trashSvg);
     positieTpBtn.innerHTML += " Delete TP";
     // Creating $ and %
     var tpPsI = document.createElement("i");
@@ -316,7 +659,7 @@ $(function() {
     // Flex div for tp input
     var inputFlexTpTp = document.createElement("div");
     inputFlexTpTp.classList = "flex place-content-center mb-3";
-    inputFlexTpTp.appendChild(tpPs);
+    inputFlexTpTp.appendChild(psSvgLabel);
     inputFlexTpTp.appendChild(positieTppInput);
     tpDiv.appendChild(positieTppLabel);
     tpDiv.appendChild(inputFlexTpTp);
