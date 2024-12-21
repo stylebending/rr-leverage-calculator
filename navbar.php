@@ -1,4 +1,4 @@
-<div class="navbar bg-base-300 rounded-box my-5 shadow-xl">
+<div class="navbar sticky top-0 z-50 bg-base-300 rounded-box shadow-xl">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -18,20 +18,32 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a href="#">Free Tools</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Login / Signup</a></li>
+        <li><a href="/#freetools">Free Tools</a></li>
+        <?php if (!isset($_SESSION['loggedin'])) { ?>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/login.php">Login / Signup</a></li>
+        <?php } ?>
+        <?php if (isset($_SESSION['loggedin'])) { ?>
+          <li><a href="/dashboard.php">Dashboard</a></li>
+          <li><a href="/database/logout.php">Logout</a></li>
+        <?php } ?>
       </ul>
     </div>
-    <a href="/" class="btn btn-ghost text-xl">Simple Trading</a>
+    <a href="/" class="btn btn-ghost text-xl">Buff My Trades</a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="#">Free Tools</a></li>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Login / Signup</a></li>
+      <li><a href="/#freetools">Free Tools</a></li>
+      <?php if (!isset($_SESSION['loggedin'])) { ?>
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/login.php">Login / Signup</a></li>
+      <?php } ?>
+      <?php if (isset($_SESSION['loggedin'])) { ?>
+        <li><a href="/dashboard.php">Dashboard</a></li>
+        <li><a href="/database/logout.php">Logout</a></li>
+      <?php } ?>
     </ul>
   </div>
   <div class="navbar-end">

@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-#draggablePanelList .panel-heading {
-  cursor: move;
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
-#draggablePanelList2 .panel-heading {
-  cursor: move;
-}
-
-#draggablePanelList3 .panel-heading {
-  cursor: move;
+.section {
+  margin: 0px auto;
+  height: 100vh;
+  scroll-snap-align: start;
 }

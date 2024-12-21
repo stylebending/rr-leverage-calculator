@@ -794,4 +794,112 @@ $(function() {
         }, 3000);
       });
   });
+
+  const element = document.getElementById('loadUsdtItems');
+
+  if (element) {
+    document.getElementById('loadUsdtItems').addEventListener('click', function() {
+      // Handling the AJAX request
+      $.ajax({
+        type: "GET",
+        url: "api/phemex.php",
+      })
+        .then(function(res) {
+          let data = JSON.parse(res);
+        })
+        .fail(function(res) {
+          let data = JSON.parse(res);
+        });
+
+      itemsContainer.innerHTML = `
+    <div class="card bg-base-100 shadow-xl mb-5">
+      <div class="card-header p-5 shadow-xl">
+        <div class="flex justify-between">
+          <h5 class="flex justify-start"> $side </h5>
+          <h5 class="flex justify-center"> $symbol </h5>
+          <h5 class="flex justify-end"> $entryTransactTime </h5>
+        </div>
+      </div>
+      <div class="card-body flex mx-auto w-full">
+        <div class="border border-white shadow-xl rounded-box p-5 my-5 justify-items-center">
+          <div class="flex place-content-center w-2/3">
+            <div class="flex flex-col w-1/2">
+              $RR <br>
+              <br>
+              $SL prijs <br>
+              <br>
+              $Laatste order <br>
+              <br>
+            </div>
+            <div class="flex flex-col w-1/2">
+              $rr <br>
+              <br>
+              $slPrijs <br>
+              <br>
+              $lD <br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  `;
+
+      // Remove the 'hidden' class to show the container
+      document.getElementById('usdtItemsContainer').classList.remove('hidden');
+    });
+
+    document.getElementById('loadInverseItems').addEventListener('click', function() {
+      // Handling the AJAX request
+      $.ajax({
+        type: "GET",
+        url: "api/phemex.php",
+      })
+        .then(function(res) {
+          let data = JSON.parse(res);
+        })
+        .fail(function(res) {
+          let data = JSON.parse(res);
+        });
+
+      itemsContainer.innerHTML = `
+    <div class="card bg-base-100 shadow-xl mb-5">
+      <div class="card-header p-5 shadow-xl">
+        <div class="flex justify-between">
+          <h5 class="flex justify-start"> $side </h5>
+          <h5 class="flex justify-center"> $symbol </h5>
+          <h5 class="flex justify-end"> $entryTransactTime </h5>
+        </div>
+      </div>
+      <div class="card-body flex mx-auto w-full">
+        <div class="border border-white shadow-xl rounded-box p-5 my-5 justify-items-center">
+          <div class="flex place-content-center w-2/3">
+            <div class="flex flex-col w-1/2">
+              $RR <br>
+              <br>
+              $SL prijs <br>
+              <br>
+              $Laatste order <br>
+              <br>
+            </div>
+            <div class="flex flex-col w-1/2">
+              $rr <br>
+              <br>
+              $slPrijs <br>
+              <br>
+              $lD <br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  `;
+
+      // Remove the 'hidden' class to show the container
+      document.getElementById('inverseItemsContainer').classList.remove('hidden');
+    });
+  }
 });

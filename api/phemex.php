@@ -375,27 +375,30 @@ function getClosedPositions()
 
     // TODO: voor nu 1 entry, 1 sl en meerdere tps, maar iets verzinnen voor trades met meerdere entrie en sls
 
-    echo '<div class="card tCard shadow-lg text-white mb-3">' .
-      '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $entryTransactTime . '</h5></div>' .
+    echo '<div class="card bg-base-100 shadow-xl mb-5">' .
+      '<div class="card-header p-5 shadow-xl"><div class="flex justify-between">' .
+      '<h5 class="flex justify-start">' . $side .
+      '</h5><h5 class="flex justify-center">' . $symbol .
+      '</h5><h5 class="flex justify-end">' . $entryTransactTime . '</h5></div>' .
       '</div>' .
-      '<div class="card-body row mx-auto">' .
-      '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
-      '<div class="row">' .
-      '<div class="col border-white border-end">' .
+      '<div class="card-body flex mx-auto w-full">' .
+      '<div class="border border-white shadow-xl rounded-box p-5 my-5 justify-items-center">' .
+      '<div class="flex place-content-center w-2/3">' .
+      '<div class="flex flex-col w-1/2">' .
       "RR " . "<br>" .
-      "<hr>" .
+      "<br>" .
       "SL prijs " . "<br>" .
-      "<hr>" .
+      "<br>" .
       "Laatste order " . "<br>" .
-      "<hr>" .
+      "<br>" .
       '</div>' .
-      '<div class="col">' .
+      '<div class="flex flex-col w-1/2">' .
       $rr . "<br>" .
-      "<hr>" .
+      "<br>" .
       $slPrijs . "<br>" .
-      "<hr>" .
+      "<br>" .
       $lD . "<br>" .
-      "<hr>" .
+      "<br>" .
       '</div>' .
       '</div>' .
       "</div>" .
@@ -522,27 +525,30 @@ if (!function_exists('getClosedInversePositions')) {
 
       // TODO: voor nu 1 entry, 1 sl en meerdere tps, maar iets verzinnen voor trades met meerdere entrie en sls
 
-      echo '<div class="card tCard shadow-lg text-white mb-3">' .
-        '<div class="card-header shadow-lg"><div class="row">' . '<h5 class="col text-start">' . $side . '</h5><h5 class="col text-center">' . $symbol . '</h5><h5 class="col text-end">' . $entryTransactTime . '</h5></div>' .
+      echo '<div class="card bg-base-100 shadow-xl mb-5">' .
+        '<div class="card-header p-5 shadow-xl"><div class="flex justify-between">' .
+        '<h5 class="flex justify-start">' . $side .
+        '</h5><h5 class="flex justify-center">' . $symbol .
+        '</h5><h5 class="flex justify-end">' . $entryTransactTime . '</h5></div>' .
         '</div>' .
-        '<div class="card-body row mx-auto">' .
-        '<div class="border border-white text-center text-justify shadow-lg text-white rounded p-5 my-5">' .
-        '<div class="row">' .
-        '<div class="col border-white border-end">' .
+        '<div class="card-body flex mx-auto w-full">' .
+        '<div class="border border-white shadow-xl rounded-box p-5 my-5 justify-items-center">' .
+        '<div class="flex place-content-center w-2/3">' .
+        '<div class="flex flex-col w-1/2">' .
         "RR " . "<br>" .
-        "<hr>" .
+        "<br>" .
         "SL prijs " . "<br>" .
-        "<hr>" .
+        "<br>" .
         "Laatste order " . "<br>" .
-        "<hr>" .
+        "<br>" .
         '</div>' .
-        '<div class="col">' .
+        '<div class="flex flex-col w-1/2">' .
         $rr . "<br>" .
-        "<hr>" .
+        "<br>" .
         $slPrijs . "<br>" .
-        "<hr>" .
+        "<br>" .
         $lD . "<br>" .
-        "<hr>" .
+        "<br>" .
         '</div>' .
         '</div>' .
         "</div>" .
