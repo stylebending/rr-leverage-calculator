@@ -77,7 +77,7 @@ if (!empty($_POST['apikey']) && !empty($_POST['apisecret']) && checkAccount($_PO
     }
     if ($result !== false) {
       // API Key already exists
-      $_SESSION['message'] = 'Deze API Key is al gekoppeld aan een account.';
+      $_SESSION['message'] = 'This API Key has alread been added to an account.';
       header('Location: ../dashboard.php');
     } else if ($result == false && checkAccount($_POST['apikey'], $_POST['apisecret']) == true) {
       // API Key doesn't exists, insert new account
@@ -94,20 +94,20 @@ if (!empty($_POST['apikey']) && !empty($_POST['apisecret']) && checkAccount($_PO
           ':apiks' => $newdbapiks,
           ':email' => htmlspecialchars($_SESSION['email'])
         ]);
-        $_SESSION['success'] = 'Account toegevoegd!';
+        $_SESSION['success'] = 'Account added!';
         header('Location: ../dashboard.php');
       } else {
         // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
-        $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
+        $_SESSION['message'] = 'Something went wrong, please try again.';
         header('Location: ../dashboard.php');
       }
     }
   } else {
     // Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all 3 fields.
-    $_SESSION['message'] = 'Er is iets fout gegaan, probeer het opnieuw.';
+    $_SESSION['message'] = 'Something went wrong, please try again.';
     header('Location: ../dashboard.php');
   }
 } else {
-  $_SESSION['message'] = 'Vul beide velden correct in.';
+  $_SESSION['message'] = 'Fill both fields in correctly.';
   header('Location: ../dashboard.php');
 }

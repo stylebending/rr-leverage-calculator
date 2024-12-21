@@ -32,12 +32,12 @@ if (isset($_GET['email'], $_GET['code'])) {
           ':email' => htmlspecialchars($_GET['email']),
           ':activation_code' => htmlspecialchars($_GET['code'])
         ]);
-        $_SESSION['success'] = 'Je account is geactiveerd, je kan nu inloggen.';
+        $_SESSION['success'] = 'Your account has been activated, you can login now.';
         header('Location: ../');
       }
     } else {
       echo 'The account is already activated or doesn\'t exist!';
-      $_SESSION['message'] = 'Je account bestaat niet of is al geactiveerd, probeer in te loggen.';
+      $_SESSION['message'] = 'Your account has already been activated or it doesn not exist, try to login.';
       header('Location: ../');
     }
   }
