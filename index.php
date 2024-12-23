@@ -232,9 +232,10 @@
               </div>
             </div>
           </div>
-          <div class="card bg-base-300 p-10 shadow-xl flex flex-col grow w-2/3">
-            <h1 class="card-title mx-auto">Trading Interface | Features</h1>
-            <div class="card-body items-center">
+          <div class="card items-center bg-base-300 p-10 shadow-xl flex flex-col grow w-2/3">
+            <h1 class="card-title">Trading Interface | Features</h1>
+            <hr class="w-1/3 my-5">
+            <div class="card-body">
               <ul class="space-y-5">
                 <li>&#10004; Enjoy our simple but robust trading interface</li>
                 <li>&#10004; Never forget your stop loss again</li>
