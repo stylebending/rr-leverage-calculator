@@ -226,13 +226,25 @@
       <div class="section" id="features">
         <div class="flex justify-center items-center h-full my-5 space-x-5 columns-2 place-content-center">
           <div class="card bg-base-300 shadow-xl flex flex-col grow w-1/3">
-            <div class="card-body">
+            <div class="card-body items-center">
+              <div class="skeleton h-80 w-80"></div>
               <div class="card-actions mt-auto flex justify-between">
               </div>
             </div>
           </div>
-          <div class="card bg-base-300 shadow-xl flex flex-col grow w-2/3">
-            <div class="card-body">
+          <div class="card bg-base-300 p-10 shadow-xl flex flex-col grow w-2/3">
+            <h1 class="card-title mx-auto">Trading Interface | Features</h1>
+            <div class="card-body items-center">
+              <ul class="space-y-5">
+                <li>&#10004; Enjoy our simple but robust trading interface</li>
+                <li>&#10004; Never forget your stop loss again</li>
+                <li>&#10004; Automated actual final RR calculation for your trades</li>
+                <li>&#10004; Automated take profit size calculation for your trades</li>
+                <li>&#10004; Automated leverage / position size calculation for your trades</li>
+                <li>&#10004; No overcomplicated user interface, like an exchange</li>
+                <li>&#10004; No overstimulation that forces you to take bad trades</li>
+                <li>&#10004; Currently supported exchanges: Blofin</li>
+              </ul>
               <div class="card-actions mt-auto flex justify-between">
               </div>
             </div>
@@ -241,14 +253,30 @@
       </div>
       <div class="section" id="pricing">
         <div class="flex justify-center items-center h-full my-5 space-x-5 columns-2 place-content-center">
-          <div class="card bg-base-300 shadow-xl flex flex-col grow w-1/2">
-            <div class="card-body">
+          <div class="card items-center p-10 bg-base-300 shadow-xl flex flex-col grow w-1/2">
+            <h1 class="card-title">Free / Unregistered User</h1>
+            <hr class="w-1/3 my-5">
+            <div class="card-body items-center">
+              <ul class="space-y-5">
+                <li>&#10004; Actual final RR calculator</li>
+                <li>&#10004; Leverage / position size calculator</li>
+                <li>&#10004; Take profit size calculator</li>
+              </ul>
               <div class="card-actions mt-auto flex justify-between">
               </div>
             </div>
           </div>
-          <div class="card bg-base-300 shadow-xl flex flex-col grow w-1/2">
-            <div class="card-body">
+          <div class="card items-center p-10 bg-base-300 shadow-xl flex flex-col grow w-1/2">
+            <h1 class="card-title">$5 / month</h1>
+            <hr class="w-1/3 my-5">
+            <div class="card-body items-center">
+              <ul class="space-y-5">
+                <li>&#10004; Simple and robust trading interface</li>
+                <li>&#10004; Automated actual final RR calculator</li>
+                <li>&#10004; Automated leverage / position size calculator</li>
+                <li>&#10004; Automated take profit size calculator</li>
+                <li>&#10004; Currently supported exchanges: Blofin</li>
+              </ul>
               <div class="card-actions mt-auto flex justify-between">
               </div>
             </div>
