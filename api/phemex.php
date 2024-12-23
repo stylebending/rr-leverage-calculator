@@ -374,7 +374,6 @@ function getClosedPositions()
     }
 
     // TODO: voor nu 1 entry, 1 sl en meerdere tps, maar iets verzinnen voor trades met meerdere entrie en sls
-
     echo '<div class="card bg-base-100 shadow-xl mb-5">' .
       '<div class="card-header p-5 shadow-xl"><div class="flex justify-between">' .
       '<h5 class="flex justify-start">' . $side .
