@@ -72,11 +72,12 @@
                     </label>
                     <input type="password" class="input input-bordered input-primary mb-3 w-full" placeholder="password" id="password" name="password" required />
                   </div>
-                  <!-- <div class="flex my-3">
+                  <!-- <div class="flex my-5">
                     <input class="toggle toggle-primary mr-2" type="checkbox" role="switch" id="registercheckbox" name="registercheckbox">
                     <label for="registercheckbox">Register account</label>
                   </div> -->
-                  <button type="submit" class="flex-auto btn btn-primary shadow-xl w-full">
+                  <a href="/resetpassword.php" class="link link-primary">Forgot password? Reset here.</a>
+                  <button type="submit" class="flex-auto my-5 btn btn-primary shadow-xl w-full">
                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
